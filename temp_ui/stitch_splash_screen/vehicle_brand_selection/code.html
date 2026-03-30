@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>DriveMate - Select Vehicle Brand</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Main Content Container -->
+<div class="max-w-[1200px] mx-auto w-full px-4 md:px-10 lg:px-20 py-5">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-4 py-4 mb-8">
+<div class="flex items-center gap-3">
+<div class="size-10 flex items-center justify-center rounded-lg bg-primary/10">
+<img class="w-8 h-8 object-contain" data-alt="DriveMate premium automotive brand logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8Mmhxd0VFIAR0cnrzTGQU9jbiw1JwUd3wuMI3JzEbSOoJ3ZLXoHce-MmRxaVnpcNSNhFeH-OOeZiAtXvx4j5TSxCKx8jkjuth5nx4_5qHCp6NFHToUEiOjRNEykhXm0PPN6oC9F7VtIhmlzztKcd3dsZoCEtji4GwrOZb-ZTYDnimPXYd21AV9_hNs6OnRtsRuHWRj-SqKMhX8e2hR1sCIOP3IwgIPM50TaL3h0Y221QI9gbEo0N9g0NOKud1gwcGj5DfAYGxKps"/>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">DriveMate</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-full w-10 h-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/20 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/30" data-alt="User profile avatar portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANE95yPc4phvJ1i-eCGmwFUxEq-AjQUgE6bpsXp70b0DCpX7Q5aDtDBCcSL6mEdMH8zaC_MR3coWzIuYVrLNkx-znjgtGeKXL1Njgun0HrRrPCIWWd_kAmIcxmkmoOkrTzLRxZEAVm9B1dQIOyqac73aZIStP4AoSN_XG7yYKirymDsLyj-8GSUKyXpFBJv9bMvtUDVfuED6QuCbTteWOYiN8MLKCJgKKJIlVdja_Ov_7jTSj_ZriAvpgnC6ixsrQZaiYc-s8rbRE");'>
+</div>
+</div>
+</header>
+<!-- Page Title & Search Section -->
+<div class="flex flex-col gap-6 px-4 mb-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 dark:text-slate-100 tracking-tight text-3xl md:text-4xl font-bold leading-tight">Select Vehicle Brand</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal">Choose your car manufacturer to personalize your experience</p>
+</div>
+<div class="max-w-2xl w-full">
+<label class="relative flex items-center group">
+<div class="absolute left-4 text-slate-400 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full h-14 pl-12 pr-4 rounded-xl border-none bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/50 placeholder:text-slate-500 transition-all text-lg" placeholder="Search brands (e.g. BMW, Tesla, Honda)" value=""/>
+</label>
+</div>
+</div>
+<!-- Brand Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-4">
+<!-- Brand Card: Honda -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="Honda automotive brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-CYbL_P5OopME1YHtgsnFRopcl4ffcSn2v-2BmqvFIc6aBjfCpdCAVDFmtR7OLt0F0vUj_t4wMRthBAC37EMMjezRZi-calu3WPv3RxNFWuECK1V5DKhss7v37mxwEZReSOAmh4sOh2PyCotgsQ9QFm_Zddjm9xjQo1zm6iQ6NjmNCrSQFCgJKdXW7uanpcGnxfyBS9W9HzKJzYlGjEWcAI7K6i8VpTstofxXXSzpYlIafkyfevZpPHUjTN-1p5HEod_MSnjWfZg"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Honda</p>
+<p class="text-primary text-xs font-medium uppercase tracking-wider">Popular</p>
+</div>
+</div>
+<!-- Brand Card: Toyota -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="Toyota automotive brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLOxuy8BK3jf3tDRAOKKaLQJHRLrvZ-bDlagaA803dpUVmgaONQm6kax58CyavYK4Gl6Jx1nMlkG-xGX88nwTrkj1FDVFW5CQRDXKIHXZIU1TSrdgeuwAc1NLArJr7JJQS9JqX4qeaFfX_iGV2zqjBQ-W0SD7Ygeqb3OLgx1ZB1oQ3Ea9g_lfAWtefYGrexW-kVBYlvKXQc-SI3dj4Rluw0t-Y6g_WxUSVqYctsbhxKsFoP5EFmiHslRfk6cmhpl_FY3jS4xCIBYU"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Toyota</p>
+<p class="text-primary text-xs font-medium uppercase tracking-wider">Popular</p>
+</div>
+</div>
+<!-- Brand Card: Hyundai -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="Hyundai automotive brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx6QQKe2aJWZY1iRoiB3t-gqwKj5itRG1IXu-RJqpN-Zwt-0IVgywkEO9Ld6kL_Rk_xJ-85Bxt-4k05AOT26atfIcgA5jKm7qMq21Hrmc7vP8jB5vtjvc-Vt0tFzuFkBD4uLZTEFY2Mn4SBLq7FL6tmFdj3ml3Bwhg_eI53Tw5Sx_yFi5RMoaUgowwlh0YUYZBDgmnMYgePYPGV2CvN_n6-bhNb4UHrzhVh-OoBcd0BvoTVkmb6QXuMFX8ReiGex7yj1WlOr1kzIc"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Hyundai</p>
+<p class="text-primary text-xs font-medium uppercase tracking-wider">Popular</p>
+</div>
+</div>
+<!-- Brand Card: Tata -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="Tata motors automotive brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0E_MwWaw4-_zAtXQs_6aCyURTDrYb3IpCLFQq9wZY8J3bGg3xWknR8n22H9-o78yGuKbrdEBBrS6TrxlPRJyZpaoKVEWHN-G4c9ogEAklN1dIBx15jmFozYWp8gNs4QPzeHQfZ2w6YDQl-mnSV0rvocXUev7_IX2eHZOmfuV-SgDDvDTBdu1WbDACg7oQ5uXpmoTA5KIba1EeM2dAFhA6qT2TsGpzXLZnVdCs2BUtEemIm7uP9cOVgtn0V6Igw0ccH0onpJtXGwk"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Tata</p>
+<p class="text-slate-400 dark:text-slate-500 text-xs font-medium uppercase tracking-wider">Local Favorite</p>
+</div>
+</div>
+<!-- Brand Card: Mahindra -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="Mahindra automotive brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBadrCQHU79hhwXVBi7_ErX7xzks_oSy4uP3l1GgGZp0nNx0M-Ynn51joB5NYTeSdD3R0yhBVuSpSP1xjsxXR6aORZ-mj5nIfk8BG0EmHb9WwC1SkX-_jSQD_P4BOdf9yMooZXyGctiwG8FHO9k1yN6LPCxJk-IYiC5SsnuyJESCCKvjw0zmee-yaXwEEAivR5-cvs7yWcObkqkVMUT-DXsFXhRGjvTLd6WEzqVwJbqEP1RUITleFkK2AW5Dfr7JABxssBDIylUxzM"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Mahindra</p>
+<p class="text-slate-400 dark:text-slate-500 text-xs font-medium uppercase tracking-wider">Local Favorite</p>
+</div>
+</div>
+<!-- Brand Card: BMW -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="BMW luxury car brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKcpquBY298odJxpytOI4NMH-m1VisMzdyLmaoWFfPM6Ee7sh1HjyzEHSYMQht61VvIQnFMRMix0NOF1lFvnmhno6SRrSrILFhXEHaxj3wrZwh8f7lWzWU4CQzSVOTxsZjCdDWmU6J9zV2V4x7_GL63ZUr_aTdS6qbOW6DWHDzQr6IHLwsd_q8aBaLjZffDiBV7uUICc8MpNUXc4miJbjqxly_T_RHHwyxrwfJJ_MbGvH7u_dpE3UtFCc4zlHeP-F32kajxS63ftc"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">BMW</p>
+<p class="text-slate-400 dark:text-slate-500 text-xs font-medium uppercase tracking-wider">Premium</p>
+</div>
+</div>
+<!-- Brand Card: Tesla -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="Tesla electric vehicle brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxDs9oS4ScxrIPFp5Pn12y2PqG8TZ_Y4SRonHPeP2BWjcTFJjsPrc8Ge8Y_NZmyYXWYMyWAFJoFJAGt5ribOHowO7-3YeUBty028cqokUawvDYoU8uW-yhOpzYfu_aYEK4_zDOOF-RyoBD9-FCI4iQSZNag5hGi_BToLyCh_Sk5YmIAP5mJTrISC6jlMHJJXPQ59fMW8eGxHIMb-sSwgB0bkPJIHpQ5IFAzcRx_D2Vu_0yAv0FWmh_ouT1urVPcVQUdUNoQoHr3lQ"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Tesla</p>
+<p class="text-slate-400 dark:text-slate-500 text-xs font-medium uppercase tracking-wider">Electric</p>
+</div>
+</div>
+<!-- Brand Card: Ford -->
+<div class="group cursor-pointer flex flex-col gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all">
+<div class="w-full aspect-square flex items-center justify-center bg-white dark:bg-slate-700 rounded-lg p-6 shadow-sm group-hover:shadow-md transition-shadow">
+<img class="w-full h-full object-contain" data-alt="Ford automotive company logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Iy_33KGz6pKuCdXusfz7PV2vV-pa8T3PSkYadmolm2IFpJ-fCNnfIr_QqjGtrE6nyKGwGPb_9Gq2uCUZblTEwNVgtp73S-QxRl07QTQIIGR9QyIyP1uMxoRl8vcepYSUazO4JKSlv2_rbL4Ntn4WqTbqAJNZ7g60bJwuBLlIjDZoSodnoLmCQujXJoilyh5MP4JE1u75zstLQI8cIjbskmE5966v5b-n0YWk-r5hbrbHcK1_dgQwphj3uyODZJ8u4aeYNoGeFJQ"/>
+</div>
+<div class="text-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Ford</p>
+<p class="text-slate-400 dark:text-slate-500 text-xs font-medium uppercase tracking-wider">Global</p>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-8 mt-4 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-base font-bold transition-all hover:bg-slate-200 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-xl">arrow_back</span>
+<span>Back to Dashboard</span>
+</button>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Can't find your brand? <a class="text-primary hover:underline" href="#">Contact support</a></p>
+</div>
+</div>
+</div>
+</div>
+</body></html>

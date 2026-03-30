@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate - Premium Driving Companion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #101f22;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden">
+<!-- Subtle Ambient Background Gradient -->
+<div class="absolute inset-0 bg-gradient-to-b from-background-dark via-[#0a1416] to-black opacity-100"></div>
+<!-- Decorative Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="relative z-10 flex flex-col items-center w-full max-w-[400px] px-6">
+<!-- Logo Section -->
+<div class="mb-16">
+<div class="w-32 h-32 flex items-center justify-center rounded-2xl bg-gradient-to-br from-background-dark to-slate-900 border border-slate-800/50 shadow-2xl overflow-hidden">
+<img alt="DriveMate Logo" class="w-24 h-24 object-contain" data-alt="Modern cyan and teal geometric app logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp6uDG_6w-Y9oZHLhZ4PecCt0k9x5kTEnjrRccovmWQEQcQPsbJ_-7lSd7h87llWPuQuekZrQdoUHGfQVgMUs7zOBuHVAiFT8pi9fsvgK4V6WRsr0OvVaxqOWpZGyd0NbI0_vSs4Z_XYtRbqx8gEYAARzIC3MayeDwjnS9MdlHqv3d60wha_X0k44dM4sdd-ZY9Ps1pKSWhbU9CFkcMtWg5sjO4AA6pwFMSgKZ65T7x75rEOf3cyQOPk9Ez22ohf--fNlo5R24HQg"/>
+</div>
+</div>
+<!-- Brand Content -->
+<div class="text-center mb-12">
+<h1 class="text-slate-100 text-4xl font-bold tracking-tight mb-2">DriveMate</h1>
+<p class="text-primary/80 text-sm font-medium tracking-[0.2em] uppercase">Premium Automotive Intelligence</p>
+</div>
+<!-- Loading Interface -->
+<div class="w-full flex flex-col gap-4">
+<div class="flex items-end justify-between px-1">
+<div class="flex flex-col gap-1">
+<span class="text-slate-400 text-xs font-medium uppercase tracking-wider">System Status</span>
+<p class="text-slate-100 text-sm font-normal">Initializing secure connection...</p>
+</div>
+<span class="text-primary text-lg font-bold">68%</span>
+</div>
+<!-- Progress Bar -->
+<div class="h-1.5 w-full bg-slate-800/50 rounded-full overflow-hidden backdrop-blur-sm border border-slate-700/30">
+<div class="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(13,204,242,0.6)]" style="width: 68%;"></div>
+</div>
+<div class="flex justify-center mt-4">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/20">
+<span class="material-symbols-outlined text-primary text-sm animate-pulse">lock</span>
+<span class="text-primary/70 text-[10px] font-semibold uppercase tracking-widest">End-to-End Encrypted</span>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<div class="absolute bottom-12 flex flex-col items-center gap-2">
+<p class="text-slate-500 text-[10px] font-medium tracking-widest uppercase">Version 4.0.1 Premium</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-600 text-lg">bluetooth_connected</span>
+<span class="material-symbols-outlined text-slate-600 text-lg">settings_input_antenna</span>
+<span class="material-symbols-outlined text-slate-600 text-lg">navigation</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Hidden Header Image reference as requested for component consistency -->
+<div class="hidden">
+<div class="bg-center bg-no-repeat bg-cover" data-alt="High-end luxury car interior dashboard lighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCs2B0Qc_2YCefSGHpOsZ7BG7KjdS14_vCT2XkNPoDKKGBLVyc806MGbJXs8QF6sPr01YXyB52abz2jjzLi7e6btEKPJNddc4pcuGoGqngwydJ8uZUUzhEx0-kZXjJtB_JfBbIDYWlq_yV0-7TlNrlo7-Ac8ZadxmFk3iyVlDwithjxh02nHTSwQaYN7vWIr0sPrxb3ORULxEyznY3H9IaCKwnOHA0K4hOHVlwXATVA5-uBIF7OLAalThiDOPt-bD9t6M4HThLcGEc");'></div>
+</div>
+</body></html>

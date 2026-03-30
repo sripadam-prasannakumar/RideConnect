@@ -1,0 +1,45 @@
+﻿
+> rideconnect@0.1.0 build
+> react-scripts build
+
+node.exe : 
+(node:17380) [DEP0176] 
+DeprecationWarning: 
+fs.F_OK is deprecated, 
+use fs.constants.F_OK 
+instead
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ((node:17380)    
+ [D...ts.F_OK inste    
+ad:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+(Use `node 
+--trace-deprecation 
+...` to show where the 
+warning was created)
+Creating an optimized production build...
+Failed to compile.
+
+[eslint] 
+src\components\Customer\VehicleSelection.js
+  Line 316:1:  Expected an assignment or function call and instead saw an expression  no-unused-expressions
+  Line 316:1:  'd' is not defined                                                     no-undef
+
+Search for the keywords to learn more about each error.
+
+

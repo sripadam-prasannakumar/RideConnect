@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate Admin - Premium Driver Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                        "surface-dark": "#162c30",
+                        "border-dark": "#224249",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-background-light dark:bg-background-dark border-r border-slate-200 dark:border-border-dark flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">directions_car</span>
+</div>
+<div>
+<h1 class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight">DriveMate</h1>
+<p class="text-primary text-xs font-medium uppercase tracking-wider">Premium Admin</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+<div class="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-4">Menu</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined" data-size="24px">dashboard</span>
+<span class="text-sm font-medium leading-normal">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-size="24px">group</span>
+<span class="text-sm font-medium leading-normal">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-size="24px">verified_user</span>
+<span class="text-sm font-medium leading-normal">Driver Verification</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-size="24px">distance</span>
+<span class="text-sm font-medium leading-normal">Booking Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-size="24px">assessment</span>
+<span class="text-sm font-medium leading-normal">Reports</span>
+</a>
+<div class="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-8">System</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-size="24px">settings</span>
+<span class="text-sm font-medium leading-normal">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-size="24px">help</span>
+<span class="text-sm font-medium leading-normal">Support</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-slate-100 dark:bg-surface-dark">
+<img class="size-8 rounded-full" data-alt="Admin user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwyQj88RcJWGym3RQH-ATqv5lP0yXtCKJgsPGMDrEAqSJj1-EnSWpVifGusg1PKILNINYSP3NgvcgvovQEE9mSlKBH_1d57oz2BZVsCI6nI0RWDDHgS0dcMl4EMaJkYLB067HERrGD0oPY23JfCDGA09lr9um3Bso_U67Now2vGD3Gb0fy0Q8igcCa-DUg3OiiMQdQKgWzbWg3l9vcBQQaH3mUaAredZV1OAkYm-2JJnnQ976NIPyc6hP3Ql5CsR2BQYS9LRW-Bho"/>
+<div class="flex-1 overflow-hidden">
+<p class="text-xs font-bold truncate">Alex Sterling</p>
+<p class="text-[10px] text-slate-500 dark:text-slate-400 truncate">System Administrator</p>
+</div>
+<span class="material-symbols-outlined text-slate-400" data-size="18px">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark"><div class="bg-amber-500 text-white px-8 py-3 flex items-center justify-between gap-4 sticky top-0 z-20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined shrink-0" data-size="24px">warning</span>
+<p class="text-sm font-semibold leading-snug">
+      System Maintenance in Progress. The system is currently undergoing scheduled maintenance to improve our services. We'll be back online shortly. Thank you for your patience.
+    </p>
+</div>
+<button class="p-1 hover:bg-white/20 rounded-full transition-colors shrink-0">
+<span class="material-symbols-outlined" data-size="20px">close</span>
+</button>
+</div>
+<!-- Top Header -->
+<header class="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-4">
+<h2 class="text-xl font-bold tracking-tight">Dashboard Overview</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" data-size="20px">search</span>
+<input class="w-64 pl-10 pr-4 py-2 text-sm rounded-lg border-none bg-slate-100 dark:bg-surface-dark focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-slate-100" placeholder="Search platform..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-surface-dark text-slate-600 dark:text-slate-400 hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-size="24px">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-background-light dark:border-background-dark"></span>
+</button>
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-surface-dark text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-size="24px">dark_mode</span>
+</button>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<!-- KPI Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded-lg bg-blue-500/10 text-blue-500">
+<span class="material-symbols-outlined" data-size="28px">person</span>
+</div>
+<span class="flex items-center gap-1 text-emerald-500 text-xs font-bold">
+<span class="material-symbols-outlined" data-size="16px">trending_up</span> 12.5%
+                            </span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Users</p>
+<h3 class="text-2xl font-bold mt-1">12,840</h3>
+</div>
+<div class="p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined" data-size="28px">badge</span>
+</div>
+<span class="flex items-center gap-1 text-emerald-500 text-xs font-bold">
+<span class="material-symbols-outlined" data-size="16px">trending_up</span> 5.2%
+                            </span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Drivers</p>
+<h3 class="text-2xl font-bold mt-1">1,250</h3>
+</div>
+<div class="p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded-lg bg-amber-500/10 text-amber-500">
+<span class="material-symbols-outlined" data-size="28px">local_taxi</span>
+</div>
+<span class="flex items-center gap-1 text-emerald-500 text-xs font-bold">
+<span class="material-symbols-outlined" data-size="16px">trending_up</span> 8.1%
+                            </span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Active Rides</p>
+<h3 class="text-2xl font-bold mt-1">84</h3>
+</div>
+<div class="p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-500">
+<span class="material-symbols-outlined" data-size="28px">payments</span>
+</div>
+<span class="flex items-center gap-1 text-emerald-500 text-xs font-bold">
+<span class="material-symbols-outlined" data-size="16px">trending_up</span> 15.3%
+                            </span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Revenue</p>
+<h3 class="text-2xl font-bold mt-1">$45,200</h3>
+</div>
+</div>
+<!-- Main Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Active Rides Map -->
+<div class="lg:col-span-2 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark overflow-hidden flex flex-col shadow-sm">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-border-dark flex items-center justify-between">
+<h4 class="font-bold">Active Rides Live Map</h4>
+<div class="flex items-center gap-2">
+<span class="size-2 bg-emerald-500 rounded-full animate-pulse"></span>
+<span class="text-xs text-slate-500 font-medium">Live Monitoring</span>
+</div>
+</div>
+<div class="flex-1 min-h-[400px] relative bg-slate-200 dark:bg-background-dark/50">
+<div class="absolute inset-0 opacity-40 grayscale" data-alt="Satellite view of city map" data-location="New York City" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_q624wd8p0tAAnsjmZ5J4l7wAQuliBnM-Jeae8nhB8fzrRjO1mDsh56HhVIy9MRoJbjb-gp5rIFmyRjnhzBCybENeBFqB8Wn3n3UhR0hG1kozZcA55dz_NIorVw_NBvtQ3zesw7rDksiCUscp_m1-L04sB2hC7ofCFUVbTFxC_Y6ZkZeQd312JGf7Cn5y-K8Lk-lZTtTCHvMbGnMX7GlCu2GG7lBxRUgtxFCpUWzpOtDEnreO4SmrGVFQdbuUsGvkKzUQodITxXI'); background-size: cover;"></div>
+<!-- Simulated Map Pins -->
+<div class="absolute top-1/4 left-1/3 p-1 bg-primary text-background-dark rounded-full shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-xs">local_taxi</span>
+</div>
+<div class="absolute top-1/2 left-1/2 p-1 bg-primary text-background-dark rounded-full shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-xs">local_taxi</span>
+</div>
+<div class="absolute bottom-1/4 right-1/4 p-1 bg-amber-500 text-white rounded-full shadow-lg shadow-amber-500/20">
+<span class="material-symbols-outlined text-xs">emergency</span>
+</div>
+<div class="absolute top-1/3 right-1/3 p-1 bg-primary text-background-dark rounded-full shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-xs">local_taxi</span>
+</div>
+<!-- Map Overlay Info -->
+<div class="absolute bottom-4 left-4 p-4 rounded-lg bg-background-dark/80 backdrop-blur-md border border-border-dark max-w-xs">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-100">Regional Activity</span>
+<span class="text-[10px] text-primary">Manhattan, NY</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-slate-400">Available Drivers</span>
+<span class="text-slate-100 font-bold">24</span>
+</div>
+<div class="w-full bg-slate-700 h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-slate-400">Active Demand</span>
+<span class="text-slate-100 font-bold">High</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Distribution Charts / Recent Feed -->
+<div class="space-y-8">
+<!-- Revenue Trend Simplified Chart -->
+<div class="p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-bold">Revenue Trend</h4>
+<select class="bg-transparent border-none text-xs text-primary font-bold focus:ring-0 cursor-pointer">
+<option>Weekly</option>
+<option>Monthly</option>
+</select>
+</div>
+<div class="h-32 flex items-end justify-between gap-2 px-2">
+<div class="w-full bg-primary/20 rounded-t h-[40%] hover:bg-primary transition-colors cursor-pointer group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-background-dark text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">$4.2k</div>
+</div>
+<div class="w-full bg-primary/20 rounded-t h-[60%] hover:bg-primary transition-colors cursor-pointer group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-background-dark text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">$6.1k</div>
+</div>
+<div class="w-full bg-primary/20 rounded-t h-[55%] hover:bg-primary transition-colors cursor-pointer group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-background-dark text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">$5.8k</div>
+</div>
+<div class="w-full bg-primary/20 rounded-t h-[80%] hover:bg-primary transition-colors cursor-pointer group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-background-dark text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">$8.4k</div>
+</div>
+<div class="w-full bg-primary/20 rounded-t h-[70%] hover:bg-primary transition-colors cursor-pointer group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-background-dark text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">$7.2k</div>
+</div>
+<div class="w-full bg-primary/20 rounded-t h-[95%] hover:bg-primary transition-colors cursor-pointer group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-background-dark text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">$9.8k</div>
+</div>
+<div class="w-full bg-primary h-[85%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-background-dark text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap">$8.9k</div>
+</div>
+</div>
+<div class="flex justify-between mt-3 text-[10px] text-slate-500 font-medium">
+<span>Mon</span>
+<span>Tue</span>
+<span>Wed</span>
+<span>Thu</span>
+<span>Fri</span>
+<span>Sat</span>
+<span>Sun</span>
+</div>
+</div>
+<!-- User/Driver Status -->
+<div class="p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm">
+<h4 class="font-bold mb-4">Driver Status</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-emerald-500"></span>
+<span class="text-sm font-medium">Online</span>
+</div>
+<span class="text-sm font-bold">842</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-amber-500"></span>
+<span class="text-sm font-medium">On Ride</span>
+</div>
+<span class="text-sm font-bold">84</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-slate-400"></span>
+<span class="text-sm font-medium">Offline</span>
+</div>
+<span class="text-sm font-bold">324</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Recent Activity Feed -->
+<div class="xl:col-span-2 p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-bold">Recent Activity Feed</h4>
+<button class="text-xs text-primary font-bold hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-xs font-semibold text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-border-dark">
+<th class="pb-3 px-2">EVENT</th>
+<th class="pb-3 px-2">USER/DRIVER</th>
+<th class="pb-3 px-2">STATUS</th>
+<th class="pb-3 px-2">TIME</th>
+<th class="pb-3 px-2 text-right">ACTION</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-slate-100 dark:divide-border-dark">
+<tr class="hover:bg-slate-50 dark:hover:bg-background-dark/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded bg-primary/10 text-primary">
+<span class="material-symbols-outlined" data-size="18px">add_circle</span>
+</div>
+<span class="font-medium">New Booking</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-slate-200 dark:bg-border-dark flex items-center justify-center text-[10px]">JC</div>
+<span>James Chen</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold uppercase">Confirmed</span>
+</td>
+<td class="py-4 px-2 text-slate-500 text-xs">2 mins ago</td>
+<td class="py-4 px-2 text-right">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined" data-size="20px">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-background-dark/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded bg-amber-500/10 text-amber-500">
+<span class="material-symbols-outlined" data-size="18px">pending_actions</span>
+</div>
+<span class="font-medium">Driver Verification</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<img class="size-7 rounded-full" data-alt="Profile of a driver applicant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqsUQjWNC0u4nrnvQrXQn3ZyEIvrXyvuWDz7Jf1V_qDBsm_Z0gYJu4vIT1TxGGn5X4Z6rcnllN5UOJYB_1smAZAPEYvaAYKkdta-GtaKVHz20odV0aq1S1iztBHnBMNu3-qqXFjzNYaWyfzuclo9aoRMk_Zrvee8roWtjXg1swLsy2HWbB03qT5RWX8qR_96iK-Ssvw2vi_vEv1WxAHgY-jclFAmWLrsZ6-Yr96gDqky84ntWwcj5XeBTBmBpgUIvrlfsIRgkWhYE"/>
+<span>Marcus Thorne</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-bold uppercase">Pending</span>
+</td>
+<td class="py-4 px-2 text-slate-500 text-xs">14 mins ago</td>
+<td class="py-4 px-2 text-right">
+<button class="bg-primary/10 text-primary text-[10px] px-3 py-1 rounded font-bold hover:bg-primary hover:text-background-dark transition-colors">Review</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-background-dark/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded bg-blue-500/10 text-blue-500">
+<span class="material-symbols-outlined" data-size="18px">support_agent</span>
+</div>
+<span class="font-medium">Support Ticket</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-slate-200 dark:bg-border-dark flex items-center justify-center text-[10px]">SL</div>
+<span>Sarah Lopez</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase">Open</span>
+</td>
+<td class="py-4 px-2 text-slate-500 text-xs">45 mins ago</td>
+<td class="py-4 px-2 text-right">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined" data-size="20px">open_in_new</span></button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-background-dark/30 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="p-2 rounded bg-emerald-500/10 text-emerald-500">
+<span class="material-symbols-outlined" data-size="18px">check_circle</span>
+</div>
+<span class="font-medium">Booking Completed</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-slate-200 dark:bg-border-dark flex items-center justify-center text-[10px]">RW</div>
+<span>Robert White</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="px-2 py-0.5 rounded-full bg-slate-500/10 text-slate-500 text-[10px] font-bold uppercase">History</span>
+</td>
+<td class="py-4 px-2 text-slate-500 text-xs">1 hour ago</td>
+<td class="py-4 px-2 text-right">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined" data-size="20px">receipt_long</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Platform Quick Actions / User Distribution -->
+<div class="p-6 rounded-xl bg-background-light dark:bg-surface-dark border border-slate-200 dark:border-border-dark shadow-sm">
+<h4 class="font-bold mb-6">User Distribution</h4>
+<div class="flex justify-center py-4 relative">
+<!-- Simple SVG Donut Chart -->
+<svg class="size-48 transform -rotate-90">
+<circle class="text-border-dark" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-width="20"></circle>
+<circle class="text-primary" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="150" stroke-width="20"></circle>
+<circle class="text-blue-500" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="400" stroke-width="20"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-black text-slate-900 dark:text-slate-100">12.8k</span>
+<span class="text-[10px] uppercase font-bold text-slate-500">Total Users</span>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4">
+<div class="p-3 rounded-lg bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-2 mb-1">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-xs font-bold">Standard</span>
+</div>
+<span class="text-lg font-bold">72%</span>
+</div>
+<div class="p-3 rounded-lg bg-slate-100 dark:bg-background-dark/50 border border-slate-200 dark:border-border-dark">
+<div class="flex items-center gap-2 mb-1">
+<span class="size-2 rounded-full bg-blue-500"></span>
+<span class="text-xs font-bold">Premium</span>
+</div>
+<span class="text-lg font-bold">28%</span>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full py-2 bg-primary text-background-dark font-bold rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-size="20px">download</span>
+                                Download Reports
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

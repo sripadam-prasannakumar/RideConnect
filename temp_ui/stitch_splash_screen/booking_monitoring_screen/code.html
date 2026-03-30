@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0d1117",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>DriveMate Admin - Booking Monitoring</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="flex min-h-screen">
+<!-- Side Navigation -->
+<aside class="w-64 flex-shrink-0 border-r border-primary/10 bg-background-light dark:bg-background-dark h-screen sticky top-0 overflow-y-auto">
+<div class="flex flex-col h-full p-4">
+<!-- Logo Section -->
+<div class="flex items-center gap-3 px-2 py-6 mb-4">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight">DriveMate</h1>
+<p class="text-primary text-xs font-medium uppercase tracking-wider">Admin Panel</p>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">steering_wheel_heat</span>
+<span class="text-sm font-medium">Driver Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-sm font-medium">Booking Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Financials</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+</nav>
+<!-- Bottom Settings -->
+<div class="pt-4 mt-4 border-t border-primary/10">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<div class="mt-4 px-3 py-4 bg-primary/5 rounded-xl border border-primary/10">
+<p class="text-[10px] text-slate-500 uppercase font-bold mb-2">System Status</p>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-slate-400 font-medium">All systems operational</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Header/Stats -->
+<header class="p-8 border-b border-primary/10 bg-background-light dark:bg-background-dark/50 backdrop-blur-sm sticky top-0 z-10">
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Booking Monitoring</h2>
+<div class="flex items-center gap-4">
+<button class="bg-primary hover:bg-primary/90 text-background-dark px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                                Create Manual Booking
+                            </button>
+</div>
+</div>
+<!-- Real-time Stats -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-slate-50 dark:bg-primary/5 p-5 rounded-xl border border-slate-200 dark:border-primary/10">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Active Rides</p>
+<div class="flex items-end justify-between">
+<p class="text-2xl font-bold text-primary">124</p>
+<span class="text-emerald-500 text-xs font-bold flex items-center bg-emerald-500/10 px-1.5 py-0.5 rounded">+12%</span>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-primary/5 p-5 rounded-xl border border-slate-200 dark:border-primary/10">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Scheduled for Today</p>
+<div class="flex items-end justify-between">
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">450</p>
+<span class="text-rose-500 text-xs font-bold flex items-center bg-rose-500/10 px-1.5 py-0.5 rounded">-5%</span>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-primary/5 p-5 rounded-xl border border-slate-200 dark:border-primary/10">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Avg. Trip Time</p>
+<div class="flex items-end justify-between">
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">24 mins</p>
+<span class="text-emerald-500 text-xs font-bold flex items-center bg-emerald-500/10 px-1.5 py-0.5 rounded">+2%</span>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-primary/5 p-5 rounded-xl border border-slate-200 dark:border-primary/10">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Completion Rate</p>
+<div class="flex items-end justify-between">
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">98.2%</p>
+<span class="text-rose-500 text-xs font-bold flex items-center bg-rose-500/10 px-1.5 py-0.5 rounded">-1%</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<!-- Map View Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">distance</span>
+                            Live Fleet Overview
+                        </h3>
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                            Live Updates
+                        </span>
+</div>
+<div class="relative w-full h-[350px] bg-slate-200 dark:bg-slate-800 rounded-xl overflow-hidden border border-primary/10">
+<div class="absolute inset-0 grayscale contrast-125 opacity-40 mix-blend-overlay pointer-events-none bg-center bg-cover" data-alt="Stylized dark city map background" data-location="New York City" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDpVl1xijltizbFVAP25_f8JWfzcuFa_qDm8ogWhhEs9qJu9C0UwPcVONUriKDH2ohoS8Jg-clucoBIl3Hz97m5wkZ4f_MUUD-wwAcDi1mwqC9adBLB4GBh9inW59JQbRgaEtcHIGjur5yFWClYjnI8tU82TelS0nMTiJak2wVdimLesbPU5rWX-pHh1iw01quBerY2jHWeaOuF1P9kuUFXodpYek4YbLNs94zy8JQpUfrvGxg9Vir9X06eX1MtAyZTEHp8aH0nMhI')"></div>
+<!-- Map Icons -->
+<div class="absolute top-1/4 left-1/3 group cursor-pointer">
+<div class="size-4 bg-primary rounded-full ring-4 ring-primary/20 shadow-[0_0_15px_rgba(13,204,242,0.6)]"></div>
+<div class="hidden group-hover:block absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-background-dark border border-primary/30 p-2 rounded-lg text-[10px] whitespace-nowrap shadow-xl">
+<p class="font-bold text-primary">DM-8821 (Alex K.)</p>
+<p class="text-slate-400">Heading to JFK Airport</p>
+</div>
+</div>
+<div class="absolute top-1/2 left-2/3">
+<div class="size-4 bg-primary rounded-full ring-4 ring-primary/20 shadow-[0_0_15px_rgba(13,204,242,0.6)]"></div>
+</div>
+<div class="absolute bottom-1/3 left-1/4">
+<div class="size-4 bg-primary rounded-full ring-4 ring-primary/20 shadow-[0_0_15px_rgba(13,204,242,0.6)]"></div>
+</div>
+<div class="absolute top-1/2 left-1/2">
+<div class="size-4 bg-primary rounded-full ring-4 ring-primary/20 shadow-[0_0_15px_rgba(13,204,242,0.6)]"></div>
+</div>
+<!-- Map Controls -->
+<div class="absolute bottom-4 right-4 flex flex-col gap-2">
+<button class="bg-background-dark/80 backdrop-blur p-2 rounded-lg border border-primary/20 text-slate-100 hover:bg-primary/20">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="bg-background-dark/80 backdrop-blur p-2 rounded-lg border border-primary/20 text-slate-100 hover:bg-primary/20">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Booking List Section -->
+<section class="space-y-6">
+<div class="flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center">
+<!-- Quick Filters -->
+<div class="flex p-1 bg-slate-100 dark:bg-primary/5 rounded-lg border border-slate-200 dark:border-primary/10">
+<button class="px-4 py-1.5 rounded-md text-sm font-medium bg-primary text-background-dark shadow-sm">All</button>
+<button class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-primary transition-colors">Live</button>
+<button class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-primary transition-colors">Upcoming</button>
+<button class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-primary transition-colors">Completed</button>
+<button class="px-4 py-1.5 rounded-md text-sm font-medium text-slate-500 hover:text-primary transition-colors">Cancelled</button>
+</div>
+<!-- Search and More -->
+<div class="flex gap-3 w-full lg:w-auto">
+<div class="relative flex-1 lg:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full bg-slate-100 dark:bg-primary/5 border-slate-200 dark:border-primary/10 rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-primary focus:border-primary dark:placeholder:text-slate-500" placeholder="Search Booking ID, Customer or Driver" type="text"/>
+</div>
+<button class="p-2 border border-slate-200 dark:border-primary/10 rounded-lg text-slate-500 hover:text-primary dark:bg-primary/5">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Bookings Table -->
+<div class="overflow-hidden border border-slate-200 dark:border-primary/10 rounded-xl bg-slate-50 dark:bg-transparent">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-100 dark:bg-primary/5 border-b border-slate-200 dark:border-primary/10">
+<th class="px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Booking ID</th>
+<th class="px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Customer</th>
+<th class="px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Driver / Vehicle</th>
+<th class="px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Route</th>
+<th class="px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+<th class="px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right">Fare</th>
+<th class="px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-primary/10">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-4 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">#DM-9023</span>
+<p class="text-[10px] text-slate-500">Today, 14:20</p>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-primary/20 border border-primary/20" data-alt="User profile avatar of Michael Chen" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAsYSx62YM2JxCbHICq3S0ItRrZGK4ljLOSBbAgccehxmmS8B1NMF97hOlu6yFhYDAnpP2BGeH9d5nScPvojM-_BjW_OjFuUJT-CU5dN90dMGy3F0rHJS97cnEuHF2R1_06kiz0FXzrOcCMffqpkuYu4WaVjmWgwbWNsLaKSDQOXFM3hk_-1nD7ysZhyJWfOj4byuRIzhncm-tp_htlUy9hPy4nvHZeT4TstKtBYSzTP2AzkFdhHDdio3K6aYxiT7lronfHu6G0e-A')"></div>
+<div>
+<p class="text-sm font-medium">Michael Chen</p>
+<p class="text-xs text-slate-500">+1 234-567-890</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px]">steering_wheel_heat</span>
+</div>
+<div>
+<p class="text-sm font-medium">Sarah Jenkins</p>
+<p class="text-xs text-slate-500">Tesla Model 3 • Blue</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="flex flex-col gap-0.5 max-w-[200px]">
+<div class="flex items-center gap-2 text-xs truncate">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Central Park South</span>
+</div>
+<div class="flex items-center gap-2 text-xs truncate">
+<span class="size-1.5 rounded-full bg-rose-500"></span>
+<span class="text-slate-600 dark:text-slate-300">JFK Terminal 4</span>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary border border-primary/30">
+                                            Live Trip
+                                        </span>
+</td>
+<td class="px-4 py-4 whitespace-nowrap text-right">
+<p class="text-sm font-bold">$42.50</p>
+</td>
+<td class="px-4 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-4 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">#DM-8991</span>
+<p class="text-[10px] text-slate-500">Today, 14:05</p>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-primary/20 border border-primary/20" data-alt="User profile avatar of Emma Wilson" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBRlx5rURCzDkxZHv6NO1bh0NjbturmRM6F4CxGzohhi2J_zvBrYKlgBl9Kou21oMtZa95JjZAnSESgwkRQSvfQBKPLyxRMl0SJFxu47rlKOV88viYxrEVtT6JauF9l-CRzlP7w6qYZ_Cw7Z3pzWex_yo_5JfjETF3RYRL6iRnwBBGBNkcI20h7z5zCojbq6rUB01BHBMnjf0PqYlIEWYZlZ-Vp3UXrZVzESPJaCoFOtuo8YOd01-8mdN9GOj77mHRyBMQPmwhyzvM')"></div>
+<div>
+<p class="text-sm font-medium">Emma Wilson</p>
+<p class="text-xs text-slate-500">+1 444-222-111</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px]">steering_wheel_heat</span>
+</div>
+<div>
+<p class="text-sm font-medium">Marcus Diaz</p>
+<p class="text-xs text-slate-500">Toyota Camry • Silver</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="flex flex-col gap-0.5 max-w-[200px]">
+<div class="flex items-center gap-2 text-xs truncate">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-slate-600 dark:text-slate-300">88 Wall Street</span>
+</div>
+<div class="flex items-center gap-2 text-xs truncate">
+<span class="size-1.5 rounded-full bg-rose-500"></span>
+<span class="text-slate-600 dark:text-slate-300">Brooklyn Heights</span>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/30">
+                                            Completed
+                                        </span>
+</td>
+<td class="px-4 py-4 whitespace-nowrap text-right">
+<p class="text-sm font-bold">$28.15</p>
+</td>
+<td class="px-4 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-4 py-4 whitespace-nowrap">
+<span class="text-sm font-bold text-primary">#DM-9104</span>
+<p class="text-[10px] text-slate-500">Today, 15:30</p>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-primary/20 border border-primary/20" data-alt="User profile avatar of David Thorne" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEnPuURAApkIGyZDk30TBc-d53U5tWRHVIXPg6rDuGy5IZR4qZWqqF38tRjyLJtrqQlhXeR2ZpQooBSUXJOMgLBFebcPtCr5jcL9s1fWpOAQlib0LLAN3nDRQId4gamHu4HtyEG5DiXylt5hfoFXxEQHoHB_flpn9Ll-tEBv4PyLivlizZo_2eAj8mmeO9L_XL3qM-moQFmFKQKfkYAMM50TEnJdgP-h4SHqwZQP_0nUNhHFOjIVWLk2_cVrq1OaGN-OJ526CRzBo')"></div>
+<div>
+<p class="text-sm font-medium">David Thorne</p>
+<p class="text-xs text-slate-500">+1 888-333-222</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px]">steering_wheel_heat</span>
+</div>
+<div>
+<p class="text-sm font-medium">Assigning...</p>
+<p class="text-xs text-slate-500">Premium Luxury</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="flex flex-col gap-0.5 max-w-[200px]">
+<div class="flex items-center gap-2 text-xs truncate">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-slate-600 dark:text-slate-300">The Plaza Hotel</span>
+</div>
+<div class="flex items-center gap-2 text-xs truncate">
+<span class="size-1.5 rounded-full bg-rose-500"></span>
+<span class="text-slate-600 dark:text-slate-300">LaGuardia Airport</span>
+</div>
+</div>
+</td>
+<td class="px-4 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-500 border border-amber-500/30">
+                                            Scheduled
+                                        </span>
+</td>
+<td class="px-4 py-4 whitespace-nowrap text-right">
+<p class="text-sm font-bold">$75.00</p>
+</td>
+<td class="px-4 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between pt-4">
+<p class="text-sm text-slate-500">Showing 1 to 10 of 450 bookings</p>
+<div class="flex gap-2">
+<button class="p-2 border border-slate-200 dark:border-primary/10 rounded hover:bg-primary/10 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-3 py-1 bg-primary text-background-dark font-bold rounded">1</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-primary/10 rounded hover:bg-primary/10">2</button>
+<button class="px-3 py-1 border border-slate-200 dark:border-primary/10 rounded hover:bg-primary/10">3</button>
+<button class="p-2 border border-slate-200 dark:border-primary/10 rounded hover:bg-primary/10">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

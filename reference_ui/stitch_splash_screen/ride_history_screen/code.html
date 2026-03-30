@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate - Ride History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-primary/20 px-6 md:px-10 py-4 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<img alt="DriveMate Logo" data-alt="DriveMate brand logo in teal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5riTBDIlD52MDYB6uwEvOcbx_laYlIEyXqFQ0nVrb9gkk5yhsGme2Pqu1ra5OmUOXJ9jqplOrBTpeeF9hYKkaS1Np41skaPWXgUUheeNIJsdG9dLfBzIJAyXH6YO7jEOf1Jkt6zcOBDVN2nSwHIzm1RtWp3X2s83MwGMPd2a5KejubCcylizMcdf40wsZmr_qeb4u22C0rA1nAef_F34w4Iciubhy0xUCgoWmdQK75Lq4LoCABENeMmt3g61dab8YOQ7INkn5eoc"/>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">DriveMate</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-primary/10 text-slate-700 dark:text-primary transition-colors hover:bg-primary/20">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full border-2 border-primary overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Portrait of a smiling professional man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBECcGwqcRE9x856cHHCe9Mps2XqnOk1f9OAIeEqSZ7MbK6UDZbocPw8MZ7vOONKzKEICY6p7rmNjUc6RGaqsNyG-wqTUenMQf_U0-KCnm4fRK1rJDa-27pnNADm1klqyepU0jf9modzApwROPt-tOt0MVbSe99czuZfmeKb-a9rTqz7DfE1o94yVHcIYTyxW-ma59tqXtF6mzJRHOuhvuo59uHlSFnDTbpQVu9y_wC8CYvBkSjWILCqVw3oH97Bd_MnfEAn16OjtY"/>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto w-full p-4 md:p-8 space-y-8">
+<!-- Dashboard Header & Stats -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-1">
+<h1 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">Ride History</h1>
+<p class="text-slate-500 dark:text-primary/70">Manage and review your past premium journeys</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl p-4 bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wider">Total Rides</p>
+<p class="text-slate-900 dark:text-white text-2xl font-bold">124</p>
+<span class="text-emerald-500 text-xs font-bold">+5% this month</span>
+</div>
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl p-4 bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wider">Total Spent</p>
+<p class="text-slate-900 dark:text-white text-2xl font-bold">$2,450</p>
+<span class="text-rose-500 text-xs font-bold">-2% vs last month</span>
+</div>
+<div class="flex min-w-[140px] flex-1 flex-col gap-1 rounded-xl p-4 bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 shadow-sm">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wider">Top Driver</p>
+<p class="text-slate-900 dark:text-white text-2xl font-bold">Alex M.</p>
+<span class="text-primary text-xs font-bold">48 Trips Together</span>
+</div>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 py-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-primary/10 border border-slate-200 dark:border-primary/20 text-sm font-medium hover:bg-slate-50 dark:hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span>All Time</span>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-primary/10 border border-slate-200 dark:border-primary/20 text-sm font-medium hover:bg-slate-50 dark:hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-lg">payments</span>
+<span>Cost</span>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-primary/10 border border-slate-200 dark:border-primary/20 text-sm font-medium hover:bg-slate-50 dark:hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-lg">directions_car</span>
+<span>Vehicle</span>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+<div class="flex-grow"></div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-background-dark text-sm font-bold hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span>More Filters</span>
+</button>
+</div>
+<!-- Rides List -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Ride Card 1: Completed -->
+<div class="group flex flex-col md:flex-row items-center gap-6 p-5 rounded-xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative">
+<img alt="Driver Alex" class="size-14 rounded-full border-2 border-primary/20" data-alt="Close up photo of male driver Alex" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO4y1GyE3aqxVyUGBp9ObPez9gJn1NcFQzMiCrJsAm1_WbFMCp0wjb8Xi6f5JpZGYyTgjp4GePCq2SkJjsY2JiaSKvvyqbwyuvpH-W2I-o2EokBitlMNp8CgPeWn4qm4ZXpXr0bLNS0HPIvagvW0GeK9RMQPpzPNK_YTAhNjzbMu1fCPtrIGHpHZa5yEDz9jez2SEbWAixffZ5Q9j1l3uUHHHeXL9Tsu53Iq95d39h8EkHJW0am4EZmMBHvMZgDBiMWXUux1naYtM"/>
+<div class="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white dark:border-background-dark">
+<span class="material-symbols-outlined text-[10px] text-white">check</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-slate-900 dark:text-white">Alex Mitchell</h3>
+<p class="text-xs text-slate-500 dark:text-primary/60">Honda City • Premium</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 flex-grow w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-100 dark:border-primary/10 pt-4 md:pt-0 md:pl-8">
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Date &amp; Time</p>
+<p class="text-sm font-medium">Oct 24, 2023</p>
+<p class="text-xs text-slate-500">10:45 AM</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Duration</p>
+<p class="text-sm font-medium">32 mins</p>
+<p class="text-xs text-slate-500">8.4 miles</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Total Cost</p>
+<p class="text-sm font-bold text-primary">$24.50</p>
+<p class="text-xs text-slate-500">Apple Pay</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Status</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 mt-1">
+                            Completed
+                        </span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto px-6 py-2.5 rounded-lg bg-primary text-background-dark font-bold text-sm transition-transform active:scale-95">
+                        Rebook
+                    </button>
+</div>
+</div>
+<!-- Ride Card 2: Cancelled -->
+<div class="group flex flex-col md:flex-row items-center gap-6 p-5 rounded-xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+<div class="flex items-center gap-4 w-full md:w-auto opacity-70">
+<div class="relative">
+<img alt="Driver Sarah" class="size-14 rounded-full border-2 border-slate-200 dark:border-slate-700" data-alt="Portrait of female driver Sarah" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPEW9cP3IrFG9e01wEt3YEN0XRP7bEcyBFVHhqLidN3hGk5Z_ikeL0HWd2Bu1PmB4rJ_wmyCEgsIrMgI-jjSRMnW1CbsWgen9aPAKwCssHXoFhfLNQSwreeJbGJ95m7yFs8ssc66kKVXnSzH_7p3Hjp04SQLySu--UAlbAe6_RC8Whlos2xQsP_4yzC63MlTIGbmlg2WLb8cwKXOxeWv3vAR0hQF7CRj6UZQySKuNHLjfbMTztS5k6OgFGFEmuVCd1J692mMiDJ1M"/>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-slate-900 dark:text-white">Sarah Jenkins</h3>
+<p class="text-xs text-slate-500 dark:text-primary/60">Toyota Camry • Comfort</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 flex-grow w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-100 dark:border-primary/10 pt-4 md:pt-0 md:pl-8 opacity-70">
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Date &amp; Time</p>
+<p class="text-sm font-medium">Oct 22, 2023</p>
+<p class="text-xs text-slate-500">02:15 PM</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Duration</p>
+<p class="text-sm font-medium">--</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Total Cost</p>
+<p class="text-sm font-bold text-slate-500">$0.00</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Status</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-500/10 text-slate-600 dark:text-slate-400 mt-1">
+                            Cancelled
+                        </span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto px-6 py-2.5 rounded-lg border border-slate-300 dark:border-primary/20 text-slate-600 dark:text-primary/70 font-bold text-sm hover:bg-slate-50 dark:hover:bg-primary/5">
+                        Details
+                    </button>
+</div>
+</div>
+<!-- Ride Card 3: Completed -->
+<div class="group flex flex-col md:flex-row items-center gap-6 p-5 rounded-xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative">
+<img alt="Driver David" class="size-14 rounded-full border-2 border-primary/20" data-alt="Smiling driver David with cap" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkD7EYKZkDlmUO8YTJoOkHzITLxSbydFsSB7M7t0HDuThArvlo3qOIvD5zofWJfhp-bAC4ih_GjJMmENiUuFX33oe7nC5aDPTFWxQ0YYxyRb4_J-5W3tAuUuZd52WGxDiS7IsV2RojmLAF-x6ljkyQbwtuZLaHioAucOt5QRxPpMqAk_XcUk_U1xj1j8aDR9KDslW_Z4SFiPutd3aGZHl4UTClB6urdneEgxMyiHfchKp9zoYhXQXbTlWKXpAWi1BIP4bSZtX51Ew"/>
+<div class="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white dark:border-background-dark">
+<span class="material-symbols-outlined text-[10px] text-white">check</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-slate-900 dark:text-white">David Chen</h3>
+<p class="text-xs text-slate-500 dark:text-primary/60">Tesla Model 3 • Electric Luxury</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 flex-grow w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-100 dark:border-primary/10 pt-4 md:pt-0 md:pl-8">
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Date &amp; Time</p>
+<p class="text-sm font-medium">Oct 19, 2023</p>
+<p class="text-xs text-slate-500">08:30 PM</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Duration</p>
+<p class="text-sm font-medium">45 mins</p>
+<p class="text-xs text-slate-500">12.1 miles</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Total Cost</p>
+<p class="text-sm font-bold text-primary">$38.15</p>
+<p class="text-xs text-slate-500">Mastercard</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Status</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 mt-1">
+                            Completed
+                        </span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto px-6 py-2.5 rounded-lg bg-primary text-background-dark font-bold text-sm transition-transform active:scale-95">
+                        Rebook
+                    </button>
+</div>
+</div>
+<!-- Ride Card 4: Completed -->
+<div class="group flex flex-col md:flex-row items-center gap-6 p-5 rounded-xl bg-white dark:bg-primary/5 border border-slate-200 dark:border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative">
+<img alt="Driver Alex" class="size-14 rounded-full border-2 border-primary/20" data-alt="Portrait of male driver Alex Mitchell" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOB8P-_4_y7gzD59Jeqc3oEL1D-ZoM1NcZHctYOPwJvpRbFS5yIyZ7FQ4q3aDTCxmpIQGP7QVuhWxfHn-q95BEls7OZY02VHfR4zkV2XlJrWy-14L4DFiTBbr4CliiLhMp2yvX6tLGcEHIxq2QSMPHl6yZ--cjA5Z9JHjDxofi4FmrBoV3HpSGq60H0YmEpyMB_IFLitfLyTBqhj8orlTfSxZMewWpsv77Gf6tUMI3bofkvjNeB6qY7SOJfMxS5mKcgR-YrRsG_II"/>
+<div class="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white dark:border-background-dark">
+<span class="material-symbols-outlined text-[10px] text-white">star</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-slate-900 dark:text-white">Alex Mitchell</h3>
+<p class="text-xs text-slate-500 dark:text-primary/60">Honda City • Premium</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 flex-grow w-full md:w-auto border-t md:border-t-0 md:border-l border-slate-100 dark:border-primary/10 pt-4 md:pt-0 md:pl-8">
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Date &amp; Time</p>
+<p class="text-sm font-medium">Oct 15, 2023</p>
+<p class="text-xs text-slate-500">07:15 AM</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Duration</p>
+<p class="text-sm font-medium">18 mins</p>
+<p class="text-xs text-slate-500">4.2 miles</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Total Cost</p>
+<p class="text-sm font-bold text-primary">$15.20</p>
+<p class="text-xs text-slate-500">Apple Pay</p>
+</div>
+<div>
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase">Status</p>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 mt-1">
+                            Completed
+                        </span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto px-6 py-2.5 rounded-lg bg-primary text-background-dark font-bold text-sm transition-transform active:scale-95">
+                        Rebook
+                    </button>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="flex justify-center py-6">
+<button class="flex items-center gap-2 px-8 py-3 rounded-xl border border-primary/30 text-primary font-bold hover:bg-primary/10 transition-colors">
+<span>View More Rides</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="mt-auto border-t border-slate-200 dark:border-primary/10 px-10 py-8 bg-white dark:bg-background-dark/50">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 opacity-50">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<span class="text-sm font-medium">DriveMate Secure Ride History</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2023 DriveMate Inc. All rights reserved.</p>
+<div class="flex gap-6 text-sm font-medium text-slate-500 dark:text-primary/60">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

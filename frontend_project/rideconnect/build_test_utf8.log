@@ -1,0 +1,35 @@
+﻿
+> rideconnect@0.1.0 build
+> react-scripts build
+
+node.exe : (node:9400) 
+[DEP0176] 
+DeprecationWarning: 
+fs.F_OK is deprecated, 
+use fs.constants.F_OK 
+instead
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ((node:9400) [   
+ DE...ts.F_OK inste    
+ad:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+(Use `node 
+--trace-deprecation 
+...` to show where the 
+warning was created)
+Creating an optimized production build...

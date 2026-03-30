@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Driver Management - DriveMate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-primary/20 bg-background-light dark:bg-background-dark flex flex-col h-screen sticky top-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary flex items-center justify-center">
+<img class="w-8 h-8 object-contain" data-alt="DriveMate corporate logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOOjgctK51-tdRB1MPGF_W3PXISjJUT_qUnPNqVBkk1MJSrVFyBopeOODa1jY0vgPBsQdTDnPcIHBrGTXvGusJXkldTDlqItdbqOsmbBJtfuvTgN29fE5XjYko4DIRq3tcyE5Ldp8sRy_4yp8d0IxIt6jD2pV3am5Jn9TwreeuBklyZ2Mh9gVyyzVBYXQB_GrAvzfohOEW3QF3GMrF9LFgyZ3Pz_9Ykz_meb6v3L2s_cn8N0F0YgMEeYwEutJravPSFsNeneOor_g"/>
+</div>
+<div>
+<h1 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-none">DriveMate</h1>
+<p class="text-slate-500 dark:text-primary/60 text-xs mt-1">Admin Dashboard</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-sm font-medium">Driver Verification</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="text-sm font-medium">Booking Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-primary/20">
+<button class="flex w-full items-center gap-3 px-3 py-2 rounded-lg text-rose-500 hover:bg-rose-500/10 transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-primary/20 flex items-center justify-between px-8 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md">
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Driver Management</h2>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 cursor-pointer">notifications</span>
+<span class="absolute -top-1 -right-1 size-2 bg-primary rounded-full"></span>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-slate-200 dark:border-primary/20">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Alex Thompson</p>
+<p class="text-xs text-slate-500 dark:text-primary/60">Super Admin</p>
+</div>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Profile photo of admin Alex Thompson" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOpWFnrdSgK3mGK8BFNwbksTAgVRfvyedPV2XPLGaljy7NIFb5YJPBySbODA8-hQPEdpojgY0m9tKkjewoDswxE2clhqZ-R8q8nnVWzB8dY5Egu-tRD0T37_xN8QoWr1Ykw2uI2RGNlkaw_EL0aDxQTbp5oHgAQp-8bt02U1hq1Bu_xH7fYdSizEaPxTDjDDKBdkCBBwu_s8eSRQCOuGulDWLTvxcwk9zKRDX4AZt_aavyYbzi5lqRNITfDdm0KdamJorHODQpoZI"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-8 space-y-8">
+<!-- Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="p-6 rounded-xl border border-slate-200 dark:border-primary/20 bg-white dark:bg-background-dark/40 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">person</span>
+<span class="text-emerald-500 text-xs font-bold">+12%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Drivers</p>
+<h3 class="text-2xl font-bold mt-1">1,284</h3>
+</div>
+<div class="p-6 rounded-xl border border-slate-200 dark:border-primary/20 bg-white dark:bg-background-dark/40 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">near_me</span>
+<span class="text-emerald-500 text-xs font-bold">+5%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Active Now</p>
+<h3 class="text-2xl font-bold mt-1">452</h3>
+</div>
+<div class="p-6 rounded-xl border border-slate-200 dark:border-primary/20 bg-white dark:bg-background-dark/40 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">star</span>
+<span class="text-rose-500 text-xs font-bold">-0.2%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Average Rating</p>
+<h3 class="text-2xl font-bold mt-1">4.8</h3>
+</div>
+<div class="p-6 rounded-xl border border-slate-200 dark:border-primary/20 bg-white dark:bg-background-dark/40 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">pending_actions</span>
+<span class="text-emerald-500 text-xs font-bold">+18%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Pending Verifications</p>
+<h3 class="text-2xl font-bold mt-1">24</h3>
+</div>
+</div>
+<!-- Table Section -->
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-primary/20 rounded-xl overflow-hidden shadow-sm">
+<!-- Toolbar -->
+<div class="p-4 border-b border-slate-200 dark:border-primary/20 flex flex-wrap items-center gap-4">
+<div class="relative flex-1 min-w-[240px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-slate-50 dark:bg-background-dark/60 border-slate-200 dark:border-primary/20 rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-primary focus:border-primary" placeholder="Search drivers by name, ID or vehicle..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<select class="bg-slate-50 dark:bg-background-dark/60 border-slate-200 dark:border-primary/20 rounded-lg px-3 py-2 text-sm focus:ring-primary">
+<option>All Status</option>
+<option>Active</option>
+<option>Offline</option>
+<option>Suspended</option>
+<option>In-Ride</option>
+</select>
+<select class="bg-slate-50 dark:bg-background-dark/60 border-slate-200 dark:border-primary/20 rounded-lg px-3 py-2 text-sm focus:ring-primary">
+<option>Rating: Any</option>
+<option>4.5+</option>
+<option>4.0+</option>
+<option>Below 4.0</option>
+</select>
+<button class="bg-primary hover:bg-primary/90 text-background-dark font-bold px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                            Add Driver
+                        </button>
+</div>
+</div>
+<!-- Table Content -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50/50 dark:bg-primary/5 text-slate-500 dark:text-slate-400 uppercase text-[10px] tracking-wider font-bold">
+<th class="px-6 py-4">Driver Name</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-center">Total Rides</th>
+<th class="px-6 py-4 text-center">Rating</th>
+<th class="px-6 py-4">Last Active</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-primary/10">
+<!-- Row 1 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-primary/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of driver Marcus Wright" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-jXtB7DRkh5W92FCeWi2fX4Y8WCdC3kg6j683LUHsPuk71EOOgE5VsaXFzcOcgDi332hRG9VI0UkDu-Vt7VKrJAkeFcx7G3qnehFsoefWLXln1ByYdcxSwznQtClZHbk0Va7yM-_-GHLJELKTEMwAXZkfeYHmb26Mug7wbs-UTS1JwUgqdMTr3aJ6yqDabHs_j8CzFN5NPfWUq7N3W3ObLo4GOYmE24Znhkil9cdwebKqTtkKZbkQT5wQLnCrpCqENO39_PL-WbY"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Marcus Wright</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">ID: DM-29402</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-500">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-4 text-center text-sm font-medium">1,420</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
+<span class="material-symbols-outlined text-amber-400 text-sm fill-current">star</span>
+                                        4.9
+                                    </div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">2 mins ago</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-primary/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of driver Leo Jackson" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3gMj-KQmp7xd_2Suby5ld7zQ23-Q7R-Kna-2GCxkhsejIdkJYUhL4v5hjCGsBAy2QfiYhz8ZbxNL0R1Ni8ca4HJ055Rd2hpdf8RtpJc3vIrqayQm5GfoJtxv9QYkh9wvmtBZ9pW9TQtFx9lVNO0NHHULtG8cIh969K7c2_hWL5p3Asbd_8cjItostqUiR_9Mlb0GxaXN8GeK0G4eKselFbyfw9oE29VF-3KRjmzW9x8sBx0aIL3Aa3xzmf6gSxKwt8cWEDLfXG4A"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Leo Jackson</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">ID: DM-29408</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-primary/10 text-primary">
+<span class="size-1.5 rounded-full bg-primary"></span>
+                                        In-Ride
+                                    </span>
+</td>
+<td class="px-6 py-4 text-center text-sm font-medium">856</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
+<span class="material-symbols-outlined text-amber-400 text-sm fill-current">star</span>
+                                        4.7
+                                    </div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">Currently Driving</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-primary/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of driver Sarah Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRo1I_cj2kPo6PQzwPJl5s6SE4iJkGe-EQnusEdNE43upw3dPiyUJ6QXp2lS2T5chPednfrUnuiMJdpu0-9Lj_bbWTtbiCoSJiajxjIvQHjiZD9XTFJ5zP_GMcAzUMTEqcf5rnpyhETYCaGSBW_mApgiXjkWxabbEKkqDCSSfWF_-obT89gM6FzVIu_qEiCyH1qUWjakV0EcyjkNGcNUGgsAkpqHO-zOVwy-np_Wa5CygJBx9lUpGN6oQL5YkiaeDNvKNXtw_wZ8s"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Sarah Chen</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">ID: DM-29415</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-500/10 text-slate-500">
+<span class="size-1.5 rounded-full bg-slate-500"></span>
+                                        Offline
+                                    </span>
+</td>
+<td class="px-6 py-4 text-center text-sm font-medium">2,105</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
+<span class="material-symbols-outlined text-amber-400 text-sm fill-current">star</span>
+                                        5.0
+                                    </div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">4 hours ago</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-primary/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of driver David Ross" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAc8yGmY-nChJCUf7sRfUOEuOo52clOY3XjUrQut5_4MKvxhXM1tHVfWu5_4ruUkOfXsn6UPcHXFYOkwcmX_PUqdaN9qGIMU4QJ1GmUQOTm0JOPc8qhFK2v2Q8CmqYscQY3hooAC9bIQNfrEPEoasrJFo6xOeAnjyYOGza48UdG5EULSrnypKdQETDsRUyoAOn9n4XszDY-T37xSQPZquqTOqTyXNcLy2bdJb4v9y2MP-R1Pqz3B0S0QyYl89ZBSA7CC5dTMbt4jyM"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-slate-900 dark:text-slate-100">David Ross</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">ID: DM-29421</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-rose-500/10 text-rose-500">
+<span class="size-1.5 rounded-full bg-rose-500"></span>
+                                        Suspended
+                                    </span>
+</td>
+<td class="px-6 py-4 text-center text-sm font-medium">124</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
+<span class="material-symbols-outlined text-amber-400 text-sm fill-current">star_half</span>
+                                        3.2
+                                    </div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">Oct 12, 2023</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-primary/20 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-slate-200 dark:border-primary/10 flex items-center justify-between">
+<p class="text-xs text-slate-500 dark:text-slate-400">Showing <span class="font-bold text-slate-900 dark:text-slate-100">1-10</span> of <span class="font-bold text-slate-900 dark:text-slate-100">1,284</span> drivers</p>
+<div class="flex items-center gap-1">
+<button class="p-2 rounded-lg border border-slate-200 dark:border-primary/20 text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="size-8 rounded-lg bg-primary text-background-dark text-xs font-bold">1</button>
+<button class="size-8 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary text-xs font-bold transition-colors">2</button>
+<button class="size-8 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary text-xs font-bold transition-colors">3</button>
+<span class="px-2 text-slate-400">...</span>
+<button class="size-8 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary text-xs font-bold transition-colors">129</button>
+<button class="p-2 rounded-lg border border-slate-200 dark:border-primary/20 text-slate-400 hover:bg-primary/10 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

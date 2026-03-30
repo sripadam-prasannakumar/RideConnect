@@ -1,0 +1,65 @@
+﻿
+> rideconnect@0.1.0 start
+> react-scripts start
+
+node.exe : 
+(node:10924) [DEP0176] 
+DeprecationWarning: 
+fs.F_OK is deprecated, 
+use fs.constants.F_OK 
+instead
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ((node:10924)    
+ [D...ts.F_OK inste    
+ad:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+(Use `node 
+--trace-deprecation 
+...` to show where the 
+warning was created)
+(node:10924) [DEP_WEBPA
+CK_DEV_SERVER_ON_AFTER_
+SETUP_MIDDLEWARE] 
+DeprecationWarning: 'on
+AfterSetupMiddleware' 
+option is deprecated. 
+Please use the 
+'setupMiddlewares' 
+option.
+(node:10924) [DEP_WEBPA
+CK_DEV_SERVER_ON_BEFORE
+_SETUP_MIDDLEWARE] 
+DeprecationWarning: 'on
+BeforeSetupMiddleware' 
+option is deprecated. 
+Please use the 
+'setupMiddlewares' 
+option.
+Starting the development server...
+
+Compiled successfully!
+
+You can now view rideconnect in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://10.171.246.208:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled [1m[32msuccessfully[39m[22m

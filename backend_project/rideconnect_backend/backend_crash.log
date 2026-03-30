@@ -1,0 +1,1010 @@
+﻿venv\Scripts\python : 
+Watching for file 
+changes with 
+StatReloader
+At line:1 char:1
++ venv\Scripts\python 
+manage.py runserver 
+8000 2>&1 | Out-File 
+-FilePat ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (Watching for    
+ fi...th StatReload    
+er:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+HTTP GET / 200 [0.25, 
+127.0.0.1:62190]
+HTTP GET /static/rest_f
+ramework/css/bootstrap.
+min.css 200 [0.78, 
+127.0.0.1:62190]
+HTTP GET /static/rest_f
+ramework/css/bootstrap-
+tweaks.css 200 [0.71, 
+127.0.0.1:60991]
+HTTP GET /static/rest_f
+ramework/js/jquery-3.7.
+1.min.js 200 [0.43, 
+127.0.0.1:59078]
+HTTP GET /static/rest_f
+ramework/js/ajax-form.j
+s 200 [0.57, 
+127.0.0.1:65330]
+HTTP GET /static/rest_f
+ramework/css/prettify.c
+ss 200 [0.95, 
+127.0.0.1:60789]
+HTTP GET /static/rest_f
+ramework/css/default.cs
+s 200 [0.68, 
+127.0.0.1:61274]
+HTTP GET /static/rest_f
+ramework/js/csrf.js 
+200 [0.29, 
+127.0.0.1:62190]
+HTTP GET /static/rest_f
+ramework/js/prettify-mi
+n.js 200 [0.33, 
+127.0.0.1:59078]
+HTTP GET /static/rest_f
+ramework/js/bootstrap.m
+in.js 200 [0.35, 
+127.0.0.1:60991]
+HTTP GET /static/rest_f
+ramework/js/default.js 
+200 [0.27, 
+127.0.0.1:65330]
+HTTP GET /static/rest_f
+ramework/js/load-ajax-f
+orm.js 200 [0.25, 
+127.0.0.1:60789]
+HTTP GET /static/rest_f
+ramework/img/grid.png 
+200 [0.15, 
+127.0.0.1:61274]
+Not Found: /favicon.ico
+HTTP GET /favicon.ico 
+404 [0.08, 
+127.0.0.1:61274]
+HTTP GET / 200 [0.02, 
+127.0.0.1:65240]
+HTTP GET /static/rest_f
+ramework/css/bootstrap.
+min.css 200 [0.01, 
+127.0.0.1:65240]
+HTTP GET /static/rest_f
+ramework/css/bootstrap-
+tweaks.css 200 [0.01, 
+127.0.0.1:51347]
+HTTP GET /static/rest_f
+ramework/css/prettify.c
+ss 200 [0.02, 
+127.0.0.1:65240]
+HTTP GET /static/rest_f
+ramework/css/default.cs
+s 200 [0.01, 
+127.0.0.1:51347]
+HTTP GET /static/rest_f
+ramework/js/jquery-3.7.
+1.min.js 200 [0.03, 
+127.0.0.1:55139]
+HTTP GET /static/rest_f
+ramework/js/ajax-form.j
+s 200 [0.01, 
+127.0.0.1:65240]
+HTTP GET /static/rest_f
+ramework/js/csrf.js 
+200 [0.01, 
+127.0.0.1:51347]
+HTTP GET /static/rest_f
+ramework/js/bootstrap.m
+in.js 200 [0.02, 
+127.0.0.1:55139]
+HTTP GET /static/rest_f
+ramework/js/prettify-mi
+n.js 200 [0.01, 
+127.0.0.1:65240]
+HTTP GET /static/rest_f
+ramework/js/default.js 
+200 [0.01, 
+127.0.0.1:51347]
+HTTP GET /static/rest_f
+ramework/js/load-ajax-f
+orm.js 200 [0.01, 
+127.0.0.1:51347]
+HTTP GET /static/rest_f
+ramework/img/grid.png 
+200 [0.01, 
+127.0.0.1:51347]
+Not Found: /favicon.ico
+HTTP GET /favicon.ico 
+404 [0.02, 
+127.0.0.1:51347]
+HTTP OPTIONS 
+/api/register/ 200 
+[0.08, 127.0.0.1:65442]
+HTTP POST 
+/api/register/ 201 
+[7.96, 127.0.0.1:65442]
+HTTP GET /admin/ 302 
+[0.14, 127.0.0.1:58012]
+HTTP GET /admin/login/?
+next=/admin/ 200 
+[0.51, 127.0.0.1:58012]
+HTTP GET /static/admin/
+css/base.css 304 
+[0.01, 127.0.0.1:58012]
+HTTP GET /static/admin/
+css/dark_mode.css 304 
+[0.01, 127.0.0.1:52723]
+HTTP GET /static/admin/
+js/theme.js 304 [0.01, 
+127.0.0.1:63474]
+HTTP GET /static/admin/
+css/nav_sidebar.css 
+304 [0.01, 
+127.0.0.1:58012]
+HTTP GET /static/admin/
+css/login.css 304 
+[0.01, 127.0.0.1:52723]
+HTTP GET /static/admin/
+css/responsive.css 304 
+[0.01, 127.0.0.1:63474]
+HTTP GET /static/admin/
+js/nav_sidebar.js 304 
+[0.00, 127.0.0.1:63474]
+HTTP OPTIONS 
+/api/resend-otp/ 200 
+[0.02, 127.0.0.1:65442]
+HTTP POST 
+/api/resend-otp/ 200 
+[5.20, 127.0.0.1:65442]
+Not Found: /api/
+HTTP GET /api/ 404 
+[0.06, 127.0.0.1:63474]
+HTTP OPTIONS 
+/api/login/ 200 [0.04, 
+127.0.0.1:64024]
+Unauthorized: 
+/api/login/
+HTTP POST /api/login/ 
+401 [1.12, 
+127.0.0.1:64024]
+Unauthorized: 
+/api/user-preferences/
+HTTP GET /api/user-pref
+erences/?email=drivemat
+e.rideconnect%40gmail.c
+om 401 [0.29, 
+127.0.0.1:61967]
+HTTP GET 
+/api/admin/stats/ 200 
+[1.15, 127.0.0.1:61967]
+HTTP GET 
+/api/admin/bookings/ 
+200 [1.33, 
+127.0.0.1:54416]
+HTTP GET /api/admin/use
+rs/?role=all 200 
+[0.20, 127.0.0.1:54416]
+HTTP GET /api/admin/use
+rs/?role=customer 200 
+[0.17, 127.0.0.1:54416]
+HTTP GET /api/admin/use
+rs/?role=customer 200 
+[0.09, 127.0.0.1:61967]
+HTTP GET /api/admin/use
+rs/?role=driver 200 
+[0.07, 127.0.0.1:61967]
+HTTP GET /api/admin/use
+rs/?role=driver 200 
+[0.12, 127.0.0.1:54416]
+HTTP OPTIONS 
+/api/verify-otp/ 200 
+[0.00, 127.0.0.1:50837]
+Bad Request: 
+/api/verify-otp/
+HTTP POST 
+/api/verify-otp/ 400 
+[0.07, 127.0.0.1:50837]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.08, 127.0.0.1:54416]
+HTTP GET /api/admin/ver
+ification-requests/ 
+200 [0.20, 
+127.0.0.1:54416]
+HTTP OPTIONS /api/admin
+/active-drivers/ 200 
+[0.05, 127.0.0.1:54416]
+HTTP GET /api/admin/act
+ive-drivers/ 200 
+[0.11, 127.0.0.1:54416]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.08, 127.0.0.1:54416]
+HTTP GET /api/admin/act
+ive-drivers/ 200 
+[0.13, 127.0.0.1:61967]
+HTTP GET 
+/api/admin/bookings/ 
+200 [0.33, 
+127.0.0.1:61967]
+HTTP GET /api/admin/use
+rs/?role=driver 200 
+[0.02, 127.0.0.1:61967]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.04, 127.0.0.1:61967]
+HTTP GET 
+/api/admin/bookings/ 
+200 [0.05, 
+127.0.0.1:54416]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.01, 127.0.0.1:54416]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.01, 127.0.0.1:54416]
+HTTP POST /api/login/ 
+200 [5.69, 
+127.0.0.1:51938]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.01, 127.0.0.1:54416]
+HTTP POST 
+/api/verify-otp/ 200 
+[0.03, 127.0.0.1:51938]
+HTTP OPTIONS /api/user-
+profile/?email=sripadam
+prasannakumar%40gmail.c
+om 200 [0.00, 
+127.0.0.1:51011]
+Unauthorized: 
+/api/user-profile/
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+401 [0.01, 
+127.0.0.1:51938]
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+200 [0.01, 
+127.0.0.1:51938]
+HTTP OPTIONS /api/user-
+stats/?email=sripadampr
+asannakumar%40gmail.com
+ 200 [0.00, 
+127.0.0.1:51938]
+HTTP GET /api/user-stat
+s/?email=sripadamprasan
+nakumar%40gmail.com 
+200 [0.02, 
+127.0.0.1:51938]
+HTTP OPTIONS /api/ride/
+active/?email=sripadamp
+rasannakumar%40gmail.co
+m 200 [0.00, 
+127.0.0.1:51938]
+HTTP GET /api/ride/acti
+ve/?email=sripadamprasa
+nnakumar%40gmail.com 
+200 [0.02, 
+127.0.0.1:51938]
+HTTP OPTIONS /api/ride/
+history/?email=sripadam
+prasannakumar%40gmail.c
+om&role=customer 200 
+[0.00, 127.0.0.1:51938]
+HTTP GET /api/ride/hist
+ory/?email=sripadampras
+annakumar%40gmail.com&r
+ole=customer 200 
+[0.01, 127.0.0.1:51938]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.01, 127.0.0.1:54416]
+Unauthorized: 
+/api/user-profile/
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+401 [0.01, 
+127.0.0.1:51938]
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+200 [0.01, 
+127.0.0.1:51938]
+HTTP GET /api/user-stat
+s/?email=sripadamprasan
+nakumar%40gmail.com 
+200 [0.01, 
+127.0.0.1:51938]
+HTTP GET /api/ride/acti
+ve/?email=sripadamprasa
+nnakumar%40gmail.com 
+200 [0.02, 
+127.0.0.1:51938]
+HTTP GET /api/ride/hist
+ory/?email=sripadampras
+annakumar%40gmail.com&r
+ole=customer 200 
+[0.01, 127.0.0.1:51938]
+HTTP OPTIONS /api/user-
+vehicles/?email=sripada
+mprasannakumar%40gmail.
+com 200 [0.00, 
+127.0.0.1:51011]
+Unauthorized: 
+/api/user-profile/
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+401 [0.02, 
+127.0.0.1:51938]
+HTTP GET /api/user-vehi
+cles/?email=sripadampra
+sannakumar%40gmail.com 
+200 [0.02, 
+127.0.0.1:51011]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.01, 127.0.0.1:54416]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.01, 127.0.0.1:54416]
+HTTP OPTIONS 
+/api/ride/request/ 200 
+[0.00, 127.0.0.1:58316]
+HTTP POST 
+/api/ride/request/ 201 
+[0.04, 127.0.0.1:58316]
+WebSocket HANDSHAKING /
+ws/ride/sripadamprasann
+akumar@gmail.com/ 
+[127.0.0.1:57634]
+Unauthorized: 
+/api/user-profile/
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+401 [0.04, 
+127.0.0.1:58316]
+Exception inside 
+application: Group 
+name must be a valid 
+unicode string with 
+length < 100 
+containing only ASCII 
+alphanumerics, 
+hyphens, underscores, 
+or periods.
+Traceback (most recent 
+call last):
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\django\cont
+rib\staticfiles\handler
+s.py", line 101, in 
+__call__
+    return await self.a
+pplication(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ro
+uting.py", line 48, in 
+__call__
+    return await 
+application(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\se
+ssions.py", line 44, 
+in __call__
+    return await 
+self.inner(dict(scope, 
+cookies=cookies), 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\se
+ssions.py", line 261, 
+in __call__
+    return await self.i
+nner(wrapper.scope, 
+receive, wrapper.send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\au
+th.py", line 185, in 
+__call__
+    return await super(
+).__call__(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\mi
+ddleware.py", line 24, 
+in __call__
+    return await 
+self.inner(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ro
+uting.py", line 118, 
+in __call__
+    return await 
+application(
+           
+^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+    )
+    ^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\co
+nsumer.py", line 95, 
+in app
+    return await 
+consumer(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\co
+nsumer.py", line 58, 
+in __call__
+    await 
+await_many_dispatch(
+        [receive, 
+self.channel_receive], 
+self.dispatch
+    )
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ut
+ils.py", line 50, in 
+await_many_dispatch
+    await 
+dispatch(result)
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\co
+nsumer.py", line 74, 
+in dispatch
+    await 
+handler(message)
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ge
+neric\websocket.py", 
+line 180, in 
+websocket_connect
+    await 
+self.connect()
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\ride\consum
+ers.py", line 26, in 
+connect
+    await self.channel_
+layer.group_add(
+    ...<2 lines>...
+    )
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\la
+yers.py", line 368, in 
+group_add
+    self.require_valid_
+group_name(group)
+    ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\la
+yers.py", line 168, in 
+require_valid_group_nam
+e
+    raise TypeError(sel
+f.invalid_name_error.fo
+rmat("Group"))
+TypeError: Group name 
+must be a valid 
+unicode string with 
+length < 100 
+containing only ASCII 
+alphanumerics, 
+hyphens, underscores, 
+or periods.
+WebSocket DISCONNECT /w
+s/ride/sripadamprasanna
+kumar@gmail.com/ 
+[127.0.0.1:57634]
+Unauthorized: 
+/api/user-profile/
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+401 [0.02, 
+127.0.0.1:58316]
+HTTP GET /api/user-vehi
+cles/?email=sripadampra
+sannakumar%40gmail.com 
+200 [0.03, 
+127.0.0.1:56278]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.01, 127.0.0.1:54416]
+Unauthorized: 
+/api/user-preferences/
+HTTP GET /api/user-pref
+erences/?email=drivemat
+e.rideconnect%40gmail.c
+om 401 [0.04, 
+127.0.0.1:52835]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.05, 127.0.0.1:54416]
+HTTP GET 
+/api/admin/bookings/ 
+200 [0.05, 
+127.0.0.1:63967]
+Unauthorized: 
+/api/user-preferences/
+HTTP GET /api/user-pref
+erences/?email=drivemat
+e.rideconnect%40gmail.c
+om 401 [0.01, 
+127.0.0.1:63967]
+HTTP GET 
+/api/admin/stats/ 200 
+[0.04, 127.0.0.1:63967]
+HTTP GET 
+/api/admin/bookings/ 
+200 [0.06, 
+127.0.0.1:54416]
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/stats/ 401 
+[0.01, 127.0.0.1:54416]
+Unauthorized: 
+/api/admin/bookings/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.01, 
+127.0.0.1:63967]
+Unauthorized: 
+/api/admin/bookings/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.02, 
+127.0.0.1:54416]
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/stats/ 401 
+[0.03, 127.0.0.1:63967]
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/stats/ 401 
+[0.01, 127.0.0.1:63967]
+Unauthorized: 
+/api/admin/bookings/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.02, 
+127.0.0.1:54416]
+Unauthorized: 
+/api/admin/bookings/
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.01, 
+127.0.0.1:63967]
+HTTP GET 
+/api/admin/stats/ 401 
+[0.01, 127.0.0.1:54416]
+Unauthorized: 
+/api/admin/bookings/
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.01, 
+127.0.0.1:63967]
+HTTP GET 
+/api/admin/stats/ 401 
+[0.02, 127.0.0.1:54416]
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/stats/ 401 
+[0.02, 127.0.0.1:54416]
+Unauthorized: 
+/api/admin/bookings/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.02, 
+127.0.0.1:63967]
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/stats/ 401 
+[0.02, 127.0.0.1:63967]
+Unauthorized: 
+/api/admin/bookings/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.02, 
+127.0.0.1:54416]
+Unauthorized: 
+/api/admin/bookings/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.01, 
+127.0.0.1:63967]
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/stats/ 401 
+[0.01, 127.0.0.1:54416]
+Unauthorized: 
+/api/admin/bookings/
+HTTP GET 
+/api/admin/bookings/ 
+401 [0.06, 
+127.0.0.1:63967]
+Unauthorized: 
+/api/admin/stats/
+HTTP GET 
+/api/admin/stats/ 401 
+[0.06, 127.0.0.1:54416]
+HTTP POST /api/login/ 
+200 [6.01, 
+127.0.0.1:54416]
+HTTP POST 
+/api/verify-otp/ 200 
+[0.03, 127.0.0.1:54416]
+HTTP OPTIONS /api/user-
+profile/?email=nani6305
+627782%40gmail.com 200 
+[0.01, 127.0.0.1:54416]
+HTTP OPTIONS /api/user-
+profile/?email=nani6305
+627782%40gmail.com 200 
+[0.01, 127.0.0.1:56696]
+HTTP OPTIONS /api/drive
+r/verification-status/?
+email=nani6305627782%40
+gmail.com 200 [0.01, 
+127.0.0.1:63967]
+HTTP OPTIONS /api/drive
+r/verification-status/?
+email=nani6305627782%40
+gmail.com 200 [0.01, 
+127.0.0.1:57741]
+HTTP OPTIONS /api/drive
+r/dashboard-stats/?emai
+l=nani6305627782%40gmai
+l.com 200 [0.01, 
+127.0.0.1:61130]
+HTTP GET /api/user-prof
+ile/?email=nani63056277
+82%40gmail.com 200 
+[0.05, 127.0.0.1:54416]
+HTTP GET /api/driver/ve
+rification-status/?emai
+l=nani6305627782%40gmai
+l.com 200 [0.04, 
+127.0.0.1:63967]
+HTTP GET /api/driver/da
+shboard-stats/?email=na
+ni6305627782%40gmail.co
+m 200 [0.04, 
+127.0.0.1:61130]
+HTTP GET /api/driver/ve
+rification-status/?emai
+l=nani6305627782%40gmai
+l.com 200 [0.03, 
+127.0.0.1:54416]
+HTTP GET /api/user-prof
+ile/?email=nani63056277
+82%40gmail.com 200 
+[0.04, 127.0.0.1:57741]
+HTTP OPTIONS /api/drive
+r/status-toggle/ 200 
+[0.00, 127.0.0.1:57741]
+HTTP POST /api/driver/s
+tatus-toggle/ 200 
+[0.01, 127.0.0.1:57741]
+HTTP POST 
+/api/ride/request/ 201 
+[0.03, 127.0.0.1:64348]
+WebSocket HANDSHAKING /
+ws/ride/sripadamprasann
+akumar@gmail.com/ 
+[127.0.0.1:65432]
+Unauthorized: 
+/api/user-profile/
+HTTP GET /api/user-prof
+ile/?email=sripadampras
+annakumar%40gmail.com 
+401 [0.01, 
+127.0.0.1:64348]
+Exception inside 
+application: Group 
+name must be a valid 
+unicode string with 
+length < 100 
+containing only ASCII 
+alphanumerics, 
+hyphens, underscores, 
+or periods.
+Traceback (most recent 
+call last):
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\django\cont
+rib\staticfiles\handler
+s.py", line 101, in 
+__call__
+    return await self.a
+pplication(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ro
+uting.py", line 48, in 
+__call__
+    return await 
+application(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\se
+ssions.py", line 44, 
+in __call__
+    return await 
+self.inner(dict(scope, 
+cookies=cookies), 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\se
+ssions.py", line 261, 
+in __call__
+    return await self.i
+nner(wrapper.scope, 
+receive, wrapper.send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\au
+th.py", line 185, in 
+__call__
+    return await super(
+).__call__(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\mi
+ddleware.py", line 24, 
+in __call__
+    return await 
+self.inner(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ro
+uting.py", line 118, 
+in __call__
+    return await 
+application(
+           
+^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+    )
+    ^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\co
+nsumer.py", line 95, 
+in app
+    return await 
+consumer(scope, 
+receive, send)
+           ^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
+^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\co
+nsumer.py", line 58, 
+in __call__
+    await 
+await_many_dispatch(
+        [receive, 
+self.channel_receive], 
+self.dispatch
+    )
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ut
+ils.py", line 50, in 
+await_many_dispatch
+    await 
+dispatch(result)
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\co
+nsumer.py", line 74, 
+in dispatch
+    await 
+handler(message)
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\ge
+neric\websocket.py", 
+line 180, in 
+websocket_connect
+    await 
+self.connect()
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\ride\consum
+ers.py", line 26, in 
+connect
+    await self.channel_
+layer.group_add(
+    ...<2 lines>...
+    )
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\la
+yers.py", line 368, in 
+group_add
+    self.require_valid_
+group_name(group)
+    ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~^^^^^^^
+  File "C:\Users\Lenovo
+\Desktop\Ride Connect\b
+ackend_project\rideconn
+ect_backend\venv\Lib\si
+te-packages\channels\la
+yers.py", line 168, in 
+require_valid_group_nam
+e
+    raise TypeError(sel
+f.invalid_name_error.fo
+rmat("Group"))
+TypeError: Group name 
+must be a valid 
+unicode string with 
+length < 100 
+containing only ASCII 
+alphanumerics, 
+hyphens, underscores, 
+or periods.
+WebSocket DISCONNECT /w
+s/ride/sripadamprasanna
+kumar@gmail.com/ 
+[127.0.0.1:65432]
+HTTP OPTIONS /api/drive
+r/status-toggle/ 200 
+[0.00, 127.0.0.1:55401]
+HTTP OPTIONS /api/drive
+r/status-toggle/ 200 
+[0.01, 127.0.0.1:55401]

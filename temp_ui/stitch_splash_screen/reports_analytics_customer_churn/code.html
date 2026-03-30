@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate - Reports &amp; Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-primary/10 bg-background-light dark:bg-background-dark flex flex-col fixed h-full z-50">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">local_taxi</span>
+</div>
+<div>
+<h1 class="text-xl font-black tracking-tight text-slate-900 dark:text-white">DriveMate</h1>
+<p class="text-xs font-medium text-primary uppercase tracking-widest">Admin Panel</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-sm font-medium">Driver Verification</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">steering_wheel_heat</span>
+<span class="text-sm font-medium">Driver Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-sm font-medium">Booking Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Payment Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/20 text-primary rounded-lg transition-colors border border-primary/20" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-bold">Reports &amp; Analytics</span>
+</a>
+</nav>
+<div class="p-4 border-t border-primary/10">
+<div class="flex items-center gap-3 p-2 bg-slate-100 dark:bg-slate-800/50 rounded-xl">
+<div class="size-10 rounded-full bg-primary/30 flex items-center justify-center overflow-hidden">
+<img alt="Admin Profile" data-alt="Close up of professional man's portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAHkwaMivAtTnnbQ-A4vVtEGE2xMoL7LI-ts17pTbYxW6JejRikeDwOQ4KZGihESAZT9mZBwBdxDCn4ajWJvVYozLaD-G0G1K0h0mnoYIAuTrqMBH2HR8jeRn82C5hXTSTldcwq4nzfuz0wCfw7eeQqfevdGhUt2XwXBrcQ7XWSyRYnJKjzNaUmLdYF6poIb6fzfmlVe4E11oQq1gP4VTPixosm4NVJ4fro_f04XbTsTGByvDV3yidbUU9qLEunezQTMk6aDBu_m4"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-sm font-bold truncate dark:text-white text-slate-900">Alex Thompson</p>
+<p class="text-xs text-slate-500 truncate">System Administrator</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-sm">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col">
+<!-- Top Bar -->
+<header class="h-16 border-b border-primary/10 flex items-center justify-between px-8 bg-background-light dark:bg-background-dark sticky top-0 z-40">
+<div class="flex items-center gap-4 bg-slate-100 dark:bg-slate-800/50 px-4 py-2 rounded-lg w-96 border border-primary/5">
+<span class="material-symbols-outlined text-slate-400">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-500" placeholder="Search reports, drivers, or trips..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full ring-2 ring-background-dark"></span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-6 w-px bg-primary/20"></div>
+<div class="text-right">
+<p class="text-xs font-medium text-slate-500">Local Time</p>
+<p class="text-sm font-bold dark:text-white text-slate-900">14:32 PM</p>
+</div>
+</div>
+</header>
+<!-- Content Content Container -->
+<div class="p-8 space-y-8">
+<!-- Header & Date Picker -->
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-3xl font-black tracking-tight dark:text-white text-slate-900">Reports &amp; Analytics</h2>
+<p class="text-slate-500 font-medium">Comprehensive performance insights for DriveMate network.</p>
+</div>
+<div class="flex gap-3">
+<div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-lg border border-primary/10">
+<span class="material-symbols-outlined text-primary text-sm">calendar_month</span>
+<select class="bg-transparent border-none focus:ring-0 text-sm font-bold pr-8">
+<option>Last 7 Days</option>
+<option selected="">Last 30 Days</option>
+<option>Last 90 Days</option>
+<option>Custom Range</option>
+</select>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-background-dark px-4 py-2 rounded-lg font-bold text-sm transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Export PDF/CSV
+                    </button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="size-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="flex items-center gap-1 text-emerald-500 text-xs font-bold bg-emerald-500/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs">trending_up</span> 12.5%
+                        </span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Total Revenue</p>
+<h3 class="text-2xl font-black dark:text-white text-slate-900 mt-1">$128,450.00</h3>
+</div>
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="size-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">local_taxi</span>
+</div>
+<span class="flex items-center gap-1 text-emerald-500 text-xs font-bold bg-emerald-500/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs">trending_up</span> 8.2%
+                        </span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Total Rides</p>
+<h3 class="text-2xl font-black dark:text-white text-slate-900 mt-1">12,840</h3>
+</div>
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="size-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">star</span>
+</div>
+<span class="flex items-center gap-1 text-emerald-500 text-xs font-bold bg-emerald-500/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs">trending_up</span> 0.4%
+                        </span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Avg. Rating</p>
+<h3 class="text-2xl font-black dark:text-white text-slate-900 mt-1">4.8 / 5.0</h3>
+</div>
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="size-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined">airline_seat_recline_normal</span>
+</div>
+<span class="flex items-center gap-1 text-rose-500 text-xs font-bold bg-rose-500/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs">trending_down</span> 2.1%
+                        </span>
+</div>
+<p class="text-slate-500 text-sm font-medium">Active Drivers</p>
+<h3 class="text-2xl font-black dark:text-white text-slate-900 mt-1">1,204</h3>
+</div>
+</div>
+<!-- Main Chart: Revenue vs Rides -->
+<div class="bg-white dark:bg-slate-800/40 p-8 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h4 class="text-lg font-bold dark:text-white">Revenue vs Rides Performance</h4>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-xs font-medium text-slate-500">Revenue ($)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-slate-400"></span>
+<span class="text-xs font-medium text-slate-500">Total Rides</span>
+</div>
+</div>
+</div>
+<!-- Mock Chart Area -->
+<div class="h-80 w-full relative">
+<div class="absolute inset-0 flex items-end justify-between px-2 opacity-50">
+<div class="h-1/3 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-2/3 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-1/2 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-3/4 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-4/5 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-1/2 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-2/3 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-full w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-3/4 w-8 bg-primary/40 rounded-t-sm"></div>
+<div class="h-5/6 w-8 bg-primary/40 rounded-t-sm"></div>
+</div>
+<div class="absolute inset-0 flex flex-col justify-between py-2">
+<div class="w-full border-t border-slate-700/50 border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/50 border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/50 border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/50 border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/50 border-slate-700/30"></div>
+</div>
+<!-- Curved line mock -->
+<svg class="absolute inset-0 h-full w-full" preserveaspectratio="none" viewbox="0 0 1000 300"><defs><lineargradient id="lineGradient" x1="0%" x2="0%" y1="0%" y2="100%"><stop offset="0%" stop-color="#0dccf2" stop-opacity="0.3"></stop><stop offset="100%" stop-color="#0dccf2" stop-opacity="0"></stop></lineargradient></defs><path d="M0,280 C50,280 50,180 100,180 C150,180 150,240 200,240 C250,240 250,120 300,120 C350,120 350,200 400,200 C450,200 450,60 500,60 C550,60 550,150 600,150 C650,150 650,40 700,40 C750,40 750,180 800,180 C850,180 850,20 900,20 C950,20 950,60 1000,60" fill="none" stroke="#0dccf2" stroke-linecap="round" stroke-width="4"></path><path d="M0,280 C50,280 50,180 100,180 C150,180 150,240 200,240 C250,240 250,120 300,120 C350,120 350,200 400,200 C450,200 450,60 500,60 C550,60 550,150 600,150 C650,150 650,40 700,40 C750,40 750,180 800,180 C850,180 850,20 900,20 C950,20 950,60 1000,60 L1000,300 L0,300 Z" fill="url(#lineGradient)"></path><circle class="hover:r-7 transition-all cursor-pointer shadow-[0_0_15px_#0dccf2]" cx="100" cy="180" fill="#0dccf2" r="5"></circle><circle class="hover:r-7 transition-all cursor-pointer shadow-[0_0_15px_#0dccf2]" cx="500" cy="60" fill="#0dccf2" r="5"></circle><circle class="hover:r-7 transition-all cursor-pointer shadow-[0_0_15px_#0dccf2]" cx="900" cy="20" fill="#0dccf2" r="5"></circle></svg>
+</div>
+<div class="flex justify-between mt-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">
+<span>Week 1</span>
+<span>Week 2</span>
+<span>Week 3</span>
+<span>Week 4</span>
+</div>
+</div>
+<!-- Secondary Charts Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Ride Categories -->
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-xl border border-primary/10">
+<h4 class="text-md font-bold dark:text-white mb-6">Ride Categories</h4>
+<div class="relative flex justify-center items-center h-48">
+<!-- Mock Donut Chart -->
+<div class="size-40 rounded-full border-[14px] border-primary border-l-slate-800/80 border-b-primary/40 flex flex-col items-center justify-center transition-transform hover:scale-105 duration-300"><div class="flex flex-col items-center justify-center"><span class="text-3xl font-black text-primary drop-shadow-[0_0_8px_rgba(13,204,242,0.4)]">74%</span><span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Instant</span></div></div>
+</div>
+<div class="space-y-3 mt-4">
+<div class="flex items-center justify-between text-sm">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-slate-400">Instant Booking</span>
+</div>
+<span class="font-bold">74%</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary/50"></span>
+<span class="text-slate-400">Scheduled Ride</span>
+</div>
+<span class="font-bold">26%</span>
+</div>
+</div>
+</div>
+<!-- Top Performing Drivers -->
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-xl border border-primary/10">
+<h4 class="text-md font-bold dark:text-white mb-6">Top Performing Drivers</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/10 overflow-hidden">
+<img alt="Driver" data-alt="Portrait of a smiling male driver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjjF2JsnRpM17pqCjoS60HlFv6lKYE7z4VjZvIbXCvyepa49HkzI3KF8siMd5UnmBhZnJdrbfLFiJTsMPS7SnfYjnD8MP3SWJkcL8HsbMwVYODKwV7mFbnvbnpex-P2jYDl2k9UAvbk03pLqq4e1fn4Iwo9XYbS3qd7Eei4vBv23eyWD8wRrQIh1DGYwp6q79tpXMUR4gNl0COSwg41EYp-AAYW7uHuXMj_zZffVOjyWo-g83B0NxUhsRpjm13Lc-qzrSNlAgS5G4"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-bold">Robert Fox</span>
+<span class="text-xs text-primary">$4,230</span>
+</div>
+<div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[92%]"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/10 overflow-hidden">
+<img alt="Driver" data-alt="Portrait of a professional female driver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWlTAo8sTw4HyaKCGbR0DfdKng8Jhg2wBtglu_o1mepTmU7fc3MiG-3VnM649RV0cUfFaKWZwPhvPV4mRDxf_Aix1fwUVGiNXCu69dMGSXx5CZxyqKzRPbatAnGR_X9sfMBhmbqD5O-702LctKbNUll6TImqQtO1uHSJ4H-LKIDeT-p3Jo_4uUedeSbLZWYCSlfUAh4e9expc3ElyeqoRyzXC_HQlJM2AlyK1fjbo1Nw42u3neVSuMk5QJ_sx8Xk1mV-6Thj0obzk"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-bold">Jane Cooper</span>
+<span class="text-xs text-primary">$3,890</span>
+</div>
+<div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%]"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/10 overflow-hidden">
+<img alt="Driver" data-alt="Portrait of a young male driver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsljCMjwKl7OOigAvqrBbFki_HVRcwxadsu-tqp82jwQETvP2t4VR3-Yj5fXg5Qc_ngFhIvnC6O_F2cydBofPzJg8TpEj9Q09mI83KzBh1ExMleH7jnLsuG1SwFJTl4fm4dxmXjJiOBdsA_OtyhdwKlCJopNoPh1-R1Ztnm3p2Lwc2lnQxUNdwn31OXbY166m-7LJzpih9JQzywoTcYFxKMwVhekLzrzQlJUfPJVZKkpaxxI9oZfRLmqNblCyowLs2K9jUYXmwV0s"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-bold">Cody Fisher</span>
+<span class="text-xs text-primary">$3,120</span>
+</div>
+<div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[70%]"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/10 overflow-hidden">
+<img alt="Driver" data-alt="Portrait of a professional driver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-0PqGqclipOwXfL4sILKCTGvlZWvrSvoM9SZ3UWlB-oD_NoKtd4RlJ-YkxRtYMRSQ97Hmtln5BQqHIyTYQBnv3K2mNlNoIcSrAp8RywbYWZaK-g1h3alEA8L2Vy-eA-k9XwvNE7pPTV0QNRmp56zr59rhtT7ChfpRv6NriQvH7BvSSmVDMmYH03gVOTCI6t5HXgwb0BWqnGchKZuM3VlCoyVie9wlhowuiUoSvpMFuvIE72pWUptgKPS7qowkyJ2OaSDrWpXGmsU"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-bold">Eleanor Pena</span>
+<span class="text-xs text-primary">$2,940</span>
+</div>
+<div class="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[65%]"></div>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border border-primary/20 text-xs font-bold uppercase tracking-widest text-primary hover:bg-primary hover:text-background-dark rounded-lg transition-all">View All Drivers</button>
+</div>
+<!-- Peak Hours Heatmap Mock -->
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-xl border border-primary/10">
+<h4 class="text-md font-bold dark:text-white mb-6">Peak Hours Activity</h4>
+<div class="grid grid-cols-7 gap-1"><div class="h-8 bg-primary/5 rounded-sm hover:ring-1 ring-primary/30 transition-all" title="Mon 12am"></div><div class="h-8 bg-primary/20 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/40 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/70 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/90 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/60 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/30 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/10 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/25 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/50 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/80 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/70 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/30 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/15 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/30 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/60 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/85 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary rounded-sm hover:ring-1 ring-primary/30 transition-all shadow-[0_0_10px_rgba(13,204,242,0.3)]"></div><div class="h-8 bg-primary/60 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/20 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/10 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/35 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/65 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/90 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary rounded-sm hover:ring-1 ring-primary/30 transition-all shadow-[0_0_10px_rgba(13,204,242,0.3)]"></div><div class="h-8 bg-primary/50 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div><div class="h-8 bg-primary/25 rounded-sm hover:ring-1 ring-primary/30 transition-all"></div></div>
+<div class="flex justify-between mt-6 pt-4 border-t border-primary/5"><div class="flex items-center gap-3"><span class="text-[10px] text-slate-500 font-extrabold tracking-widest">MIN ACTIVITY</span><div class="flex gap-1.5"><div class="size-2.5 bg-primary/10 rounded-sm"></div><div class="size-2.5 bg-primary/50 rounded-sm"></div><div class="size-2.5 bg-primary rounded-sm shadow-[0_0_5px_rgba(13,204,242,0.5)]"></div></div><span class="text-[10px] text-primary font-extrabold tracking-widest">PEAK LOAD</span></div><div class="flex items-center gap-1 text-[10px] text-slate-500 font-bold"><span class="material-symbols-outlined text-[14px]">monitoring</span><span class="uppercase tracking-widest">Weekly Trend</span></div></div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-white dark:bg-slate-800/40 p-8 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold dark:text-white">Driver Earnings Distribution</h4>
+<p class="text-xs text-slate-500 font-medium mt-1">Comparison between total gross earnings and platform service fees.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-xs font-medium text-slate-500">Gross Earnings ($)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-slate-600"></span>
+<span class="text-xs font-medium text-slate-500">Platform Fees ($)</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between py-2">
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+</div>
+<!-- Area Chart Mockup -->
+<svg class="absolute inset-0 h-full w-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+<defs>
+<lineargradient id="grossGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#0dccf2" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#0dccf2" stop-opacity="0"></stop>
+</lineargradient>
+<lineargradient id="feesGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#475569" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#475569" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Fees Area (Secondary) -->
+<path d="M0,180 C100,175 200,185 300,170 C400,165 500,175 600,160 C700,155 800,165 900,150 L1000,145 L1000,200 L0,200 Z" fill="url(#feesGradient)"></path>
+<path d="M0,180 C100,175 200,185 300,170 C400,165 500,175 600,160 C700,155 800,165 900,150 L1000,145" fill="none" stroke="#475569" stroke-dasharray="4 2" stroke-width="2"></path>
+<!-- Gross Earnings Area (Primary) -->
+<path d="M0,150 C100,140 200,160 300,120 C400,110 500,140 600,90 C700,80 800,110 900,60 L1000,50 L1000,200 L0,200 Z" fill="url(#grossGradient)"></path>
+<path d="M0,150 C100,140 200,160 300,120 C400,110 500,140 600,90 C700,80 800,110 900,60 L1000,50" fill="none" stroke="#0dccf2" stroke-width="3"></path>
+<!-- Data points -->
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="300" cy="120" fill="#0dccf2" r="4"></circle>
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="600" cy="90" fill="#0dccf2" r="4"></circle>
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="900" cy="60" fill="#0dccf2" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between mt-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">
+<span>Week 1</span>
+<span>Week 2</span>
+<span>Week 3</span>
+<span>Week 4</span>
+</div>
+</div><!-- Driver Retention Trend Section -->
+<div class="bg-white dark:bg-slate-800/40 p-8 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold dark:text-white">Driver Retention Trend</h4>
+<p class="text-xs text-slate-500 font-medium mt-1">Percentage of active drivers retained month-over-month (Last 6 Months).</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-xs font-medium text-slate-500">Retention Rate (%)</span>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between py-2">
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+</div>
+<!-- Retention Line Chart Mockup -->
+<svg class="absolute inset-0 h-full w-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+<defs>
+<lineargradient id="retentionGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#0dccf2" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#0dccf2" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,100 C100,110 200,80 300,90 C400,70 500,85 600,60 C700,65 800,45 900,50 L1000,40 L1000,200 L0,200 Z" fill="url(#retentionGradient)"></path>
+<path d="M0,100 C100,110 200,80 300,90 C400,70 500,85 600,60 C700,65 800,45 900,50 L1000,40" fill="none" stroke="#0dccf2" stroke-linecap="round" stroke-width="3"></path>
+<!-- Data Points -->
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="200" cy="80" fill="#0dccf2" r="4"></circle>
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="400" cy="70" fill="#0dccf2" r="4"></circle>
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="600" cy="60" fill="#0dccf2" r="4"></circle>
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="800" cy="45" fill="#0dccf2" r="4"></circle>
+<circle class="shadow-[0_0_10px_#0dccf2]" cx="1000" cy="40" fill="#0dccf2" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between mt-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">
+<span>May</span>
+<span>Jun</span>
+<span>Jul</span>
+<span>Aug</span>
+<span>Sep</span>
+<span>Oct</span>
+</div>
+</div><!-- Customer Churn Report Section -->
+<div class="bg-white dark:bg-slate-800/40 p-8 rounded-xl border border-primary/10 shadow-sm">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+<!-- Churn Rate Line Chart -->
+<div class="lg:col-span-2">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold dark:text-white">Customer Churn Report</h4>
+<p class="text-xs text-slate-500 font-medium mt-1">Monthly churn rate percentage (Last 6 Months).</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-rose-500"></span>
+<span class="text-xs font-medium text-slate-500">Churn Rate (%)</span>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between py-2">
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+<div class="w-full border-t border-slate-700/30"></div>
+</div>
+<!-- Churn Line Chart Mockup -->
+<svg class="absolute inset-0 h-full w-full" preserveaspectratio="none" viewbox="0 0 1000 200">
+<defs>
+<lineargradient id="churnGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#f43f5e" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#f43f5e" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,150 C100,140 200,160 300,130 C400,140 500,110 600,120 C700,90 800,100 900,70 L1000,60 L1000,200 L0,200 Z" fill="url(#churnGradient)"></path>
+<path d="M0,150 C100,140 200,160 300,130 C400,140 500,110 600,120 C700,90 800,100 900,70 L1000,60" fill="none" stroke="#f43f5e" stroke-linecap="round" stroke-width="3"></path>
+<!-- Data Points -->
+<circle cx="200" cy="160" fill="#f43f5e" r="4"></circle>
+<circle cx="400" cy="140" fill="#f43f5e" r="4"></circle>
+<circle cx="600" cy="120" fill="#f43f5e" r="4"></circle>
+<circle cx="800" cy="100" fill="#f43f5e" r="4"></circle>
+<circle cx="1000" cy="60" fill="#f43f5e" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between mt-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest px-2">
+<span>May</span>
+<span>Jun</span>
+<span>Jul</span>
+<span>Aug</span>
+<span>Sep</span>
+<span>Oct</span>
+</div>
+</div>
+<!-- Churn Reasons Breakdown -->
+<div class="border-l border-primary/10 pl-0 lg:pl-10">
+<h4 class="text-md font-bold dark:text-white mb-6">Primary Churn Reasons</h4>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-sm font-medium text-slate-400">Pricing &amp; Fees</span>
+<span class="text-sm font-bold text-primary">42%</span>
+</div>
+<div class="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[42%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-sm font-medium text-slate-400">Driver Availability</span>
+<span class="text-sm font-bold text-primary">28%</span>
+</div>
+<div class="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[28%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-sm font-medium text-slate-400">App Performance</span>
+<span class="text-sm font-bold text-primary">18%</span>
+</div>
+<div class="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[18%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="text-sm font-medium text-slate-400">Customer Support</span>
+<span class="text-sm font-bold text-primary">12%</span>
+</div>
+<div class="w-full h-2 bg-slate-700/50 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[12%]"></div>
+</div>
+</div>
+</div>
+<p class="mt-8 text-[10px] text-slate-500 italic">* Based on exit surveys from the last 30 days.</p>
+</div>
+</div>
+</div><div class="bg-white dark:bg-slate-800/40 rounded-xl border border-primary/10 overflow-hidden">
+<div class="p-6 border-b border-primary/10 flex items-center justify-between">
+<h4 class="text-lg font-bold dark:text-white">Recent High-Value Trips</h4>
+<button class="text-primary text-sm font-bold hover:underline">View All Trips</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-100 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Trip ID</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Driver</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Customer</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Date/Time</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Revenue</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium">#DM-93421</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700"></div>
+<span class="text-sm">Guy Hawkins</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Kathryn Murphy</td>
+<td class="px-6 py-4 text-sm text-slate-400">Oct 24, 2023 11:32 AM</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$156.40</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-500 uppercase">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium">#DM-93420</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700"></div>
+<span class="text-sm">Bessie Cooper</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Arlene McCoy</td>
+<td class="px-6 py-4 text-sm text-slate-400">Oct 24, 2023 10:15 AM</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$132.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-500 uppercase">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium">#DM-93419</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-slate-700"></div>
+<span class="text-sm">Darlene Robertson</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Jacob Jones</td>
+<td class="px-6 py-4 text-sm text-slate-400">Oct 24, 2023 09:44 AM</td>
+<td class="px-6 py-4 text-sm font-bold text-primary">$198.50</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-amber-500/10 text-amber-500 uppercase">In Progress</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="p-8 mt-auto border-t border-primary/10 bg-slate-50 dark:bg-slate-900/50">
+<div class="flex items-center justify-between text-xs font-medium text-slate-500">
+<p>© 2024 DriveMate Logistics Inc. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">System Status</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

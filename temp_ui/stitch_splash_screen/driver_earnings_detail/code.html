@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate - Earnings Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                        "surface": "#1a2e32",
+                        "surface-light": "#224249"
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #224249;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-background-dark border-r border-surface-light flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="DriveMate Logo Image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD48lU8sjfVv6kkAEzCCARSvUUFrmBUZGX29vplDQ-NxQDqvH9Ozc_MQSnS9PJj5sp1PZbVD3BX2DApPTX5Z5BqTLyr7PqBAbeb7C2qcePfLYem2A4DMXBYqYSW3ygxqwMvcCUZSPeTFLR9tnLRIzgkB5Qtv1-9Hg7mNYyXqcYhZKcINYryJ441H2Q9poiWY1_ujipWGkhEYBq-zfNXPssQVLaxTHwJ3TqKki-kdVPcH6baTjjAdZDqbbVXM5A3NeN10E1a-54spGE"/>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-100 text-lg font-bold leading-none">DriveMate</h1>
+<p class="text-primary text-xs font-medium">Driver Partner</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-primary hover:bg-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Earnings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-primary hover:bg-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-sm font-medium">Trip History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-primary hover:bg-surface rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-6 border-t border-surface-light">
+<button class="w-full bg-primary text-background-dark font-bold py-3 rounded-xl hover:bg-opacity-90 transition-all shadow-lg shadow-primary/20">
+                Withdraw Funds
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto custom-scrollbar flex flex-col">
+<!-- Top Header -->
+<header class="h-20 flex items-center justify-between px-8 bg-background-dark/50 backdrop-blur-md sticky top-0 z-10 border-b border-surface-light">
+<div class="flex items-center gap-4">
+<div class="p-2 rounded-lg bg-surface-light text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Earnings Detail</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-px bg-surface-light mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="text-sm font-semibold">Alex Rivera</p>
+<p class="text-[10px] text-primary uppercase font-bold tracking-widest leading-none">Gold Tier</p>
+</div>
+<div class="size-10 rounded-full bg-surface-light border-2 border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Driver Profile Picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsMBQCYHc2TSKz3qrhSGMRZTRZg0gD8UJCpBWUwxPPNKE7ODDcNKNviMebN2y8fBy999tvvo6bAGEXOkBv975i6ySBYqQL-JyCo1TuBdEaifTrKjvpLgVhPAiJfibNiNhCnwUgemC8_YsJVnEGwGyhwibVECuCbHFN-af1BguuCtCaQkhcUnhdw1LXIKpd5q7SHMJ8Dlvw4xnfQeBuSwR1MD7z1ndWMQm-pdEYCFp4Px_jvT0c_OjE4bH0oICApIDJm_XjPGMSAMc"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-8 max-w-7xl mx-auto w-full">
+<!-- Summary Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-surface p-6 rounded-2xl border border-surface-light flex flex-col justify-between">
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">Total Earnings</p>
+<h3 class="text-3xl font-bold">$12,450.00</h3>
+</div>
+<div class="mt-4 flex items-center gap-1 text-emerald-400 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+12.5%</span>
+</div>
+</div>
+<div class="bg-surface p-6 rounded-2xl border border-surface-light flex flex-col justify-between">
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">Current Week</p>
+<h3 class="text-3xl font-bold">$842.50</h3>
+</div>
+<div class="mt-4 flex items-center gap-1 text-emerald-400 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+5.2%</span>
+</div>
+</div>
+<div class="bg-surface p-6 rounded-2xl border border-surface-light flex flex-col justify-between">
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">Today</p>
+<h3 class="text-3xl font-bold">$125.20</h3>
+</div>
+<div class="mt-4 flex items-center gap-1 text-emerald-400 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+2.1%</span>
+</div>
+</div>
+<div class="bg-surface p-6 rounded-2xl border border-surface-light flex flex-col justify-between">
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">Pending Payouts</p>
+<h3 class="text-3xl font-bold">$320.00</h3>
+</div>
+<div class="mt-4 flex items-center gap-1 text-primary text-sm font-medium">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>Processing</span>
+</div>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="bg-surface rounded-2xl border border-surface-light p-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+<div>
+<h3 class="text-lg font-bold">Earnings Trend</h3>
+<p class="text-sm text-slate-400">Daily performance for the last 7 days</p>
+</div>
+<div class="flex items-center gap-2 bg-background-dark p-1 rounded-xl">
+<button class="px-4 py-2 text-xs font-bold bg-surface-light text-primary rounded-lg">Weekly</button>
+<button class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-slate-200">Monthly</button>
+<button class="px-4 py-2 text-xs font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Custom
+                        </button>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between px-4 pb-8 border-b border-surface-light">
+<!-- Fake Chart Visualization -->
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-10 bg-primary/20 rounded-t-lg relative group h-32">
+<div class="absolute inset-0 bg-primary rounded-t-lg h-[60%] mt-[40%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-100 text-background-dark text-[10px] font-bold py-1 px-2 rounded whitespace-nowrap">$110</div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">MON</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-10 bg-primary/20 rounded-t-lg relative group h-40">
+<div class="absolute inset-0 bg-primary rounded-t-lg h-[80%] mt-[20%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-100 text-background-dark text-[10px] font-bold py-1 px-2 rounded">$145</div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">TUE</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-10 bg-primary/20 rounded-t-lg relative group h-24">
+<div class="absolute inset-0 bg-primary rounded-t-lg h-[40%] mt-[60%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-100 text-background-dark text-[10px] font-bold py-1 px-2 rounded">$85</div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">WED</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-10 bg-primary/20 rounded-t-lg relative group h-48">
+<div class="absolute inset-0 bg-primary rounded-t-lg h-[90%] mt-[10%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-100 text-background-dark text-[10px] font-bold py-1 px-2 rounded">$160</div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">THU</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-10 bg-primary/20 rounded-t-lg relative group h-36">
+<div class="absolute inset-0 bg-primary rounded-t-lg h-[70%] mt-[30%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-100 text-background-dark text-[10px] font-bold py-1 px-2 rounded">$125</div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">FRI</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-10 bg-primary/20 rounded-t-lg relative group h-56">
+<div class="absolute inset-0 bg-primary rounded-t-lg h-[100%] mt-0"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-100 text-background-dark text-[10px] font-bold py-1 px-2 rounded">$195</div>
+</div>
+<span class="text-[10px] font-bold text-primary">SAT</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-full">
+<div class="w-10 bg-primary/20 rounded-t-lg relative group h-44">
+<div class="absolute inset-0 bg-primary rounded-t-lg h-[85%] mt-[15%]"></div>
+<div class="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-100 text-background-dark text-[10px] font-bold py-1 px-2 rounded">$155</div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">SUN</span>
+</div>
+</div>
+</div>
+<!-- Earnings History Table -->
+<div class="bg-surface rounded-2xl border border-surface-light overflow-hidden">
+<div class="p-6 border-b border-surface-light flex justify-between items-center">
+<h3 class="text-lg font-bold">Earnings History</h3>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+<input class="bg-background-dark border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary w-48 sm:w-64" placeholder="Search customer..." type="text"/>
+</div>
+<button class="p-2 bg-surface-light rounded-lg text-slate-400">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-xs uppercase tracking-wider text-slate-500 bg-background-dark/30">
+<th class="px-6 py-4 font-bold">Trip Details</th>
+<th class="px-6 py-4 font-bold">Customer</th>
+<th class="px-6 py-4 font-bold">Metrics</th>
+<th class="px-6 py-4 font-bold text-right">Fare Breakdown</th>
+<th class="px-6 py-4 font-bold">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-light">
+<!-- Entry 1 -->
+<tr class="hover:bg-surface-light/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-sm">Oct 24, 2023</span>
+<span class="text-xs text-slate-500">10:15 PM • Downtown Center</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Customer Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCEoXaMW7pgmtB3C8WtYf6RPWYNvCK8hryKxAWIOCun-PD0GoHVrJpTTmFhtZPjfMU3qVYCkgf8SSRrqjCL1Ya4Nhl-J8_5mU5iPmLhE-jBWmcxQYaVwCsTDvdg7feqrVROTXXq4K0KcMDoO2GBvE-5_Z_pyh7FAjHg1Py4zidxQUJfQTj9YOuzO3zpHuNQ3oM-cCcVQ-0Zx86uGBXPkLoS9Q3h1R-PamcbzuNH5nsV1kCm9Eb32CAMFYgNWkkaOoLIJ8S4br1kQ4"/>
+</div>
+<span class="text-sm font-medium">Michael Chen</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col text-xs gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">route</span>
+<span>12.4 km</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">timer</span>
+<span>18 min</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex flex-col">
+<span class="font-bold text-primary">$32.40</span>
+<span class="text-[10px] text-slate-500 uppercase tracking-tighter">Base $8 • Dist $15 • Tip $9.40</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-[10px] font-bold uppercase tracking-wider">Paid</span>
+</td>
+</tr>
+<!-- Entry 2 -->
+<tr class="hover:bg-surface-light/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-sm">Oct 24, 2023</span>
+<span class="text-xs text-slate-500">08:45 PM • North Airport Terminal</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Customer Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfcJ2C-DbHsMIfKZZg0D5pEf5ajo89WBrBzw3sbFj69s2Gt_W0URcUZxCik4tO6vFaGFdu3disnA-xg4mCQbBFTxJoCDsHRPBECh9zTSYicPFhSiJ8ey4_R_X3ApYj0KFQb-r-duDujsnVB9bYP9V1Of5q8O2l6s2VeHWNB3NKWqvKpRyHATOlLeItbT3KbkKpCk0IYe1OZqIArHN8h90scEmjjeb7pQPAgDJjgvrFat90bmGCpl28ozX_vVAFY9XWENHu2mc-ST8"/>
+</div>
+<span class="text-sm font-medium">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col text-xs gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">route</span>
+<span>24.8 km</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">timer</span>
+<span>34 min</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex flex-col">
+<span class="font-bold text-primary">$58.20</span>
+<span class="text-[10px] text-slate-500 uppercase tracking-tighter">Base $15 • Dist $28 • Tip $15.20</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-amber-500/10 text-amber-400 rounded-full text-[10px] font-bold uppercase tracking-wider">Processing</span>
+</td>
+</tr>
+<!-- Entry 3 -->
+<tr class="hover:bg-surface-light/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-sm">Oct 24, 2023</span>
+<span class="text-xs text-slate-500">06:20 PM • Sunset Blvd 201</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Customer Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwzU2bYoPFtXrHAaQ20T2Ev-zlNec4JYrJYB_c8OY4ukBa4V_F5-NP3MCG212K03-kxvy5E0id44AqWEw3PLW48xHlAEYfjB1prnxfUrqF6Ni1Kbj-q13L7PGWVSAOfCpgt5Q7hEvTRQQ21SGlEobTcG0ExVeIDytDMT7RI3V5rr-n-RJZTdMxZJfjZDV1ceWfw-OuiB32Ncg-fllxVJFLnu5Ak2ODyPyFhKB8qOLPmWII2cxzUTk2vyULUSOX1O00gxuFwah-hBY"/>
+</div>
+<span class="text-sm font-medium">David Miller</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col text-xs gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">route</span>
+<span>5.2 km</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">timer</span>
+<span>12 min</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex flex-col">
+<span class="font-bold text-primary">$14.50</span>
+<span class="text-[10px] text-slate-500 uppercase tracking-tighter">Base $5 • Dist $6.50 • Tip $3.00</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-[10px] font-bold uppercase tracking-wider">Paid</span>
+</td>
+</tr>
+<!-- Entry 4 -->
+<tr class="hover:bg-surface-light/30 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-sm">Oct 23, 2023</span>
+<span class="text-xs text-slate-500">11:30 PM • Grand Hotel Lobby</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Customer Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs_yEbuK0tkPolTu4gW9oeptamO8QNkWlqXUio0_dYGKD_fdKrAIQcKfEGzoJCGAZ5U6vWW6MEzSB1pFk_r_qBlB9JeJ2sHCok77MOO2163v-bEaQfcRymlcibuNTUOMqAu_tV_KsFjmw58L00ERl8KlGvaVxcFw4UuA3zTdRnkmv99hYEcZj6ssvzbUewy-IOVssCEG647oZ9IKTKww_mm3_7ywZi1nGZW30nj5l2wVE9UuByJHOUV57uiv-YN6xX1ioJXNirRQ8"/>
+</div>
+<span class="text-sm font-medium">James Wilson</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col text-xs gap-1">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">route</span>
+<span>8.1 km</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-slate-500">timer</span>
+<span>15 min</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<div class="flex flex-col">
+<span class="font-bold text-primary">$22.10</span>
+<span class="text-[10px] text-slate-500 uppercase tracking-tighter">Base $8 • Dist $10 • Tip $4.10</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-[10px] font-bold uppercase tracking-wider">Paid</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer/Pagination -->
+<div class="p-4 border-t border-surface-light flex items-center justify-between">
+<p class="text-xs text-slate-500">Showing 1-10 of 248 trips</p>
+<div class="flex items-center gap-1">
+<button class="p-1 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-8 flex items-center justify-center text-xs font-bold rounded-lg bg-primary text-background-dark">1</button>
+<button class="size-8 flex items-center justify-center text-xs font-bold rounded-lg text-slate-400 hover:bg-surface-light">2</button>
+<button class="size-8 flex items-center justify-center text-xs font-bold rounded-lg text-slate-400 hover:bg-surface-light">3</button>
+<button class="p-1 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

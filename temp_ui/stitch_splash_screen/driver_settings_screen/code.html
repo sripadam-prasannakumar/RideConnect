@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>DriveMate - Driver Settings</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-72 flex-shrink-0 bg-slate-50 dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="bg-primary rounded-full size-10 flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">local_taxi</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-none">DriveMate</h1>
+<p class="text-primary text-xs font-medium mt-1 uppercase tracking-wider">Premium Driver</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-sm font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+<span class="text-sm font-semibold">Earnings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">map</span>
+<span class="text-sm font-semibold">Trips</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="text-sm font-semibold">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined text-[24px] fill-[1]">settings</span>
+<span class="text-sm font-bold">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+<img alt="Driver Profile" class="w-full h-full object-cover" data-alt="Portrait of a smiling professional male driver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADF7UjnsIGaD62MGhg3KdyfZixvyq3ISf4Y8CBXCPnvLD_71fjQADlQHgIUHCjCXmRaKr2jz_zXAlWRskvG3Gv6ca4mfd5WwZfLvTTrEmlRYV7usjj_TP_rW8S91XaHW1OM7nV8eJFDf44YoeM21roJDKCMCZoDgakSawhJDR8BtHJnJyfD2MVVUSs56KVeK-4tPbb0AsfLpBpRy1a5GYEAK92O2P66mmmBoh_p0YWAk5IcG6kX4vVlCmeey7bpO5Fy0TEAJVbQ7o"/>
+</div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-sm font-bold truncate">Alex Thompson</p>
+<p class="text-xs text-slate-500 truncate">ID: DM-9921</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-slate-50 dark:bg-background-dark/50">
+<!-- Header -->
+<header class="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<h2 class="text-xl font-black tracking-tight">Driver Settings</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-primary hover:bg-primary/90 text-background-dark px-5 py-2 rounded-lg font-bold text-sm transition-transform active:scale-95">
+                    Save Changes
+                </button>
+</div>
+</header>
+<div class="max-w-4xl mx-auto px-8 py-10 space-y-12">
+<!-- App Preferences Section -->
+<section>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">tune</span>
+<h3 class="text-lg font-bold">App Preferences</h3>
+</div>
+<div class="grid gap-4">
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">language</span>
+</div>
+<div>
+<p class="font-semibold text-sm">Language</p>
+<p class="text-xs text-slate-500">Choose your preferred display language</p>
+</div>
+</div>
+<select class="bg-transparent border-none text-sm font-bold text-primary focus:ring-0 cursor-pointer">
+<option>English (US)</option>
+<option>Spanish</option>
+<option>French</option>
+</select>
+</div>
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">dark_mode</span>
+</div>
+<div>
+<p class="font-semibold text-sm">Dark Mode</p>
+<p class="text-xs text-slate-500">Adjust the interface appearance</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">straighten</span>
+</div>
+<div>
+<p class="font-semibold text-sm">Units</p>
+<p class="text-xs text-slate-500">Distance and navigation measurement</p>
+</div>
+</div>
+<div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+<button class="px-4 py-1.5 text-xs font-bold rounded-md bg-white dark:bg-slate-700 shadow-sm">Miles</button>
+<button class="px-4 py-1.5 text-xs font-bold rounded-md text-slate-500">Kilometers</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Security Section -->
+<section>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">security</span>
+<h3 class="text-lg font-bold">Security</h3>
+</div>
+<div class="grid gap-4">
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">lock_person</span>
+</div>
+<div>
+<p class="font-semibold text-sm">Two-Factor Authentication</p>
+<p class="text-xs text-slate-500">Secure your account with 2FA</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<a class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">key</span>
+</div>
+<div>
+<p class="font-semibold text-sm">Change Password</p>
+<p class="text-xs text-slate-500">Last updated 3 months ago</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">devices</span>
+</div>
+<div>
+<p class="font-semibold text-sm">Manage Trusted Devices</p>
+<p class="text-xs text-slate-500">2 active sessions detected</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- Notifications Section -->
+<section>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<h3 class="text-lg font-bold">Notifications</h3>
+</div>
+<div class="space-y-3 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
+<div>
+<p class="font-semibold text-sm">New Ride Requests</p>
+<p class="text-xs text-slate-500">Get alerted when a trip is available nearby</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
+<div>
+<p class="font-semibold text-sm">Earnings Updates</p>
+<p class="text-xs text-slate-500">Daily and weekly revenue reports</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4">
+<div>
+<p class="font-semibold text-sm">System Alerts</p>
+<p class="text-xs text-slate-500">Important service maintenance and updates</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Privacy Section -->
+<section>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">visibility</span>
+<h3 class="text-lg font-bold">Privacy</h3>
+</div>
+<div class="p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">face</span>
+</div>
+<div>
+<p class="font-semibold text-sm">Profile Visibility</p>
+<p class="text-xs text-slate-500">Who can see your achievements and ratings</p>
+</div>
+</div>
+<select class="bg-transparent border-none text-sm font-bold text-primary focus:ring-0 cursor-pointer text-right">
+<option>Everyone</option>
+<option>Passengers Only</option>
+<option>Private</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Support & Legal Section -->
+<section class="pb-10">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">info</span>
+<h3 class="text-lg font-bold">Support &amp; Legal</h3>
+</div>
+<div class="grid gap-3">
+<a class="flex items-center gap-3 p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-slate-400">help</span>
+<span class="text-sm font-medium">Help Center</span>
+</a>
+<a class="flex items-center gap-3 p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-slate-400">description</span>
+<span class="text-sm font-medium">Terms of Service</span>
+</a>
+<a class="flex items-center gap-3 p-4 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" href="#">
+<span class="material-symbols-outlined text-slate-400">policy</span>
+<span class="text-sm font-medium">Privacy Policy</span>
+</a>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

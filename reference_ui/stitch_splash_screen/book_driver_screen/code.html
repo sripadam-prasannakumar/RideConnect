@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Book Driver - DriveMate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-4 md:px-10 py-4 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">DriveMate</h2>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 transition-colors hover:bg-primary/20">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 transition-colors hover:bg-primary/20">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center justify-start py-8 px-4 sm:px-10">
+<div class="w-full max-w-[1024px] grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Map & Vehicle -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white">Schedule a Driver</h1>
+<p class="text-slate-500 dark:text-slate-400">Request a professional driver for your journey.</p>
+</div>
+<!-- Map Preview -->
+<div class="relative w-full aspect-video lg:aspect-square max-h-[500px] overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 shadow-xl group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Interactive city map showing pickup location" data-location="San Francisco" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDr6eK4b16bVbMgxdT-2a1y21S5KtSVajjL8qzOV5NT1eKBa9vMcqHiIcCnZ5L4sH1C1etJhOKqgk6wGTpz3W6T31EyGscju_DJNR2u9AArYidHMmZvGfnJrPGtNqfvU8Vp_vj3NfT7kOffwWUuBuHTRDIvqUrq4UPGNzDbi_pWTCIppOYAiHftN6bFc9lyEeiEjqLB0xKB1zdjmYzhEqi4mUeiVlnu5sVvmIk4Pq32RlA_E-pBq0lEgZVSqln0D3_Ke5Hjx2nuXws");'>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between bg-white/10 dark:bg-slate-900/80 backdrop-blur-md p-4 rounded-lg border border-white/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+<div>
+<p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Active Vehicle</p>
+<p class="text-white font-medium">Honda Civic • ABC-1234</p>
+</div>
+</div>
+<button class="text-primary text-sm font-semibold hover:underline">Change</button>
+</div>
+<!-- Marker Overlay -->
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-5xl drop-shadow-[0_0_15px_rgba(13,204,242,0.6)]">location_on</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Booking Form -->
+<div class="lg:col-span-5 flex flex-col gap-6 bg-slate-100 dark:bg-slate-900/40 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
+<!-- Pickup Location -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Pickup Location</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary">location_pin</span>
+<input class="w-full pl-10 pr-4 py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all text-slate-900 dark:text-white" placeholder="Enter pickup address" type="text" value="123 Luxury Avenue, Beverly Hills"/>
+</div>
+</div>
+<!-- Date & Time Row -->
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Date</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">calendar_today</span>
+<input class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary outline-none text-slate-900 dark:text-white cursor-pointer" readonly="" type="text" value="Oct 25, 2023"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Start Time</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">schedule</span>
+<input class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary outline-none text-slate-900 dark:text-white cursor-pointer" readonly="" type="text" value="09:00 AM"/>
+</div>
+</div>
+</div>
+<!-- Calendar Inline Picker Concept -->
+<div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+<div class="flex items-center justify-between mb-4">
+<button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded"><span class="material-symbols-outlined">chevron_left</span></button>
+<p class="font-bold text-sm">October 2023</p>
+<button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<div class="grid grid-cols-7 text-center gap-y-2">
+<span class="text-[10px] uppercase font-bold text-slate-400">S</span>
+<span class="text-[10px] uppercase font-bold text-slate-400">M</span>
+<span class="text-[10px] uppercase font-bold text-slate-400">T</span>
+<span class="text-[10px] uppercase font-bold text-slate-400">W</span>
+<span class="text-[10px] uppercase font-bold text-slate-400">T</span>
+<span class="text-[10px] uppercase font-bold text-slate-400">F</span>
+<span class="text-[10px] uppercase font-bold text-slate-400">S</span>
+<div class="text-xs p-2 text-slate-300">22</div>
+<div class="text-xs p-2 text-slate-300">23</div>
+<div class="text-xs p-2 text-slate-300">24</div>
+<div class="text-xs p-2 bg-primary text-background-dark font-bold rounded-full">25</div>
+<div class="text-xs p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full cursor-pointer">26</div>
+<div class="text-xs p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full cursor-pointer">27</div>
+<div class="text-xs p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-full cursor-pointer">28</div>
+</div>
+</div>
+<!-- Duration Slider -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<label class="text-sm font-semibold text-slate-600 dark:text-slate-300">Duration</label>
+<span class="text-primary font-bold">4 Hours</span>
+</div>
+<input class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-primary" max="12" min="1" type="range" value="4"/>
+<div class="flex justify-between text-[10px] text-slate-500 font-bold uppercase tracking-tighter">
+<span>1 hr</span>
+<span>4 hrs</span>
+<span>8 hrs</span>
+<span>12 hrs</span>
+</div>
+</div>
+<!-- Price Estimate Card -->
+<div class="mt-4 p-5 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-between">
+<div>
+<p class="text-xs text-slate-400 font-semibold uppercase">Estimated Cost</p>
+<p class="text-2xl font-bold text-primary">$84.00</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-500">$21.00/hr</p>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full py-4 bg-primary hover:bg-primary/90 text-background-dark font-bold rounded-xl shadow-[0_8px_30px_rgb(13,204,242,0.3)] transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">search</span>
+                        Find Nearest Driver
+                    </button>
+<p class="text-center text-[11px] text-slate-500 dark:text-slate-500 px-6">
+                        By booking, you agree to our Terms of Service. Professional drivers are fully vetted and insured.
+                    </p>
+</div>
+</div>
+<!-- Footer Quick Info -->
+<div class="mt-12 w-full max-w-[1024px] grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<p class="font-bold text-sm">Vetted Drivers</p>
+<p class="text-xs text-slate-500">Top-rated professionals</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<div>
+<p class="font-bold text-sm">Full Insurance</p>
+<p class="text-xs text-slate-500">Comprehensive coverage</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">support_agent</span>
+</div>
+<div>
+<p class="font-bold text-sm">24/7 Support</p>
+<p class="text-xs text-slate-500">Always here to help</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Tab Bar (Mobile) -->
+<nav class="md:hidden flex justify-around items-center border-t border-slate-800 bg-background-dark py-3 px-6">
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-[10px]">Book</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px]">History</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px]">Settings</span>
+</button>
+</nav>
+</div>
+</div>
+</body></html>

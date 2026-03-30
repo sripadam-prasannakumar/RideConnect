@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                        "surface-dark": "#162c31",
+                        "border-dark": "#224249",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>DriveMate Admin - Reports &amp; Analytics</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-background-dark px-6 py-3 lg:px-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-tight">DriveMate Admin</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Drivers</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Rides</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary py-1" href="#">Reports</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<label class="hidden sm:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg bg-surface-dark border border-border-dark">
+<div class="text-slate-400 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-lg">search</span>
+</div>
+<input class="w-full min-w-0 flex-1 bg-transparent text-slate-100 focus:outline-0 border-none placeholder:text-slate-500 px-3 text-sm" placeholder="Search analytics..."/>
+</div>
+</label>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-surface-dark border border-border-dark text-slate-100 hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 border border-primary/40 p-0.5">
+<img class="rounded-full w-full h-full object-cover" data-alt="Administrator profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPI7CwD60cYITgu_STwgJMgAB6c1QfcPottmiSrHzcSLaRibfwF6h0XPqqQOdmhZzonZEENS6Dfu1eW8T1ExeM_6f0UzVbx3UvarO4C3HybmFsGAAtwv7_pUyYt2pn5WaZgTrKAGTcvLmj3q7hxp3YK--Fafm7Vb-YDVq8un9s8vN29Z4cf1Luwy8IuM9Nyd_DXh75wx1emVkjKdjPS69sbqZ-l1IC_tivVHkRjQtInuqBnsySKi7MPe2tZVg538ThRrnhKGs2Rrc"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex">
+<!-- Sidebar (Optional, following SCREEN_17 aesthetic) -->
+<aside class="hidden lg:flex w-64 flex-col bg-background-dark border-r border-border-dark p-6 gap-6">
+<div class="flex flex-col gap-2">
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest px-3 mb-2">Main Menu</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Drivers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-all" href="#">
+<span class="material-symbols-outlined">local_taxi</span>
+<span class="text-sm font-medium">Vehicle Fleet</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-surface-dark transition-all" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="text-sm font-medium">System Logs</span>
+</a>
+</div>
+</aside>
+<!-- Content Area -->
+<div class="flex-1 p-6 lg:p-10 space-y-8 max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-1">
+<h1 class="text-3xl lg:text-4xl font-black tracking-tight text-slate-100">Reports &amp; Analytics</h1>
+<p class="text-slate-400 text-base">Real-time performance overview and driver insights across the platform.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-dark border border-border-dark text-slate-100 text-sm font-semibold hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+                            Last 30 Days
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-slate-900 text-sm font-bold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">download</span>
+                            Export Report
+                        </button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">payments</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Total Revenue</p>
+<p class="text-slate-100 text-3xl font-bold leading-tight">$128,430.50</p>
+<div class="flex items-center gap-1.5 text-emerald-400 text-sm font-semibold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +12.5% vs last month
+                        </div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">route</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Total Rides</p>
+<p class="text-slate-100 text-3xl font-bold leading-tight">12,482</p>
+<div class="flex items-center gap-1.5 text-rose-400 text-sm font-semibold">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+                            -2.4% vs last month
+                        </div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">star</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Avg. Rating</p>
+<p class="text-slate-100 text-3xl font-bold leading-tight">4.85/5</p>
+<div class="flex items-center gap-1.5 text-emerald-400 text-sm font-semibold">
+<span class="material-symbols-outlined text-sm">keyboard_arrow_up</span>
+                            +0.2% improvement
+                        </div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex flex-col gap-2 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-4xl">person_check</span>
+</div>
+<p class="text-slate-400 text-sm font-medium">Active Drivers</p>
+<p class="text-slate-100 text-3xl font-bold leading-tight">1,240</p>
+<div class="flex items-center gap-1.5 text-emerald-400 text-sm font-semibold">
+<span class="material-symbols-outlined text-sm">add</span>
+                            +5.1% new onboardings
+                        </div>
+</div>
+</div>
+<!-- Charts & Maps Section -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+<!-- Revenue Performance Chart -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold text-slate-100">Revenue vs. Rides Performance</h3>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-xs text-slate-400">Daily Revenue</span>
+</div>
+</div>
+<div class="h-64 flex flex-col justify-end gap-6 py-4">
+<svg class="w-full h-full" fill="none" preserveaspectratio="none" viewbox="-3 0 478 150" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H326.769H0V109Z" fill="url(#paint0_linear_1131_5935)"></path>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#0dccf2" stroke-linecap="round" stroke-width="3"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_1131_5935" x1="236" x2="236" y1="1" y2="149">
+<stop stop-color="#0dccf2" stop-opacity="0.2"></stop>
+<stop offset="1" stop-color="#0dccf2" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="flex justify-between px-2">
+<span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Mon</span>
+<span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Tue</span>
+<span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Wed</span>
+<span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Thu</span>
+<span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Fri</span>
+<span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Sat</span>
+<span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Sun</span>
+</div>
+</div>
+</div>
+<!-- Market Demand Heatmap -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold text-slate-100">Market Demand Heatmap</h3>
+<div class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-widest rounded-full border border-emerald-500/20">
+                                Live Now
+                            </div>
+</div>
+<div class="relative h-64 rounded-lg overflow-hidden border border-border-dark bg-slate-800">
+<!-- Simulated Heatmap Pattern -->
+<div class="absolute inset-0 bg-cover bg-center opacity-60 mix-blend-overlay" data-alt="Satellite map view of the metropolitan area" data-location="Los Angeles" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgTkOnMyVYZtqrBNv72_7XOTK22G8TjtjIf95BANv2gS2_9GDvGFVxMVNErVrT7YaAzBzsnBbY9C-Txjxpd9U7Z3tf7sDbrCIWUCT1CVBr-N8uNAIFLdmWwIsNRnvFY4f-raWRphdoupv6Dod2IRiX6_WhwDHlLVy5m1oS6-oLjjHjvoS_JAv53FRXbnbE0VuZhB-dWEBPjC74-OxDhSoudgwsiQV7yt9HbNnwNPrTcgMjJNek2akn9aua6cR-BqlZEiwiy4zlouQ')"></div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-24 h-24 rounded-full bg-primary/40 blur-2xl animate-pulse"></div>
+<div class="w-48 h-48 absolute right-10 top-10 rounded-full bg-rose-500/30 blur-3xl"></div>
+<div class="w-32 h-32 absolute left-10 bottom-10 rounded-full bg-amber-500/20 blur-2xl"></div>
+</div>
+<!-- Map Overlay Labels -->
+<div class="absolute bottom-3 left-3 bg-background-dark/80 backdrop-blur-md px-3 py-2 rounded-lg border border-border-dark flex items-center gap-2">
+<span class="size-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]"></span>
+<span class="text-[11px] font-bold text-slate-300 uppercase tracking-tighter">High Demand Zone: Downtown</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Top Earning Drivers Table -->
+<div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="px-6 py-5 border-b border-border-dark flex items-center justify-between">
+<div>
+<h3 class="text-lg font-bold text-slate-100">Top Earning Drivers</h3>
+<p class="text-sm text-slate-400">Monthly performance leaderboard</p>
+</div>
+<button class="text-primary text-sm font-semibold hover:underline">View All Drivers</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-background-dark/50">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Driver Name</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Total Earnings</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Total Trips</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Avg. Rating</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Success Rate</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="size-10 rounded-full object-cover" data-alt="Driver profile picture of Michael Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcXPG8zsOVYLpkMJXAxmQZbHM_kUiyZVrVUy5vlQxxXCwO79RJuPhO-W3_DBX8PNyFq0d9C5WKHx5oHUZWrWcpe_9s_bemO476Cy3RHQaN4pAvCFuWoCnSpayvAsag0XeHxgshe5cy4NgoZ1zAh4WSU7sRMZhcmzpvb54UaVLlAqd0-tOQtp8q_mTyrJgkFykLTNlw2rIv2xfLiqYlkpY_5NnGfETK9v95CSwCJeUd7PhN0IQyvA5Hk7nkC5gf9aPfQvL8m77yDys"/>
+<div>
+<p class="text-sm font-bold text-slate-100">Michael Chen</p>
+<p class="text-xs text-slate-500">Member since 2021</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-slate-100">$8,432.20</td>
+<td class="px-6 py-4 text-sm text-slate-300">242</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1">
+<span class="text-amber-400 material-symbols-outlined text-sm">star</span>
+<span class="text-sm font-bold text-slate-100">4.95</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="w-full max-w-[80px] bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-[98%]"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">98% Success</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20">Online</span>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="size-10 rounded-full object-cover" data-alt="Driver profile picture of Sarah Jenkins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZIQPpWN4yoUNI6Mkiq30EnX4P7Iz6HIgspIh1ihROJFJ-cDAafoycI2XwejdsmCS-kNeMJtaOTYjmoK4i7orBaPoPIX7v9ER9fxuynORH1F2JKU5xpPMk0Zzy64tTDPPWkgU11Lrpjs4au_F5dOyNsSqSiscaUfPSugHGgvIIw_0PVtEjVHVQUG1mVwdTTD-6dgww6f_y_c4rHjalnA8ko7kLvcirvi97feqLaIL8LdK6fPx6LVxcTxPHCXphup1ho0Td7xUXXVE"/>
+<div>
+<p class="text-sm font-bold text-slate-100">Sarah Jenkins</p>
+<p class="text-xs text-slate-500">Member since 2022</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-slate-100">$7,890.00</td>
+<td class="px-6 py-4 text-sm text-slate-300">218</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1">
+<span class="text-amber-400 material-symbols-outlined text-sm">star</span>
+<span class="text-sm font-bold text-slate-100">4.91</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="w-full max-w-[80px] bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-[96%]"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">96% Success</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20">Online</span>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="size-10 rounded-full object-cover" data-alt="Driver profile picture of Robert Vance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzXEzduZOIfm8t8ZsEYIhnGyAG17Uc2MR7GOu_4LcbYk8PGkDCD_-NMmILdntHmxeSaC43N7Z4voYHyq4AZFnQVcVEmyPuVriboJj3k_zJIock-IHzt42OJixls5zmAgaa-tEkcf8AWnq36_vQ3Gsk4wRLA1bUcJH-T0HCnC_UGHzEpd15DxTHSWPNH2-xrMqELSdj_cDGdgyuigEfs5gugeCyrmfne3taZ2Lada6XKIoR38WaZDyGP2b09k8bAMUJi4byCCDoHls"/>
+<div>
+<p class="text-sm font-bold text-slate-100">Robert Vance</p>
+<p class="text-xs text-slate-500">Member since 2020</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-slate-100">$7,210.50</td>
+<td class="px-6 py-4 text-sm text-slate-300">195</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1">
+<span class="text-amber-400 material-symbols-outlined text-sm">star</span>
+<span class="text-sm font-bold text-slate-100">4.88</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="w-full max-w-[80px] bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+<span class="text-[10px] text-slate-400 mt-1 block">92% Success</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-slate-500/10 text-slate-400 text-[10px] font-bold uppercase tracking-widest border border-slate-500/20">Offline</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Recent High-Value Trips Table -->
+<div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="px-6 py-5 border-b border-border-dark">
+<h3 class="text-lg font-bold text-slate-100">Recent High-Value Trips</h3>
+<p class="text-sm text-slate-400">Rides with revenue exceeding $150.00</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-background-dark/50">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Trip ID</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Driver</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Route</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fare</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Date &amp; Time</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Type</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-primary">#DM-88219</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img class="size-6 rounded-full" data-alt="Driver Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdljoZWEYYluKApo-xwGueGx_ultcOOX-vnHtOjmfCSjYj2oMx6G8GIFEq9dqPobkospN5fFudQqjZCPdSnu25hv9OOR_1BUbqRvytGK-054g4AzRZ_P5UuctSrMdMy_QivqGXksoP8IxLaaq_nceEY_0avN5QC3n-J4xsUFexwzOWbnYbah4Wj4lEUdZNnJ3XwaPWORkFxImrp8SYXrR7E_mKUNg6eWzW3e4JjLNansdiDy05NI5wzN6D39sIMGjB93oYgMsx3jw"/>
+<span class="text-sm text-slate-100">Alex Thompson</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-xs text-slate-100 font-medium">LAX Int. Airport</span>
+<span class="text-[10px] text-slate-500">to Beverly Hills, CA</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-emerald-400">$182.50</td>
+<td class="px-6 py-4 text-sm text-slate-300">Oct 24, 02:14 PM</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary/10 text-primary border border-primary/20">Luxury Black</span>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-primary">#DM-88214</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img class="size-6 rounded-full" data-alt="Driver Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApS_FPtpSUkjRGLHGodYslzFlBwuhGR_39CLILV6FezM-nNNV-qzLNpwoDsgyBSe2FfHp7KEdS3OcQGdyOlkoJ3adXvoevjlTLbs1UB42kteQzhggTPpjGVINEg2A8UJ-eQEJUqnL0rEdbWhGh0QWQ4kwsvoNfPjbObgtv1l0rK0t-GN8ey_Q1pCGq34yj7EZL34fJbP7FKryjLj-1lPJtBpGLaxhUENNyiMBLSjjczkH2bYjdWEA745QgS_06DgchAyatoUFNGZo"/>
+<span class="text-sm text-slate-100">Elena Rodriguez</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-xs text-slate-100 font-medium">Santa Monica Pier</span>
+<span class="text-[10px] text-slate-500">to Malibu Sands</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-emerald-400">$158.00</td>
+<td class="px-6 py-4 text-sm text-slate-300">Oct 24, 01:45 PM</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary/10 text-primary border border-primary/20">Luxury Black</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

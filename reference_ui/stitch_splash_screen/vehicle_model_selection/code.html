@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate - Select Vehicle Model</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<div class="flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 text-primary">
+<img alt="DriveMate Logo" data-alt="DriveMate abstract geometric automotive logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2m_R0OfHdgIya8D-NXku3HJG1YqZDX1jvj0M_JxOCdh_WResp5NNRCyC3a3jWQCyQwlgb7uTpSPEgDUPfeNy9kGLIksm2MtoZPEp8YkiYAjz0GnHblj6KmQ5hxX33oviuVNpULXBouOOKooIyez43E-hBRyY8eJWWLVuIL_ymqXUarhD2as0i6MVOTpIz5ila8m3V8-5SEDLR7JcDMiHzOB6za7zHPzKu2qHR-q2HrKMcO_F2xPOiTo8_UPSCshfeUKPrW7NIee0"/>
+</div>
+<h2 class="text-xl font-bold tracking-tight">DriveMate</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center overflow-hidden">
+<img alt="User Avatar" data-alt="User profile placeholder circular image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMs1iAS_ZaZb_Qx8sT1CjGhu7B-WjWf6xYktgwkqQVyeZQgaW4OIi6-luw1pMGe13M0sEb0qxhOnrPSJwxaKC2GfIi0y0cT7Y6Uemf9iBOGe29Dr4cbrQDNiEWn0nPWU6JIl5qkChDap6MJetnnvKfOmuvuF0ReGfZrbh5ysF-3jrRp0jquab2fak3FJQKCJiWAEWyZe10moPe83vJzMeOXKuLdhzfGHi41VccDKGb7y7YPnH8TKeLKaAjcDHVBF48lJU9rZvX0i0"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-5xl mx-auto w-full px-6 py-8">
+<!-- Progress Indicator -->
+<div class="flex flex-col gap-4 mb-8">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-xs font-semibold uppercase tracking-wider text-primary">Configuration</span>
+<p class="text-lg font-medium">Step 2 of 3</p>
+</div>
+<p class="text-primary font-bold text-lg">66%</p>
+</div>
+<div class="h-2 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 66%;"></div>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Next: Choose Engine &amp; Trim</p>
+</div>
+<!-- Page Title -->
+<div class="mb-8">
+<h1 class="text-3xl font-bold mb-2">Select your Honda model</h1>
+<p class="text-slate-500 dark:text-slate-400">Choose from the available models in your region</p>
+</div>
+<!-- Search Bar -->
+<div class="mb-8">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-slate-400" placeholder="Search for City, Civic, Accord..." type="text"/>
+</div>
+</div>
+<!-- Model Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- City Card -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer">
+<div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Honda City" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Modern white Honda City sedan profile view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASDL3Nu5_TYySsr4iyWpDho3vw8Lb4Q93K8LRF-iQMW6MuSb1z4XXEujP3PV8SboNPqWqvwE1xfj97qQ3u7kilsru9Vhqo2RzQfnYRHRsmv8B3-zA_bK8RmRzP4yJnyRSDXScjMPw46dz9iYvuNI5SC1DpCN-a3VwkhoKg8v6oFvGjx63J7b8MbUujxfS2NBOf0hMfr-lQkGabufKZjH0aDdaVq88P0EJqCuBS13IooFBFsExNEFGd47cHzXjYdnl8NshMoNvbCT4"/>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-lg font-bold group-hover:text-primary transition-colors">City</h3>
+<span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded font-semibold uppercase">Popular</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Sedan</p>
+<div class="flex items-center gap-1 text-primary text-sm font-medium">
+<span>Configure</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Amaze Card -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer">
+<div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Honda Amaze" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Blue Honda Amaze compact sedan side view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuVXLeuyfY4v7YEQqY3lhGykx9QKG7lk2uroLEahvnRY5xUmH8sqqw8cGYRtdxQlVg2pCLwHaKfXogzArWqrz2W8gE_JA5IpNM0XRTLCAJyHL4DboPGvy0y0RZuv7K6Qyn7UsAYJt-QgytXXHJzh5g-EVNVrxlHypVx8lgjNf9ZVqHRA9qzqNkm9w5YBNMbtRkSxUVtKRlIGRKm0PH5q4BGk8ZBPWUOTb_q__-4sMvF4m7cEMaUyPHeQLqfPDE9zDL0jNUVERhsyM"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">Amaze</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Compact Sedan</p>
+<div class="flex items-center gap-1 text-primary text-sm font-medium">
+<span>Configure</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Civic Card -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer">
+<div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Honda Civic" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Sleek silver Honda Civic premium sedan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJIYIGFwdPrhPve5UVIKR97fRcSBXeAlLBB48-QXRpipjXFPgJpsjws5tag3P8ufjBDJayIae-9sUcWGOFRbBPo6L4HFMggxDCFHvwnj3LlkIthXKIpg5B_nVI3h-YjVu31s-XEIH3ddAdc-PVr0TNnq4qqYL-UkI1OwL1wwZjftNr21a29Wz6O2E1IDmyQeG5K5JsueEpW_tQydm9nOkE6eRZa8qsG82tobEyisrWd30oVdG47Wth_3AeyxCVfr7k2HnfJilcOYw"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">Civic</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Premium Sedan</p>
+<div class="flex items-center gap-1 text-primary text-sm font-medium">
+<span>Configure</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- WR-V Card -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer">
+<div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Honda WR-V" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Robust red Honda WRV compact SUV" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzRYqMYDtD2iu1T0YQWsKwv_wjMd6xwrHD2Vv_EKZzyt1SgdEcF-t_U69q8QUQnTdwU83n1G8TFYcfQfRqKmlChvWH-qhRRIQy8Ds93Rmz4Pdpn-hcYu_SXkilNv9O8HSZNhWZcmlFoGLsg_8gtaeqKjmjQ_F9FDFAvsSQm6tK4SGk3AgTpqoZw08uiFlN1J_P6zhXEYT7lk2q5ILQ3OzZgLzlyUAZz2FeoG_xd7CoKKnrEZKIVm_Zsq2Ee1yd3ZcxZif-pY6aSfw"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">WR-V</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Compact SUV</p>
+<div class="flex items-center gap-1 text-primary text-sm font-medium">
+<span>Configure</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Jazz Card -->
+<div class="group relative flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden hover:border-primary transition-all cursor-pointer">
+<div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+<img alt="Honda Jazz" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Yellow Honda Jazz hatchback front perspective" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt1XDDyXbFg8__PpTeNIadd0Nl_5Ug96yHgL8kGhTrsJQAantT9FCILctMQEMIn_dsPg-QMKa7f0pOpMyAtF7d-sz9yu8GKUvHz3iOBgSPSDwC_8nWJi6bHolUaSk5bWRWJNjdgu3sjznOaIG6-3UU1xJOcf__9JTfWVcGZQz0L-tWJX9doqIdS46wnmbYnWWq4LK2-gWUOyrDb_8bgp9dnK-6DUlezDc-lffa-gE2iIASYTSDCquov3V8Er4WATwZtzSiQfUDxvs"/>
+</div>
+<div class="p-5">
+<h3 class="text-lg font-bold mb-1 group-hover:text-primary transition-colors">Jazz</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Premium Hatchback</p>
+<div class="flex items-center gap-1 text-primary text-sm font-medium">
+<span>Configure</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- View More Card -->
+<div class="group relative flex flex-col items-center justify-center bg-slate-100/50 dark:bg-slate-900/50 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-8 hover:bg-primary/5 hover:border-primary transition-all cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-primary mb-2 transition-colors">add_circle</span>
+<p class="text-slate-500 dark:text-slate-400 font-medium group-hover:text-primary transition-colors">Other Models</p>
+</div>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-12 flex flex-col sm:flex-row gap-4 justify-between items-center py-8 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors font-medium">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                        Back to Brands
+                    </button>
+<div class="flex gap-4 w-full sm:w-auto">
+<button class="flex-1 sm:w-auto flex items-center justify-center gap-2 px-10 py-3 bg-primary text-background-dark rounded-lg hover:brightness-110 transition-all font-bold shadow-lg shadow-primary/20">
+                            Continue
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

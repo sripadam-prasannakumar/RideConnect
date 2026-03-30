@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                        "neutral-800": "#1a2e32",
+                        "neutral-700": "#224249",
+                        "neutral-600": "#315f68",
+                        "neutral-400": "#90c1cb",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #315f68; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex min-h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 bg-background-dark border-r border-neutral-700 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<img alt="DriveMate Logo" class="w-10 h-10 rounded-lg" data-alt="Modern geometric teal vehicle fleet logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt3PNuQztJHGRAape5yBRTP8b1ODCupnpWxJfZhWJsdBW6UvVq-sZlLG8nc6eECdTsEIvsMLfM0V4Zl4KYc6raWrTcVnXFNq4qYmuVsIer4XFRPRR-k4OZTlZbyqu3iqeJcNaMlqaQCc4A5dMa0mlA5Y6BoxMkx3gKbKWTNzBkfW01AlovEOukaDt-016BqYauFOz-BmKxuvo6mErPxOY7-lDWc4Qcmd4mO_u2L2OrmZVp9XaxWE5HvbviUROj6QHct_djC0XTLfY"/>
+<div>
+<h1 class="text-white text-base font-bold leading-tight">DriveMate Admin</h1>
+<p class="text-neutral-400 text-xs">System Control Panel</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="text-sm font-medium">Fleet Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm font-medium">Driver Profiles</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">System Configuration</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-neutral-700">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-background-dark py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">logout</span>
+                    Logout
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Header -->
+<header class="h-16 border-b border-neutral-700 flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">settings</span>
+<h2 class="text-lg font-bold tracking-tight">System Configuration</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 text-xl">search</span>
+<input class="bg-neutral-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-1 focus:ring-primary text-slate-100 placeholder:text-neutral-600" placeholder="Search settings..." type="text"/>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-neutral-600 border border-primary/30" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFy0yck7qBHt2O9HhuWx89579yOQxYcI4Eh3YGrozKbuVm35oHa9VrODmH7oDR_K3wULMqUXncrQ5rcvwj3yabOtpSFDgnNTkceU_-yvYzMwXJZhRe2-txMa3MqM2A0PopnXaH_E5tz6K1EZnvsBE6moWyV5S-YKK8xaXvYexazWKh4oOsH8j7FMgKgy1TfLg6r0CaCBGoej-d6MEU7ZUde-e-yj0iL4wuj-yD2nSEpQhSBHJhQgm8_rHYVsqYt3odb6QOWdhY_ps'); background-size: cover;"></div>
+</div>
+</header>
+<!-- Scrollable Settings Container -->
+<div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+<div class="max-w-5xl mx-auto space-y-10 pb-20">
+<header>
+<h3 class="text-3xl font-black tracking-tight mb-2">Platform Settings</h3>
+<p class="text-neutral-400">Configure global parameters, security protocols, and operational workflows.</p>
+</header>
+<!-- General Settings -->
+<!-- System Maintenance -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-4 border-b border-neutral-700/50">
+<div class="col-span-1">
+<h4 class="text-lg font-bold text-red-400">System Maintenance</h4>
+<p class="text-sm text-neutral-400">Global platform status and accessibility controls.</p>
+</div>
+<div class="col-span-2 bg-neutral-800/50 rounded-xl p-6 border border-red-500/20 space-y-4">
+<div class="flex items-center justify-between">
+<div class="pr-8">
+<p class="text-sm font-bold">Maintenance Mode</p>
+<p class="text-xs text-neutral-400 mt-1">When enabled, the platform will be inaccessible to users and drivers. A maintenance message will be displayed instead.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-neutral-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div><div class="flex flex-col gap-2 mt-6">
+<label class="w-full"><div class="flex items-center justify-between w-full mb-2">
+<span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Custom Maintenance Message</span>
+<button class="flex items-center gap-2 px-3 py-1 text-xs font-bold text-primary border border-primary/30 rounded hover:bg-primary/10 transition-colors" type="button">
+<span class="material-symbols-outlined text-sm">visibility</span>
+        Preview
+    </button>
+</div></label>
+<textarea class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0 min-h-[100px] text-slate-100" placeholder="Enter the message that will be displayed during maintenance mode...">The system is currently undergoing scheduled maintenance to improve our services. We'll be back online shortly. Thank you for your patience.</textarea>
+</div>
+</div>
+</section><section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1">
+<h4 class="text-lg font-bold">General Settings</h4>
+<p class="text-sm text-neutral-400">Basic identification and localization for your instance.</p>
+</div>
+<div class="col-span-2 bg-neutral-800/50 rounded-xl p-6 border border-neutral-700 space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Platform Name</label>
+<input class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0" type="text" value="DriveMate Pro"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Currency</label>
+<select class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0">
+<option>USD ($)</option>
+<option>EUR (€)</option>
+<option>GBP (£)</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Support Email</label>
+<input class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0" type="email" value="ops@drivemate.io"/>
+</div>
+</div>
+</section>
+<!-- Operational Settings -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1">
+<h4 class="text-lg font-bold">Operational Settings</h4>
+<p class="text-sm text-neutral-400">Define the core business rules for services and payouts.</p>
+</div>
+<div class="col-span-2 bg-neutral-800/50 rounded-xl p-6 border border-neutral-700 space-y-4">
+<div class="grid grid-cols-3 gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Service Radius (KM)</label>
+<input class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0" type="number" value="25"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Default Booking Fee</label>
+<input class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0" type="text" value="5.00"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Driver Commission %</label>
+<input class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0" type="number" value="15"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Security & Authentication -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1">
+<h4 class="text-lg font-bold">Security &amp; Auth</h4>
+<p class="text-sm text-neutral-400">Manage API security, JWT protocols and user access.</p>
+</div>
+<div class="col-span-2 bg-neutral-800/50 rounded-xl p-6 border border-neutral-700 space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-medium">Two-Factor Authentication</p>
+<p class="text-xs text-neutral-400">Require MFA for all administrative roles</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-neutral-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">JWT Expiry (Minutes)</label>
+<input class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0" type="number" value="1440"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Password Complexity</label>
+<select class="bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0">
+<option>High (12+ Chars, Special, Upper)</option>
+<option>Medium (8+ Chars, Alphanumeric)</option>
+<option>Low (6+ Chars)</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+<!-- Payment Configuration -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1">
+<h4 class="text-lg font-bold">Payment Configuration</h4>
+<p class="text-sm text-neutral-400">Connect gateways and define financial settlement cycles.</p>
+</div>
+<div class="col-span-2 bg-neutral-800/50 rounded-xl p-6 border border-neutral-700 space-y-4">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Stripe Live Secret Key</label>
+<div class="relative">
+<input class="w-full bg-neutral-800 border-neutral-600 rounded-lg text-sm p-3 focus:border-primary focus:ring-0" type="password" value="••••••••••••••••••••••••••••"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 cursor-pointer text-xl">visibility</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-neutral-400">Payout Frequency</label>
+<div class="flex gap-2">
+<button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-primary text-background-dark">Daily</button>
+<button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-neutral-700 text-neutral-400 hover:text-white transition-colors">Weekly</button>
+<button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium bg-neutral-700 text-neutral-400 hover:text-white transition-colors">Monthly</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Notification Settings -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1">
+<h4 class="text-lg font-bold">Notification Templates</h4>
+<p class="text-sm text-neutral-400">Customize the automated communication triggers.</p>
+</div>
+<div class="col-span-2 space-y-4"><div class="bg-neutral-800/50 rounded-xl p-6 border border-primary/20 flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+<div class="flex-1">
+<p class="text-sm font-bold">System Connectivity Test</p>
+<p class="text-xs text-neutral-400 mt-1">Send a test notification to verify system connectivity and trigger mail/SMS services.</p>
+</div>
+<button class="whitespace-nowrap flex items-center gap-2 bg-primary text-background-dark px-4 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">send</span>
+        Test Notification
+    </button>
+</div>
+<div class="bg-neutral-800/50 rounded-xl p-4 border border-neutral-700 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="text-sm font-bold">Booking Confirmation</p>
+<p class="text-xs text-neutral-400">Triggered when customer places a ride request</p>
+</div>
+</div>
+<button class="text-primary text-sm font-bold hover:underline">Edit Template</button>
+</div>
+<div class="bg-neutral-800/50 rounded-xl p-4 border border-neutral-700 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center text-red-500">
+<span class="material-symbols-outlined">cancel</span>
+</div>
+<div>
+<p class="text-sm font-bold">Ride Cancellation</p>
+<p class="text-xs text-neutral-400">Triggered on booking termination by user/driver</p>
+</div>
+</div>
+<button class="text-primary text-sm font-bold hover:underline">Edit Template</button>
+</div>
+<div class="bg-neutral-800/50 rounded-xl p-4 border border-neutral-700 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-neutral-700 flex items-center justify-center text-neutral-400">
+<span class="material-symbols-outlined">sms</span>
+</div>
+<div>
+<p class="text-sm font-bold">Driver Arrival SMS</p>
+<p class="text-xs text-neutral-400">Sent when driver is within 500m of pickup</p>
+</div>
+</div>
+<button class="text-primary text-sm font-bold hover:underline">Edit Template</button>
+</div>
+</div>
+</section>
+<!-- Actions -->
+<div class="pt-10 border-t border-neutral-700 flex justify-end gap-4">
+<button class="px-6 py-3 rounded-lg font-bold text-neutral-400 hover:text-white transition-colors">Discard Changes</button>
+<button class="px-8 py-3 bg-primary text-background-dark rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center gap-2 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">save</span>
+                            Save Configuration
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

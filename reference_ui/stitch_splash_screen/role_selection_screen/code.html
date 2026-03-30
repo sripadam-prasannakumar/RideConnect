@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                        "surface-dark": "#182f34",
+                        "border-dark": "#224249",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>DriveMate - Role Selection</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation Header -->
+<header class="flex items-center justify-between border-b border-solid border-border-dark px-6 py-4 md:px-40">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-100 text-xl font-bold leading-tight tracking-tight">DriveMate</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar placeholder image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDL2nNwkf9r8JOHuH-CKSuQ9nc5coWSjILGZZFpo2kbc9OL9rvgUu2K8NRzu0WjKmpj4fygxUySMHSHD_jmS_9xAH3GaHs14IsYfGdYO89NVL7xciR6XKQ3idivcjtE0cMhy6yswJKuuSvUeaznOZu-615GjSweFIu4apqusDCvp2FgYtbJnhRvcLuxH91NGXX39NsxGvPmm-boSeQtCrrkLSwGlQLtTV1oq64Ox6YuQX15GmU7rvqLewMacxAJOf1eN27YwF_aW3Q");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-12 px-6 md:px-40">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<!-- Title Section -->
+<div class="flex flex-col gap-3 mb-10 text-center md:text-left">
+<h1 class="text-slate-100 text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl">Choose your role</h1>
+<p class="text-primary/70 text-lg font-normal leading-normal">Select how you want to use DriveMate today</p>
+</div>
+<!-- Role Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Customer Card -->
+<div class="group flex flex-col items-stretch justify-start rounded-xl overflow-hidden border border-border-dark/50 hover:border-primary/50 transition-all duration-300 shadow-xl bg-surface-dark cursor-pointer">
+<div class="relative w-full aspect-[16/9] overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent z-10"></div>
+<img alt="Luxury car interior" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern luxury car interior for customer perspective" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByO1aljW0hBALmXb9lD3aE_-fAn1JBpgT83fmVRVRjCHXY6yK3dUOXDiRqeGHVmZ_rLYtivHlmK84MctBjI11UnY3-wuZGyjQ4Tt2OSNRSY5NP5p4--bnmFwzaAN2NTHL8f1cbwUQ0HGaeZC4euwc7nDKayxndnFruZoFlT-VaVAtH_XPhz3R2pRTPuEdYtcpP7RKquzFKNcoMm3T6Gfmpi3qjkb2ukxL5lkW5Cypa1EqCK343AQRQroqtmQPHautzpqMiVXjZNuA"/>
+<div class="absolute top-4 left-4 z-20 bg-primary text-background-dark p-2 rounded-lg">
+<span class="material-symbols-outlined text-3xl">person_pin_circle</span>
+</div>
+</div>
+<div class="flex flex-col p-6 gap-4">
+<div>
+<h3 class="text-slate-100 text-2xl font-bold mb-2">Customer</h3>
+<p class="text-primary/60 text-base leading-relaxed">Book a ride and travel in comfort. Request premium cars at your fingertips for your daily commute or special occasions.</p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-border-dark">
+<span class="text-slate-400 text-sm italic font-medium">Ready to travel</span>
+<button class="flex min-w-[120px] items-center justify-center rounded-lg h-10 px-5 bg-primary text-background-dark text-sm font-bold hover:brightness-110 transition-all">
+                                        Select Customer
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Driver Card -->
+<div class="group flex flex-col items-stretch justify-start rounded-xl overflow-hidden border border-border-dark/50 hover:border-primary/50 transition-all duration-300 shadow-xl bg-surface-dark cursor-pointer">
+<div class="relative w-full aspect-[16/9] overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent z-10"></div>
+<img alt="Driver behind steering wheel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Professional driver hands on a steering wheel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJztUGK9pxivu45t7ODwblnsCoIdSRZEVRCeJSoiE01wIIoS26y6VC4wTp_DFhadm3XsQvrxUrISqiVHmkigvIGaQoKEoWg7xCqolcGi6UNKxFKo5aW5S9X1f5-Ewx-Xm8j6NyKn1V-1e16gMWCZBEY4eetvxLO3f2HugRfaXekvskZtrdtiOoeqTLe5dCrYGwn8siwKO_Vu5yeTl3vqe5ChAlPtjyPfBBK66gIVLTeKvFYuerK1DqLG6FrWA0gMr8pydlZyduxRk"/>
+<div class="absolute top-4 left-4 z-20 bg-primary text-background-dark p-2 rounded-lg">
+<span class="material-symbols-outlined text-3xl">directions_car</span>
+</div>
+</div>
+<div class="flex flex-col p-6 gap-4">
+<div>
+<h3 class="text-slate-100 text-2xl font-bold mb-2">Driver</h3>
+<p class="text-primary/60 text-base leading-relaxed">Join our fleet and start earning. Professional driver dashboard with flexible scheduling and high-demand route optimization.</p>
+</div>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-border-dark">
+<span class="text-slate-400 text-sm italic font-medium">Earn on your time</span>
+<button class="flex min-w-[120px] items-center justify-center rounded-lg h-10 px-5 bg-primary text-background-dark text-sm font-bold hover:brightness-110 transition-all">
+                                        Select Driver
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Link -->
+<div class="mt-12 flex justify-center">
+<button class="group flex items-center gap-2 px-8 py-4 rounded-xl bg-border-dark/30 border border-border-dark text-slate-100 text-base font-semibold hover:bg-border-dark/50 transition-all">
+<span>Already have an account?</span>
+<span class="text-primary group-hover:underline">Log in here</span>
+</button>
+</div>
+<!-- Support Info -->
+<div class="mt-auto pt-16 pb-8 flex flex-col md:flex-row items-center justify-between text-slate-500 text-xs">
+<p>© 2024 DriveMate Global Inc.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

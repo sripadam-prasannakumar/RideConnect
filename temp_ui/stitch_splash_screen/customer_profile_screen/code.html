@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate | Customer Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1e3a41;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-primary/10 bg-white dark:bg-background-dark flex flex-col hidden md:flex">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">directions_car</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-primary">DriveMate</h1>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-medium">Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-sm font-medium">History</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined leading-none" style="font-variation-settings: 'FILL' 1">person</span>
+<span class="text-sm font-semibold">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/5 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="text-sm font-medium">Support</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-slate-200 dark:border-primary/10">
+<button class="flex w-full items-center gap-3 px-3 py-2.5 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Section -->
+<main class="flex-1 overflow-y-auto custom-scrollbar bg-slate-50 dark:bg-background-dark/50">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-10 flex items-center justify-between px-8 py-4 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-primary/10">
+<div class="flex items-center gap-2">
+<span class="text-slate-500 dark:text-slate-400 text-sm">Pages /</span>
+<span class="text-sm font-semibold">Customer Profile</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-primary/20 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold leading-none">Alex Mitchell</p>
+<p class="text-xs text-primary font-medium">Gold Member</p>
+</div>
+<div class="size-10 rounded-full border-2 border-primary bg-cover bg-center" data-alt="Portrait of Alex Mitchell profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAW6ef7VXgaB-a5zFSMQylTfdZgS8He-tFPdVqcdaUbp-5tCdimJuxCKIw3FIp8khrKqa9JUwUz0IBfOB1zgjItI-Sun1pXKY3gI-VXgm0_Gb2vzfgC18pVAkxDdEkf9CLF-0EmDDXpSUA5IeOYWzTab2waqzN0Ef5W4ZWr1B32T_kYfMFDk86MzJdIcxEPB2iUQ-0DLJ1dw9V5yRRRXR74_4Z1LNGhC3qcv2k7G3oqC4vo2jDChmsfKAbAW1dOuvoKMuENHfrblCE')"></div>
+</div>
+</div>
+</header>
+<div class="max-w-5xl mx-auto px-8 py-10 space-y-8">
+<!-- Profile Header Card -->
+<div class="relative overflow-hidden rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-primary/10 p-8 flex flex-col md:flex-row items-center md:items-end gap-6 shadow-sm">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+<div class="relative">
+<div class="size-32 rounded-2xl bg-cover bg-center border-4 border-white dark:border-slate-800 shadow-xl" data-alt="Close up portrait profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxS1VF6xr6iAYxCdzPxu4YoL-o6UcO06t_C1p2-KTQLufATHl7HLOl2eZn2SdjgoF8AOULTOLMa_wdBKE3mVehLlQjyGso2iPEGCD0n4lyO8ZV6QLgJRdw5oGEEOaiyfzf3iD1uFHPCkqdPOku3eWozNCQyGPyOv7MxfbInuzR542KB1H4CxUYKVCOikLUKePiT-mDra3j9FxW72rKGA17le7r24TkjhCOwFmG86UYMBEFMVxNEupuNLMxJpDjjf9MLpirxzyZJus')"></div>
+<button class="absolute -bottom-2 -right-2 bg-primary text-background-dark p-2 rounded-lg shadow-lg hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 text-center md:text-left space-y-1">
+<div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+<h2 class="text-3xl font-bold">Alex Mitchell</h2>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/20 text-primary border border-primary/30 w-fit self-center">
+                                Gold Member
+                            </span>
+</div>
+<p class="text-slate-500 dark:text-slate-400">Member since February 2022 • New York, USA</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 bg-primary text-background-dark font-bold rounded-lg hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+                            Save Changes
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Personal Details Column -->
+<div class="lg:col-span-2 space-y-8">
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-primary/10 p-6 space-y-6">
+<div class="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-primary/5">
+<span class="material-symbols-outlined text-primary">person_outline</span>
+<h3 class="text-lg font-bold">Personal Details</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500">Full Name</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" type="text" value="Alex Mitchell"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500">Phone Number</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" type="tel" value="+1 (555) 012-3456"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500">Email Address</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" type="email" value="alex.mitchell@example.com"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500">Occupation</label>
+<input class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" type="text" value="Product Designer"/>
+</div>
+<div class="space-y-2 md:col-span-2">
+<label class="text-xs font-bold uppercase tracking-wider text-slate-500">Residential Address</label>
+<textarea class="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" rows="2">24th Avenue, Manhattan, New York City, NY 10001</textarea>
+</div>
+</div>
+</section>
+<!-- My Vehicles Section -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-primary/10 p-6 space-y-6">
+<div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-primary/5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+<h3 class="text-lg font-bold">My Vehicles</h3>
+</div>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">add_circle</span> Add New
+                                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Vehicle 1 -->
+<div class="group flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-primary/10 bg-slate-50 dark:bg-background-dark/50 hover:border-primary/50 transition-all">
+<div class="size-16 rounded-lg bg-slate-200 dark:bg-primary/10 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Blue sedan car icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgYTqlglXBtCbsbv6Y4RVkV9fYvkBONNkuhfNrvnlOWBu5SbGQJ8_TcBfbn7g7EBVTGS-3s7VQDe-jvqMA189-ll93y4IF9y-_VFbFMiz9kyl2p-LmR1t9EtvJ54V1zO4-QFuyW_ycCqnNCHeInSaIX41aiNeV5RRCefDv73NeTLshFnbCkHVwBnXVUengnWzipQ7nWo-GfsNFUHist1BBXcvKCQYL6Y2r4YH9EV2A9ItsLVhDN-56X9uOfVKCt9gKqzQTK7jZPGA"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold">Honda City</h4>
+<p class="text-xs text-slate-500">Plate: NY-5521</p>
+</div>
+<div class="flex gap-1">
+<button class="p-1.5 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Vehicle 2 -->
+<div class="group flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-primary/10 bg-slate-50 dark:bg-background-dark/50 hover:border-primary/50 transition-all">
+<div class="size-16 rounded-lg bg-slate-200 dark:bg-primary/10 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="White Tesla Model 3 car icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfwNeSLzQqJgswp7EoISnGiv2CEzgcVj_0vfBHLUuu9jQmE0weIX27xWCIH8gP-XLVzVKJRc-YSaiiWvwLv0BTn6K2oScWbunkVyHDcjYFCI2cSjIFOzq79TQhMTzNedFs8_BsSH_kLKuPsTjKBHtIcv-ihq35j7N2ExlhF8xlB-NLpgB0fWH_FGb1nO8uTmPpehKvI4ZLoLmPmjafx_Pr3sZZ6WE5o-9lML_wq6X7SEUvoW0bWyA2Q_EYyVn4mEX1VDy1O8SjmeQ"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold">Tesla Model 3</h4>
+<p class="text-xs text-slate-500">Plate: EL-420X</p>
+</div>
+<div class="flex gap-1">
+<button class="p-1.5 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Settings -->
+<div class="space-y-8">
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-primary/10 p-6 space-y-6">
+<div class="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-primary/5">
+<span class="material-symbols-outlined text-primary">settings</span>
+<h3 class="text-lg font-bold">Account Settings</h3>
+</div>
+<div class="space-y-5">
+<!-- Toggle Switch -->
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold">Push Notifications</p>
+<p class="text-xs text-slate-500">Activity and booking alerts</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold">Biometric Login</p>
+<p class="text-xs text-slate-500">FaceID or Fingerprint</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold">Marketing Emails</p>
+<p class="text-xs text-slate-500">Weekly offers and news</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold">Privacy Mode</p>
+<p class="text-xs text-slate-500">Hide history from partners</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<section class="bg-primary/5 rounded-xl border border-primary/20 p-6 space-y-4">
+<h4 class="font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">verified</span>
+                                Account Security
+                            </h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                Your data is protected using end-to-end encryption. DriveMate will never share your location data without explicit consent.
+                            </p>
+<button class="w-full py-2 bg-transparent border border-primary text-primary text-sm font-bold rounded-lg hover:bg-primary/10 transition-colors">
+                                Change Password
+                            </button>
+</section>
+</div>
+</div>
+<!-- Bottom Footer Buttons (Mobile View Only / Extra) -->
+<div class="flex md:hidden flex-col gap-4 mt-8 pb-10">
+<button class="w-full py-4 bg-primary text-background-dark font-bold rounded-lg shadow-lg">
+                        Save All Changes
+                    </button>
+<button class="w-full py-4 bg-slate-100 dark:bg-slate-800 text-red-500 font-bold rounded-lg">
+                        Logout
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

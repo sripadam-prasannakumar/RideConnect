@@ -1,0 +1,55 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    border: 1px solid transparent;
+    width: fit-content;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    box-shadow: 0 4px 14px 0 var(--accent-glow);
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: var(--text);
+    border-color: var(--glass-border);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--white);
+    border-color: var(--accent);
+}
+
+.btn-glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-color: var(--glass-border);
+    color: var(--white);
+}
+
+.btn-md {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+}
+
+.btn-icon {
+    flex-shrink: 0;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}

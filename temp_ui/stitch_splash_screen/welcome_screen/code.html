@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>DriveMate - Premium Chauffeur Services</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Main Container -->
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header Section -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-40">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/10">
+<img alt="DriveMate Logo" class="size-8 object-contain" data-alt="DriveMate sleek geometric luxury car logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo4k9cTqQinUkCrGlFZFEzXBGGO59enZSwjZC0JVc1iJGQMUp83nC0Un9JQ5yIHavqyp6-KfznfXQoJShYxrcukQz3rz7XkqTWmA54BCe-75VFBg-oolxCTOcsOJ-QD1-RJQ51s3OVHFNbPXs7LhDfuEIyMCjq2eO33N1m1RNHPWjNgINZ7y5KSHeS2NDGB-MPo3D7wYq_4U40MXCD-Zvjnpd2avaz_O_F3TQ5ncwvpgWOKh5DCJYGtOYLxIRSL1g9Feocgdi3d0g"/>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold tracking-tight">DriveMate</h2>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 cursor-pointer hover:text-primary transition-colors">language</span>
+<div class="hidden sm:block h-6 w-px bg-slate-200 dark:border-slate-800"></div>
+<button class="hidden sm:flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+                        Support
+                    </button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col items-center justify-center px-6 lg:px-40 py-12">
+<div class="w-full max-w-4xl flex flex-col items-center">
+<!-- Hero Visual -->
+<div class="w-full @container mb-10">
+<div class="relative aspect-video @[480px]:aspect-[21/9] w-full overflow-hidden rounded-xl shadow-2xl shadow-primary/10 border border-slate-200 dark:border-slate-800">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10"></div>
+<div class="h-full w-full bg-cover bg-center" data-alt="Interior of a luxury executive sedan car" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBygF2hbhCoVPgCEi3YHkPw2ojwdPWgDjYXaHc4jo4IrMfrG53hD48M-ck_oco7h-g9rL0Lo-eg7sxoTTO_UuBA-IVaC3XURLQX-6l__2Uw95VXMsRrsRD-Z_NzCcs2DeryO87Q8FnVYH0P5CD1EZvZxmtFPA6GLUY4PGhlpZ2_uRuKwK1vNRxE73eLgwvmVDWLY29mEf48ZEuxj4x8HoZm3K84WgUX70qB7WhgyS_fFqXmXU876tQxkwFJSGxpDh4ttb3aqWzn5CY');">
+</div>
+<div class="absolute bottom-6 left-6 z-20 flex items-center gap-2">
+<div class="px-3 py-1 rounded-full bg-primary/90 text-background-dark text-xs font-bold uppercase tracking-widest">
+                                    Premium Service
+                                </div>
+</div>
+</div>
+</div>
+<!-- Hero Text -->
+<div class="text-center space-y-4 max-w-2xl mb-12">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            Experience Premium Travel with <span class="text-primary">DriveMate</span>
+</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg sm:text-xl font-normal leading-relaxed">
+                            Your trusted partner for professional chauffeured services and luxury car rentals. Arrive in style, every time.
+                        </p>
+</div>
+<!-- Call to Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+<button class="flex-1 flex items-center justify-center gap-2 rounded-xl h-14 px-8 bg-primary text-background-dark text-lg font-bold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">login</span>
+                            Log In
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-2 rounded-xl h-14 px-8 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-lg font-bold transition-all hover:bg-slate-300 dark:hover:bg-slate-700 hover:scale-[1.02] active:scale-[0.98] border border-slate-300 dark:border-slate-700">
+<span class="material-symbols-outlined">person_add</span>
+                            Sign Up
+                        </button>
+</div>
+<!-- Trust Indicators -->
+<div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 w-full border-t border-slate-200 dark:border-slate-800 pt-10">
+<div class="flex flex-col items-center text-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Vetted Drivers</span>
+</div>
+<div class="flex flex-col items-center text-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">workspace_premium</span>
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Luxury Fleet</span>
+</div>
+<div class="flex flex-col items-center text-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500">24/7 Availability</span>
+</div>
+<div class="flex flex-col items-center text-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">encrypted</span>
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Secure Payments</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="px-6 lg:px-40 py-8 flex flex-col sm:flex-row items-center justify-between text-slate-500 dark:text-slate-500 text-sm">
+<p>© 2024 DriveMate International. All rights reserved.</p>
+<div class="flex gap-6 mt-4 sm:mt-0">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate Admin - System Logs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #315f68;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 flex-shrink-0 bg-background-light dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">directions_car</span>
+</div>
+<div>
+<h1 class="text-base font-bold leading-none">DriveMate Admin</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Management Portal</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">moped</span>
+<span class="text-sm font-medium">Fleet Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">calendar_today</span>
+<span class="text-sm font-medium">Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">group</span>
+<span class="text-sm font-medium">User Directory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">monetization_on</span>
+<span class="text-sm font-medium">Revenue</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px] fill-[1]">description</span>
+<span class="text-sm font-medium">System Logs</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Admin user profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPwPf2Sc7_JWNqVUPBm0Jds1vN404TZdvRX_7e9fWAVky9JhWCbNVW1JoVxiCrRib-Z-Qtu8tm8yzk9picxiVyuTefutJhkBcb56152wukiG75OeLUj4zuCzac3oWpkQwRN-bUsAkE8gid5fvOthCI7VJot0Rna1pGyVeW-Wz2QhsbF_iZApzAPY3tX_yJ3A87Y9NAZAKtzDVxb817QQxd-efXYgOWHxiVLFNOfi6y9OUn3ms1jQXswQPXfjeSclanbH8cgWR9MDQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-semibold truncate">Alex Rivera</p>
+<p class="text-[10px] text-slate-500 truncate">System Architect</p>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-sm">settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden bg-white dark:bg-background-dark/50">
+<!-- Top Header -->
+<header class="h-16 flex items-center justify-between px-8 border-b border-slate-200 dark:border-slate-800">
+<div class="flex flex-col">
+<h2 class="text-xl font-bold tracking-tight">System Logs</h2>
+<p class="text-xs text-slate-500">Real-time monitoring and diagnostics</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded-lg text-sm font-semibold transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Export Logs
+                    </button>
+<button class="p-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+<!-- Summary Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Logs</span>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold">128,492</span>
+<span class="text-xs font-medium text-emerald-500">+12%</span>
+</div>
+<p class="text-[10px] text-slate-400 mt-1">vs. previous 24h</p>
+</div>
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Error Logs</span>
+<span class="material-symbols-outlined text-red-500">error</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-red-500">42</span>
+<span class="text-xs font-medium text-red-400">-5%</span>
+</div>
+<p class="text-[10px] text-slate-400 mt-1">Significant decrease</p>
+</div>
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Security Alerts</span>
+<span class="material-symbols-outlined text-orange-500">security</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-orange-500">12</span>
+<span class="text-xs font-medium text-emerald-500">+2%</span>
+</div>
+<p class="text-[10px] text-slate-400 mt-1">Under investigation</p>
+</div>
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Perf. Warnings</span>
+<span class="material-symbols-outlined text-amber-500">speed</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-amber-500">85</span>
+<span class="text-xs font-medium text-red-400">-10%</span>
+</div>
+<p class="text-[10px] text-slate-400 mt-1">Latency spikes detected</p>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-xl p-4 mb-6 flex flex-wrap gap-4 items-center">
+<div class="flex-1 min-w-[300px] relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-lg pl-11 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary" placeholder="Search keywords, user IDs, or actions..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative group">
+<button class="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg text-xs font-medium">
+<span>All Levels</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<div class="relative group">
+<button class="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg text-xs font-medium">
+<span>All Sources</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<div class="relative group">
+<button class="flex items-center gap-2 px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg text-xs font-medium">
+<span>Last 24 Hours</span>
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Logs Table -->
+<div class="bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Timestamp</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Level</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Source</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Action</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">User/ID</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-500">2023-11-24 14:32:01</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 uppercase tracking-wide">Critical</span>
+</td>
+<td class="px-6 py-4 text-sm">Auth</td>
+<td class="px-6 py-4 text-sm font-medium">Failed SQL injection attempt on login</td>
+<td class="px-6 py-4 text-sm text-slate-500">IP: 192.168.1.42</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-500">2023-11-24 14:31:45</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-primary/20 text-primary uppercase tracking-wide">Info</span>
+</td>
+<td class="px-6 py-4 text-sm">Booking</td>
+<td class="px-6 py-4 text-sm font-medium">Booking completed #BK-8821</td>
+<td class="px-6 py-4 text-sm text-slate-500">User ID: 9921</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-500">2023-11-24 14:30:12</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 uppercase tracking-wide">Warning</span>
+</td>
+<td class="px-6 py-4 text-sm">Driver</td>
+<td class="px-6 py-4 text-sm font-medium">GPS Signal Lost - Vehicle DM-102</td>
+<td class="px-6 py-4 text-sm text-slate-500">Driver: ID-443</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-500">2023-11-24 14:28:55</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 uppercase tracking-wide">Error</span>
+</td>
+<td class="px-6 py-4 text-sm">System</td>
+<td class="px-6 py-4 text-sm font-medium">Connection timeout - Payment Gateway API</td>
+<td class="px-6 py-4 text-sm text-slate-500">System Trace: P-80</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-500">2023-11-24 14:27:30</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-primary/20 text-primary uppercase tracking-wide">Info</span>
+</td>
+<td class="px-6 py-4 text-sm">Driver</td>
+<td class="px-6 py-4 text-sm font-medium">Driver shift started</td>
+<td class="px-6 py-4 text-sm text-slate-500">Driver: ID-109</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-500">2023-11-24 14:25:12</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 uppercase tracking-wide">Warning</span>
+</td>
+<td class="px-6 py-4 text-sm">Auth</td>
+<td class="px-6 py-4 text-sm font-medium">Multiple password attempts</td>
+<td class="px-6 py-4 text-sm text-slate-500">User ID: 5542</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-500">2023-11-24 14:22:01</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-primary/20 text-primary uppercase tracking-wide">Info</span>
+</td>
+<td class="px-6 py-4 text-sm">System</td>
+<td class="px-6 py-4 text-sm font-medium">Daily backups completed successfully</td>
+<td class="px-6 py-4 text-sm text-slate-500">System Root</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<span class="text-xs text-slate-500 font-medium">Showing 1-7 of 128,492 logs</span>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-slate-200 dark:border-slate-800 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="px-3 py-1 bg-primary text-background-dark text-xs font-bold rounded">1</button>
+<button class="px-3 py-1 text-xs font-bold rounded hover:bg-slate-100 dark:hover:bg-slate-800">2</button>
+<button class="px-3 py-1 text-xs font-bold rounded hover:bg-slate-100 dark:hover:bg-slate-800">3</button>
+<span class="text-slate-400 mx-1">...</span>
+<button class="px-3 py-1 text-xs font-bold rounded hover:bg-slate-100 dark:hover:bg-slate-800">18356</button>
+<button class="p-2 border border-slate-200 dark:border-slate-800 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

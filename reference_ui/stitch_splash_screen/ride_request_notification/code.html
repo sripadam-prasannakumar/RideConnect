@@ -1,0 +1,195 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 overflow-hidden">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-primary/20 px-6 py-3 bg-background-light dark:bg-background-dark z-10">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">DriveMate</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-lg bg-slate-100 dark:bg-primary/10 text-slate-700 dark:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full border-2 border-primary/30 overflow-hidden bg-primary/10">
+<img class="w-full h-full object-cover" data-alt="Professional driver profile headshot avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXPzMnEL22wlb0R8zc0icCzvdUNXcE0H-ikD6t7Q9bCp63S1bjPZToooiI9zptS-09cPKFlEZu0jXP2Rv-5Kpd3N58peTZrmoJps5fyekv9oKOSLmNzSITaMhhlDgD4syTsZwWeN95QS66oWnnaPUD7rh0j7AV5f4Vcvoi2VDX3db94nGYxH2z0pk01gEiN7TVsML6ZAISWbw7v6SoW2IaA6MBpiGCNc9OiUoFH4pXGSJ5dz3LUKMp2-FCad7mP7Zap-583iH7CZk"/>
+</div>
+</div>
+</header>
+<main class="flex-1 relative flex">
+<!-- Background Map View -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full grayscale-[0.5] contrast-[1.1] brightness-[0.4]" data-alt="Dark stylized city map with street layouts" data-location="Beverly Hills, Los Angeles" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCxxQbxLW54LzS__fYBP1Sk1Zy35subelDG_re0EjX2zkUJ_bpCA6Q6aM65fv83mEb4kVT4TJQ3smft7hTnTXIRREmmezDYdULS_W_NbxwGiZ_IVosQPNulqx-EPcSaNzzTqIf7zIJKEhu6uFPx6e-WEpt6zD0YeTpWPYi1YlzEAEDNUzh7jAUEgkbhVjPIGFxYPdZiib7shpgML5Lx8m7OfHlyC6hIciHZSpRFokR-A3SOgUQ3Pwn-rBXOdIQzzuUlZ9jgWzjL4s8");'></div>
+</div>
+<!-- Dashboard Sidebar (Partial/Glassmorphism) -->
+<aside class="hidden md:flex w-64 flex-col bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-r border-slate-200 dark:border-primary/10 p-6 z-10">
+<div class="space-y-6">
+<div class="space-y-1">
+<p class="text-xs uppercase tracking-widest text-slate-500 dark:text-primary/60 font-bold">Status</p>
+<div class="flex items-center gap-2 text-primary font-semibold">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                            Online
+                        </div>
+</div>
+<nav class="space-y-2">
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-slate-900 font-bold">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span>Earnings</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">history</span>
+<span>Trip History</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</div>
+</nav>
+</div>
+</aside>
+<!-- Ride Request Overlay -->
+<div class="absolute inset-0 z-20 flex items-center justify-center p-4">
+<div class="w-full max-w-md bg-white dark:bg-[#152a2e] rounded-xl shadow-2xl border border-slate-200 dark:border-primary/30 overflow-hidden flex flex-col">
+<!-- Progress Bar Timer -->
+<div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800">
+<div class="h-full bg-primary" style="width: 65%;"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">New Ride Request</h3>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="material-symbols-outlined text-primary text-lg">verified</span>
+<span class="text-primary font-bold tracking-tight uppercase text-xs">Premium Diamond Trip</span>
+</div>
+</div>
+<div class="bg-primary/20 text-primary px-3 py-1 rounded-full text-lg font-black border border-primary/30">
+                                $45.00
+                            </div>
+</div>
+<!-- Trip Details Card -->
+<div class="bg-slate-50 dark:bg-background-dark/50 rounded-lg p-4 space-y-4 mb-6">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<div class="w-0.5 h-8 border-l border-dashed border-primary/40 my-1"></div>
+<span class="material-symbols-outlined text-slate-400">flag</span>
+</div>
+<div class="flex-1 space-y-4">
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold">Pickup</p>
+<p class="font-medium text-slate-800 dark:text-slate-100">1245 Diamond St, Beverly Hills</p>
+</div>
+<div>
+<p class="text-xs text-slate-500 dark:text-slate-400 uppercase font-bold">Dropoff</p>
+<p class="font-medium text-slate-800 dark:text-slate-100">LAX International Airport</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-200 dark:border-primary/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">schedule</span>
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-bold">Duration</p>
+<p class="text-sm font-semibold text-slate-800 dark:text-slate-200">~2 Hours</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">directions_car</span>
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-bold">Vehicle</p>
+<p class="text-sm font-semibold text-slate-800 dark:text-slate-200">Tesla Model S</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary hover:brightness-110 text-slate-900 font-bold py-4 rounded-lg flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(13,204,242,0.4)] transition-all">
+<span class="material-symbols-outlined font-bold">check_circle</span>
+                                Accept Trip
+                            </button>
+<button class="w-full bg-transparent border-2 border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold py-4 rounded-lg transition-all">
+                                Decline
+                            </button>
+</div>
+<p class="text-center text-xs text-slate-500 mt-4">
+                            Auto-decline in 15 seconds
+                        </p>
+</div>
+</div>
+</div>
+<!-- Floating Map Controls -->
+<div class="absolute right-6 bottom-6 flex flex-col gap-3 z-10">
+<button class="size-12 rounded-xl bg-background-light dark:bg-background-dark shadow-lg flex items-center justify-center border border-slate-200 dark:border-primary/20 text-slate-700 dark:text-primary">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<div class="flex flex-col rounded-xl bg-background-light dark:bg-background-dark shadow-lg border border-slate-200 dark:border-primary/20 overflow-hidden">
+<button class="size-12 flex items-center justify-center text-slate-700 dark:text-primary hover:bg-primary/10">
+<span class="material-symbols-outlined">add</span>
+</button>
+<div class="h-[1px] bg-slate-200 dark:bg-primary/20 mx-2"></div>
+<button class="size-12 flex items-center justify-center text-slate-700 dark:text-primary hover:bg-primary/10">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Earnings Summary Bar (Footer) -->
+<footer class="h-20 bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-primary/20 flex items-center justify-between px-8 z-10">
+<div class="flex gap-8">
+<div>
+<p class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Daily Earnings</p>
+<p class="text-xl font-bold">$248.50</p>
+</div>
+<div class="h-10 w-[1px] bg-slate-200 dark:bg-primary/20"></div>
+<div>
+<p class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Trips Today</p>
+<p class="text-xl font-bold">12</p>
+</div>
+<div class="h-10 w-[1px] bg-slate-200 dark:bg-primary/20"></div>
+<div>
+<p class="text-xs text-slate-500 uppercase font-bold tracking-tighter">Online Time</p>
+<p class="text-xl font-bold text-primary">6h 42m</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-bold text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">4.98 Rating</span>
+</div>
+</footer>
+</div>
+</body></html>

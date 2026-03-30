@@ -1,0 +1,16 @@
+﻿
+> rideconnect@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Failed to compile.
+
+[eslint] 
+src\components\Driver\Dashboard.js
+  Line 18:30:  'useCallback' is not defined  no-undef
+  Line 26:37:  'useCallback' is not defined  no-undef
+  Line 37:33:  'useCallback' is not defined  no-undef
+
+Search for the keywords to learn more about each error.
+
+

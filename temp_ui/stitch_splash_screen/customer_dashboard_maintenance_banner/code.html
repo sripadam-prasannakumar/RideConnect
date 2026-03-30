@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DriveMate - Customer Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display">
+<div class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-4 lg:px-20">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-background-dark font-bold">minor_crash</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">DriveMate</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-slate-300 dark:bg-slate-700 border-2 border-primary overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="User profile avatar close up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjqLF3RCVt-BANoL8_2QC8KqlbUGneC9ArvZffvwfgkIO7b1adbkaa8Pl5jFYsUoDIbfI3RpMZLF6i8Ej-Lr-C6P3F-Vv7Ivtez69aIG1c7TmKQrCQ9rsNdfsg9_1CtMup-byPOt9CYf2Kp-noS4xAvCqna3kdXTLjG6GwkxSfnjl4ibDlJyAz8MmaZduLdJ3AwFgSq5UDJg4qOuYgrSuiSaDmYl-6BTqo_sYWxCmhy8rXxsY8JlP1TKpT0VOJaxPCUfhCsSrS9vU"/>
+</div>
+</div>
+</header><div class="bg-amber-100 dark:bg-amber-900/30 border-b border-amber-200 dark:border-amber-800/50">
+<div class="max-w-[1440px] mx-auto px-6 py-3 lg:px-20 flex items-start gap-4">
+<div class="bg-amber-200 dark:bg-amber-800 p-2 rounded-lg flex-shrink-0">
+<span class="material-symbols-outlined text-amber-700 dark:text-amber-400">warning</span>
+</div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-amber-900 dark:text-amber-100">System Maintenance in Progress</h3>
+<p class="text-sm text-amber-800 dark:text-amber-200/80 mt-0.5">
+                The system is currently undergoing scheduled maintenance to improve our services. We'll be back online shortly. Thank you for your patience.
+            </p>
+</div>
+</div>
+</div>
+<main class="flex-1 flex flex-col lg:flex-row max-w-[1440px] mx-auto w-full">
+<aside class="hidden lg:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 p-6 gap-2">
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span>Vehicles</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Support</p>
+<p class="text-sm text-slate-600 dark:text-slate-300 mb-3">Need help with your ride?</p>
+<button class="w-full py-2 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg text-sm font-medium">Contact Center</button>
+</div>
+</aside>
+<div class="flex-1 p-6 lg:p-10 space-y-8 overflow-y-auto">
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div>
+<h1 class="text-3xl font-bold">Welcome back, Alex</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Premium Member since 2023</p>
+</div>
+<button class="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-background-dark font-bold px-8 py-4 rounded-xl shadow-lg shadow-primary/20 transition-all transform hover:scale-[1.02]">
+<span class="material-symbols-outlined">add_circle</span>
+                        Book a Driver Now
+                    </button>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
+<div class="bg-primary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">route</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Total Rides</p>
+<p class="text-2xl font-bold">142</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
+<div class="bg-primary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">garage</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Saved Vehicles</p>
+<p class="text-2xl font-bold">3</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4">
+<div class="bg-primary/10 p-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">stars</span>
+</div>
+<div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Rating</p>
+<p class="text-2xl font-bold">4.98</p>
+</div>
+</div>
+</div>
+<section>
+<h2 class="text-xl font-bold mb-4">Active Booking</h2>
+<div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
+<div class="flex flex-col lg:flex-row">
+<div class="flex-1 p-6 lg:p-8 space-y-6">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 bg-primary/20 text-primary text-xs font-bold rounded-full uppercase tracking-widest">In Progress</span>
+<span class="text-sm text-slate-500">Started 15 mins ago</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="flex flex-col items-center gap-1 mt-1">
+<div class="size-3 rounded-full border-2 border-primary bg-background-dark"></div>
+<div class="w-0.5 h-8 bg-slate-300 dark:bg-slate-700"></div>
+<div class="size-3 rounded-full bg-primary"></div>
+</div>
+<div class="space-y-3">
+<div>
+<p class="text-xs text-slate-500 uppercase font-semibold">Pickup</p>
+<p class="font-medium">1200 Tech Plaza, San Francisco</p>
+</div>
+<div>
+<p class="text-xs text-slate-500 uppercase font-semibold">Destination</p>
+<p class="font-medium">Skyline Residences, Marina Bay</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+<div class="size-12 rounded-full overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="Professional driver portrait smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrR8Lb3azF2ESTqK6BmyDMSqF1uo71U44GBDMd_yIjirw6GZHntDn6CKT7bWBlwe6n2B9IpAW60snAjT1HBSWXxWvY7qgJ1_ZLEjRPFQFnwXYR4F30yrefRGZOFJq_DvOaRkUQ_4fvwLiAAPqjNeelCDOn7FNh8Rm09iSpA8b-_V_9YRQhNnftTG5r914YJnEgvsQn6-iQZgLukzGTiqgg_W7WjJfyyJU1ZW5y8UsTPZoNo8evLQLTEwvB71E-yUh4zm3Lw4wN5-o"/>
+</div>
+<div class="flex-1">
+<p class="font-bold">Marcus Chen</p>
+<p class="text-sm text-slate-500">Tesla Model S • Blue (ABC-1234)</p>
+</div>
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-full bg-primary text-background-dark">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full bg-slate-200 dark:bg-slate-700">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+</div>
+</div>
+<div class="lg:w-1/3 min-h-[250px] relative">
+<div class="absolute inset-0 bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Dynamic map showing vehicle movement in city" data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRbA5SQMOXI3j0RowQzAbaDiKRC7kwRfMIZZzv7-XXnepiuj_dgQJY-eqm1_D_66Q9Kshi4XO2sjARFH7ETmuw3dyQx8wrQxxflbk5tUM_aY2rTPMXQ9eUVjGSSwM0NBY9nsLP2EgG-noQBC32xfUxdjsn31tpdTaUGV_VJgco6OhJu2NE5j-aFbAY12d9Xb9kWWh5k-iOiJ5vEdm7cZ2sngiR8P7wERPeg24_PHK9NtvL5qFL5cq8hK26tfp25n0UzkP7K7jJn-E"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-lg text-xs font-bold shadow-lg">
+                                        Arriving in 4 mins
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold">Ride History</h2>
+<button class="text-primary text-sm font-semibold hover:underline">View All</button>
+</div>
+<div class="space-y-3">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-4 hover:border-primary/50 transition-colors">
+<div class="size-12 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">history</span>
+</div>
+<div class="flex-1 min-w-[200px]">
+<p class="font-semibold">Business District to Airport</p>
+<p class="text-xs text-slate-500">Oct 12, 2023 • Mercedes GLE • David K.</p>
+</div>
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="text-sm font-bold">5.0</span>
+</div>
+<div class="text-right">
+<p class="font-bold">$42.50</p>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Completed</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-4 hover:border-primary/50 transition-colors">
+<div class="size-12 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">history</span>
+</div>
+<div class="flex-1 min-w-[200px]">
+<p class="font-semibold">Home to Uptown Bistro</p>
+<p class="text-xs text-slate-500">Oct 09, 2023 • Audi A6 • Sarah L.</p>
+</div>
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="text-sm font-bold">4.8</span>
+</div>
+<div class="text-right">
+<p class="font-bold">$28.00</p>
+<p class="text-[10px] text-slate-400 uppercase font-bold">Completed</p>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-4 hover:border-primary/50 transition-colors opacity-80">
+<div class="size-12 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400">cancel</span>
+</div>
+<div class="flex-1 min-w-[200px]">
+<p class="font-semibold text-slate-500">Downtown Mall to Station</p>
+<p class="text-xs text-slate-500">Oct 05, 2023 • Toyota Camry • Mike R.</p>
+</div>
+<div class="flex items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="text-sm font-bold">—</span>
+</div>
+<div class="text-right">
+<p class="font-bold text-slate-400">$0.00</p>
+<p class="text-[10px] text-red-500 uppercase font-bold">Cancelled</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<nav class="lg:hidden sticky bottom-0 left-0 right-0 bg-background-light dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 px-6 py-3 flex items-center justify-between z-50">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-[10px]">Bookings</span>
+</a>
+<div class="-mt-8 bg-primary rounded-full p-3 shadow-lg border-4 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined text-background-dark font-bold">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="text-[10px]">Cars</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</a>
+</nav>
+</div>
+</body></html>

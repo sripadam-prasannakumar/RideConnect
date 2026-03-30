@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0dccf2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>DriveMate - Customer Registration</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Background Image with Overlay -->
+<div class="fixed inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-b from-background-dark/80 via-background-dark/90 to-background-dark z-10"></div>
+<div class="h-full w-full bg-cover bg-center" data-alt="Luxury car interior with ambient teal lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAyGAajvf6Zmq73sUKsxnHRe40rI58HXgsWDU7mvix7jR16d9a0GnSVqMlOnxE6IBmv78vtJMJ3I3jf_HBWrhVCWWDcPsL3UgGQlPv0bmSMjCuCyAKtsLwIX_8Y6Ltqzp-UeQ-guRcMLd0LhsbYAh6z-x5Oz9WBwF1PRr8QpICVI4sKm7w4F6U-hpJSn1Xle10ihSwJzr3S6t6J9qwwhJetF39xRWXPQabShp5dFwumA_6ob7gE-cfaaRTsHi7YkiaGSYMpgrJQ0Ks');"></div>
+</div>
+<!-- Main Content -->
+<div class="relative z-20 flex flex-1 flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+<!-- Header/Logo Area -->
+<div class="mb-8 flex flex-col items-center">
+<div class="flex items-center gap-3 mb-2">
+<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-background-dark">
+<span class="material-symbols-outlined text-3xl font-bold">directions_car</span>
+</div>
+<h1 class="text-3xl font-black tracking-tight text-white">Drive<span class="text-primary">Mate</span></h1>
+</div>
+<a class="flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back to Role Selection
+            </a>
+</div>
+<!-- Registration Card -->
+<div class="w-full max-w-md space-y-8 rounded-2xl bg-slate-900/40 p-8 backdrop-blur-xl border border-slate-800 shadow-2xl">
+<div class="text-center">
+<h2 class="text-2xl font-bold tracking-tight text-white">Create your account</h2>
+<p class="mt-2 text-sm text-slate-400">Join the future of premium mobility</p>
+</div>
+<form action="#" class="mt-8 space-y-5">
+<!-- Full Name -->
+<div class="space-y-1">
+<label class="block text-sm font-medium text-slate-300" for="name">Full Name</label>
+<div class="relative">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-500 text-lg">person</span>
+</div>
+<input class="block w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-10 pr-3 text-white placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary sm:text-sm" id="name" name="name" placeholder="John Doe" type="text"/>
+</div>
+</div>
+<!-- Phone Number -->
+<div class="space-y-1">
+<label class="block text-sm font-medium text-slate-300" for="phone">Phone Number</label>
+<div class="relative">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-500 text-lg">call</span>
+</div>
+<input class="block w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-10 pr-3 text-white placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary sm:text-sm" id="phone" name="phone" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+<!-- Email Address -->
+<div class="space-y-1">
+<label class="block text-sm font-medium text-slate-300" for="email">Email Address</label>
+<div class="relative">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-500 text-lg">mail</span>
+</div>
+<input class="block w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-10 pr-3 text-white placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary sm:text-sm" id="email" name="email" placeholder="name@company.com" type="email"/>
+</div>
+</div>
+<!-- Password -->
+<div class="space-y-1">
+<label class="block text-sm font-medium text-slate-300" for="password">Password</label>
+<div class="relative">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-500 text-lg">lock</span>
+</div>
+<input class="block w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-10 pr-3 text-white placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary sm:text-sm" id="password" name="password" placeholder="••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3">
+<button class="text-slate-500 hover:text-slate-300" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-2">
+<button class="group relative flex w-full justify-center rounded-lg bg-primary px-4 py-3 text-sm font-bold text-background-dark hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark transition-all" type="submit">
+                        Create Account
+                    </button>
+</div>
+</form>
+<div class="relative mt-6">
+<div aria-hidden="true" class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-700"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="bg-slate-900/10 px-2 text-slate-400 backdrop-blur-md">Or continue with</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-6">
+<button class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 py-2 px-4 text-sm font-medium text-white hover:bg-slate-700/50 transition-colors">
+<img alt="Google Logo" class="h-5 w-5" data-alt="Google colorful icon logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0Aerpit4lr1bG-tiUHZZQAWD_sAu36XSDcVEmJyeulFWwmvKx-zXSxzjESuL3oS1AMs9gIjpc6qnHJEi5hs_kxwAPtXwQw9r9qxWzrmuQl2E8sk6Mp55okz0QPN3s9hWfH4wgBgT87Tf1rl99BzST8ARlL2k1rqriJn5AR0HqWKnpRJFYhTWrOePRYRBOkmGfeUuUsvYl8EMFBI3mok-C-6x7pc_SgbNvB-DAYTzOmWWnuZ2AXJAn676Qx07FIjAuI5QKNinPsTg"/>
+                    Google
+                </button>
+<button class="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 py-2 px-4 text-sm font-medium text-white hover:bg-slate-700/50 transition-colors">
+<img alt="Apple Logo" class="h-5 w-5" data-alt="Apple brand icon logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB0XoLPP-NuZmAHDqRTKPzMMORyBs2mGl6u-E2wQoh-f3_KXbg6CbTRQrG8m-x2MKOc4VUnjNTz5O3EX2EHV0KODlbIA5YpgiO-kStGBWWS7U7z9uM6kIvCitqDfdWgNK6udDCl6WBFKf-vz-iA085crGLvWdzgVLwFuFsEN3ceNJbuXrUimHWGLbhwIMWr15gMF99fuanQ5OILzNanYnpJrV5d6rERrZj4QGxmFBEweyVMx8ft8kT7yNaTyUk29MuO1LLMnYSzUg"/>
+                    Apple
+                </button>
+</div>
+<p class="mt-8 text-center text-sm text-slate-400">
+                Already have an account? 
+                <a class="font-semibold leading-6 text-primary hover:text-primary/80 transition-colors underline underline-offset-4" href="#">Log in</a>
+</p>
+</div>
+<!-- Footer Links -->
+<div class="mt-8 text-center text-xs text-slate-500 space-x-4">
+<a class="hover:text-slate-300" href="#">Privacy Policy</a>
+<span>•</span>
+<a class="hover:text-slate-300" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</body></html>

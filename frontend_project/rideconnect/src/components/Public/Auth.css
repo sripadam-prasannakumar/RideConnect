@@ -1,0 +1,150 @@
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.auth-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 450px;
+    z-index: 10;
+}
+
+.auth-card {
+    padding: 3rem !important;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.auth-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    color: var(--text-muted);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.auth-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -0.5rem;
+}
+
+.forgot-link {
+    font-size: 0.875rem;
+    color: var(--accent-light);
+    text-decoration: none;
+}
+
+.auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+}
+
+.auth-link {
+    color: var(--accent-light);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+.w-full {
+    width: 100% !important;
+}
+
+.icon-circle {
+    width: 64px;
+    height: 64px;
+    background: var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 1px solid var(--glass-border);
+}
+
+.otp-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.otp-field {
+    width: 45px;
+    height: 55px;
+    background: var(--secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--white);
+    transition: var(--transition-fast);
+}
+
+.otp-field:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+    background: var(--primary);
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.mt-6 {
+    margin-top: 1.5rem;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}
