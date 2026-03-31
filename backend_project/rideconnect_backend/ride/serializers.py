@@ -48,7 +48,7 @@ class DriverBriefSerializer(serializers.ModelSerializer):
     user = UserBriefSerializer(read_only=True)
     class Meta:
         model = Driver
-        fields = ['id', 'user', 'phone', 'verification_status', 'vehicle_type', 'total_earnings']
+        fields = ['id', 'user', 'phone', 'profile_picture', 'verification_status', 'vehicle_type', 'total_earnings']
 
 class CarBrandSerializer(serializers.ModelSerializer):
     class Meta:
@@ -72,7 +72,7 @@ class UserVehicleSerializer(serializers.ModelSerializer):
         model = UserVehicle
         fields = [
             'id', 'vehicle_type', 'brand', 'model_name', 'registration_number', 
-            'fuel_type', 'transmission', 'load_capacity', 'images'
+            'fuel_type', 'transmission', 'load_capacity', 'images', 'is_custom'
         ]
 
 class RideSerializer(serializers.ModelSerializer):
@@ -130,6 +130,35 @@ class RidePublicSerializer(RideSerializer):
     class Meta(RideSerializer.Meta):
         fields = [f for f in RideSerializer.Meta.fields if f != 'otp']
 
+
+class RideStatusSerializer(serializers.ModelSerializer):
+    ride_id = serializers.IntegerField(source='id')
+    driver = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Ride
+        fields = ['ride_id', 'status', 'driver']
+
+    def get_driver(self, obj):
+        if obj.driver:
+            # Use full_name if available, otherwise first_name or username
+            driver_name = obj.driver.full_name or obj.driver.user.first_name or obj.driver.user.username
+            # Get registration number from the assigned vehicle
+            vehicle_number = obj.vehicle.registration_number if obj.vehicle else "Not Assigned"
+            
+            # Secure profile picture visibility (only when assigned)
+            profile_picture = None
+            if obj.driver.profile_picture:
+                profile_picture = obj.driver.profile_picture.url
+            
+            return {
+                "name": driver_name,
+                "phone": obj.driver.phone,
+                "profile_picture": profile_picture,
+                "vehicle_type": obj.driver.vehicle_type,
+                "vehicle_number": vehicle_number
+            }
+        return None
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
     class Meta:

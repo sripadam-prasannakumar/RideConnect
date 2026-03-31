@@ -25,7 +25,7 @@ from .models import EmailOTP, Customer, Driver, CarBrand, CarModel, UserVehicle,
 from .serializers import (
     UserSerializer, CarBrandSerializer, CarModelSerializer, 
     UserVehicleSerializer, RideSerializer, RidePublicSerializer,
-    UserBriefSerializer, DriverBriefSerializer, UserPreferenceSerializer
+    UserBriefSerializer, DriverBriefSerializer, UserPreferenceSerializer, RideStatusSerializer
 )
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
@@ -52,7 +52,7 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     r = 6371 # Radius of earth in kilometers
     return c * r
 
-def calculate_ride_fare(distance_km, is_pickup_drop=False, is_daily_package=False, waiting_time_minutes=0):
+def calculate_ride_fare(distance_km, is_pickup_drop=False, is_daily_package=False, waiting_time_minutes=0, vehicle_type='car'):
     """
     New Pricing Logic:
     1. Daily Package (Pickup + Drop Only):
@@ -66,55 +66,102 @@ def calculate_ride_fare(distance_km, is_pickup_drop=False, is_daily_package=Fals
     """
     onward_distance = float(distance_km) or 0.0
     waiting_time_minutes = float(waiting_time_minutes) or 0.0
-    waiting_charge = round((waiting_time_minutes / 60.0) * 35.0, 2)
     
-    if is_daily_package:
-        base_fare = 1000.0
-        if onward_distance <= 150:
-            extra_distance = 0.0
-            extra_charge = 0.0
+    # Initialize variables
+    total_fare = 0.0
+    onward_fare = 0.0
+    return_fare = 0.0
+    base_fare = 0.0
+    extra_distance = 0.0
+    extra_charge = 0.0
+    surcharge = 0.0
+    waiting_charge = 0.0
+
+    if vehicle_type == 'bike':
+        # Rapido-style Bike Pricing
+        # 1. Base Fare: ₹22 for first 2 km
+        base_fare = 22.0
+        
+        if onward_distance <= 2:
+            onward_fare = base_fare
+        elif onward_distance <= 6:
+            # First 2km at 22, next 4km at 6/km
+            extra_distance = onward_distance - 2.0
+            extra_charge = extra_distance * 6.0
+            onward_fare = base_fare + extra_charge
         else:
-            extra_distance = onward_distance - 150.0
-            extra_charge = extra_distance * 3.0
+            # First 2km at 22, next 4km at 6/km, rest at 8/km
+            extra_distance = onward_distance - 2.0
+            # Charge for 2-6km range (4km * ₹6 = ₹24)
+            range_2_6_charge = 4.0 * 6.0
+            # Charge for >6km range
+            range_over_6_dist = onward_distance - 6.0
+            range_over_6_charge = range_over_6_dist * 8.0
+            extra_charge = range_2_6_charge + range_over_6_charge
+            onward_fare = base_fare + extra_charge
             
-        onward_fare = base_fare + extra_charge
-        return_distance = 0.0  # In daily package, distance is total distance recorded
-        return_fare = 0.0
-        total_fare = onward_fare + waiting_charge
+        # 2. Surcharge: ₹10 - ₹20
+        surcharge = float(random.randint(10, 20))
+        
+        # 3. Waiting Charge: ₹1/min after 3 mins
+        if waiting_time_minutes > 3:
+            waiting_charge = (waiting_time_minutes - 3) * 1.0
+            
+        total_fare = onward_fare + surcharge + waiting_charge
         total_distance = onward_distance
+
     else:
-        # Standard Pricing
-        base_fare = 600.0
-        if onward_distance <= 40:
-            extra_distance = 0.0
-            extra_charge = 0.0
+        # Existing Car Pricing Logic
+        waiting_charge = round((waiting_time_minutes / 60.0) * 35.0, 2)
+        
+        if is_daily_package:
+            base_fare = 1000.0
+            if onward_distance <= 150:
+                extra_distance = 0.0
+                extra_charge = 0.0
+            else:
+                extra_distance = onward_distance - 150.0
+                extra_charge = extra_distance * 3.0
+                
+            onward_fare = base_fare + extra_charge
+            return_distance = 0.0
+            return_fare = 0.0
+            total_fare = onward_fare + waiting_charge
+            total_distance = onward_distance
         else:
-            extra_distance = onward_distance - 40.0
-            extra_charge = extra_distance * 3.0
+            # Standard Pricing
+            base_fare = 600.0
+            if onward_distance <= 40:
+                extra_distance = 0.0
+                extra_charge = 0.0
+            else:
+                extra_distance = onward_distance - 40.0
+                extra_charge = extra_distance * 3.0
+                
+            onward_fare = base_fare + extra_charge
             
-        onward_fare = base_fare + extra_charge
-        
-        return_distance = 0.0
-        return_fare = 0.0
-        if is_pickup_drop:
-            return_distance = onward_distance
-            return_fare = return_distance * 3.0
+            return_distance = 0.0
+            return_fare = 0.0
+            if is_pickup_drop:
+                return_distance = onward_distance
+                return_fare = return_distance * 3.0
+                
+            total_fare = onward_fare + return_fare + waiting_charge
+            total_distance = onward_distance + (return_distance or 0.0)
             
-        total_fare = onward_fare + return_fare + waiting_charge
-        total_distance = onward_distance + return_distance
-        
     return {
         'total_fare': round(float(total_fare), 2),
         'onward_fare': round(float(onward_fare), 2),
-        'return_fare': round(float(return_fare), 2),
+        'return_fare': round(float(return_fare), 2 if vehicle_type != 'bike' else 0),
         'base_fare': round(float(base_fare), 2),
         'extra_distance': round(float(extra_distance), 2),
         'extra_charge': round(float(extra_charge), 2),
         'onward_distance': round(float(onward_distance), 2),
-        'return_distance': round(float(return_distance), 2),
+        'return_distance': round(float(return_distance if vehicle_type != 'bike' else 0.0), 2),
         'total_distance': round(float(total_distance), 2),
         'waiting_charge': round(float(waiting_charge), 2),
-        'waiting_time': int(waiting_time_minutes)
+        'waiting_time': int(waiting_time_minutes),
+        'surcharge_amount': round(float(surcharge), 2)
     }
 
 def get_tokens_for_user(user):
@@ -173,7 +220,8 @@ class RideRequestView(APIView):
             distance_km=distance_val, 
             is_pickup_drop=is_pickup_drop,
             is_daily_package=is_daily_package,
-            waiting_time_minutes=data.get('waiting_time', 0)
+            waiting_time_minutes=data.get('waiting_time', 0),
+            vehicle_type=data.get('vehicle_type', 'car')
         )
         
         data['estimated_fare'] = fare_details['total_fare']
@@ -182,6 +230,7 @@ class RideRequestView(APIView):
         data['is_daily_package'] = is_daily_package
         data['waiting_time'] = fare_details['waiting_time']
         data['waiting_charge'] = fare_details['waiting_charge']
+        data['surge_amount'] = fare_details.get('surcharge_amount', 0.0)
         
         # Store detailed breakdown
         data['onward_distance'] = fare_details['onward_distance']
@@ -278,6 +327,10 @@ class RideAcceptView(APIView):
                     return Response({"error": "Ride is no longer available"}, status=status.HTTP_400_BAD_REQUEST)
                 
                 ride.driver = driver
+                # Assign driver's vehicle if available
+                driver_vehicle = UserVehicle.objects.filter(user=driver.user).first()
+                if driver_vehicle:
+                    ride.vehicle = driver_vehicle
                 ride.status = 'accepted'
                 ride.save()
             
@@ -289,7 +342,8 @@ class RideAcceptView(APIView):
                 {
                     'type': 'ride_update',
                     'ride_status': 'accepted',
-                    'driver_data': DriverBriefSerializer(driver).data
+                    'driver_data': RideSerializer(ride).data.get('driver'),
+                    'ride_data': RideSerializer(ride).data
                 }
             )
             
@@ -302,7 +356,7 @@ class RideAcceptView(APIView):
                 }
             )
             
-            return Response(RidePublicSerializer(ride).data, status=status.HTTP_200_OK)
+            return Response(RideStatusSerializer(ride).data, status=status.HTTP_200_OK)
         except Ride.DoesNotExist:
             return Response({"error": "Ride not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -464,6 +518,26 @@ class LogoutView(APIView):
 class HomeView(APIView):
     def get(self, request): return Response({"message": "API is running"})
 
+class CalculateFareView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        distance = request.data.get('distance', 0)
+        vehicle_type = request.data.get('vehicle_type', 'car')
+        waiting_time = request.data.get('waiting_time', 0)
+        trip_type = request.data.get('trip_type', 'one_way')
+        
+        is_daily_package = (trip_type == 'daily')
+        is_pickup_drop = (trip_type == 'round_trip' or trip_type == 'daily')
+        
+        fare_details = calculate_ride_fare(
+            distance_km=distance,
+            is_pickup_drop=is_pickup_drop,
+            is_daily_package=is_daily_package,
+            waiting_time_minutes=waiting_time,
+            vehicle_type=vehicle_type
+        )
+        return Response(fare_details)
+
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
@@ -495,6 +569,22 @@ class UpdateProfileView(APIView):
                     user.customer.save()
                 elif hasattr(user, 'driver'):
                     user.driver.phone = phone
+                    user.driver.save()
+            
+            # New field: address (Driver only)
+            address = request.data.get('address')
+            if address and hasattr(user, 'driver'):
+                user.driver.address = address
+                user.driver.save()
+
+            # New field: full_name (Both)
+            full_name = request.data.get('full_name') or name
+            if full_name:
+                if hasattr(user, 'customer'):
+                    user.customer.full_name = full_name
+                    user.customer.save()
+                elif hasattr(user, 'driver'):
+                    user.driver.full_name = full_name
                     user.driver.save()
 
             final_phone = ''
@@ -584,9 +674,34 @@ class DriverStatusToggleView(APIView):
             return Response({"error": "Driver profile not found"}, status=404)
         
         is_online = request.data.get('is_online', False)
-        driver.is_online = is_online
+        
+        # Validation before going online
         if is_online:
+            # 1. Check Personal & Address
+            if not driver.full_name or not driver.address or not driver.phone:
+                return Response({
+                    "error": "Please complete your profile details (Name, Phone, and Address) before going online."
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # 2. Check License Documents
+            if not driver.license_number or not driver.license_image or not driver.license_image_back:
+                return Response({
+                    "error": "Please upload all required documents (License Number, Front & Back images) before going online."
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # 3. Check Verification Status
+            if driver.verification_status != 'verified':
+                msg = "Your documents are under verification. Please wait for admin approval."
+                if driver.verification_status == 'unverified':
+                    msg = "Please submit your documents for verification."
+                elif driver.verification_status == 'rejected':
+                    msg = "Your verification was rejected. Please re-submit correct details."
+                
+                return Response({"error": msg}, status=status.HTTP_400_BAD_REQUEST)
+
             driver.last_active = timezone.now()
+        
+        driver.is_online = is_online
         driver.save()
         return Response({"is_online": driver.is_online, "last_active": driver.last_active})
 
@@ -806,6 +921,18 @@ class ActiveBookingView(APIView):
             if ride:
                 return Response(RideSerializer(ride).data)
             return Response({"message": "No active booking"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class RideStatusView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, ride_id):
+        try:
+            ride = Ride.objects.get(id=ride_id)
+            serializer = RideStatusSerializer(ride)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Ride.DoesNotExist:
+            return Response({"error": "Ride not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

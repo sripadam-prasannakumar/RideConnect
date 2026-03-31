@@ -1,7 +1,7 @@
 import PubNub from 'pubnub';
 
-const PUBLISH_KEY = 'pub-c-9cb28f84-cd48-42d5-a0e0-4abcd9b9b49b';
-const SUBSCRIBE_KEY = 'sub-c-c7f42602-c002-4c0e-ac82-76901778f784';
+const PUBLISH_KEY = 'pub-c-786fb45d-17ef-4907-960f-b5fd95bf44f7';
+const SUBSCRIBE_KEY = 'sub-c-668fd095-f346-4f4d-ad7e-819f9ee36ce6';
 
 export const RIDE_REQUESTS_CHANNEL = 'ride_requests';
 export const RIDE_UPDATES_CHANNEL = 'ride_updates';

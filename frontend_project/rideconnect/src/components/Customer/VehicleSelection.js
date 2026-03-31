@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-// import GlobalBackButton from '../Shared/GlobalBackButton';
+// // import GlobalBackButton from '../Shared/GlobalBackButton';
 
 // ─── Vehicle Data ──────────────────────────────────────────────────────────────
 const VEHICLE_DATA = {
@@ -223,6 +223,8 @@ const VehicleSelection = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isCustomMode, setIsCustomMode] = useState(false);
+    const [customData, setCustomData] = useState({ brand: '', model: '', type: 'car' });
 
     const catData = selectedCategory ? VEHICLE_DATA[selectedCategory] : null;
 
@@ -254,22 +256,33 @@ const VehicleSelection = () => {
     };
 
     const handleBack = () => {
-        if (step === 'model') { setStep('brand'); setSearchTerm(''); }
+        if (isCustomMode) { setIsCustomMode(false); }
+        else if (step === 'model') { setStep('brand'); setSearchTerm(''); }
         else if (step === 'brand') { setStep('category'); setSelectedCategory(null); setSearchTerm(''); }
         else navigate(-1);
     };
 
-    const stepTitle = step === 'category'
-        ? 'Select Vehicle Type'
-        : step === 'brand'
-            ? `Select ${catData?.label} Brand`
-            : `Select ${selectedBrand?.name} Model`;
+    const handleCustomSubmit = (e) => {
+        e.preventDefault();
+        if (!customData.brand || !customData.model) return;
+        navigate(`/customer/add-vehicle?brand=${customData.brand}&model=${customData.model}&type=${customData.type}&is_custom=true`);
+    };
 
-    const stepSubtitle = step === 'category'
-        ? 'Choose the type of vehicle you want to register'
-        : step === 'brand'
-            ? `Browse all ${catData?.label.toLowerCase()} manufacturers`
-            : `Choose the exact model of your ${selectedBrand?.name}`;
+    const stepTitle = isCustomMode 
+        ? 'Custom Vehicle'
+        : step === 'category'
+            ? 'Select Vehicle Type'
+            : step === 'brand'
+                ? `Select ${catData?.label} Brand`
+                : `Select ${selectedBrand?.name} Model`;
+
+    const stepSubtitle = isCustomMode
+        ? 'Manually enter your vehicle details below'
+        : step === 'category'
+            ? 'Choose the type of vehicle you want to register'
+            : step === 'brand'
+                ? `Browse all ${catData?.label.toLowerCase()} manufacturers`
+                : `Choose the exact model of your ${selectedBrand?.name}`;
 
     return (
         <div className="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-950 font-display text-slate-900 dark:text-slate-100 min-h-screen">
@@ -313,8 +326,8 @@ const VehicleSelection = () => {
                     <p className="text-sm text-slate-500 mt-1">{stepSubtitle}</p>
                 </motion.div>
 
-                {/* Search (brand/model step only) */}
-                {step !== 'category' && (
+                {/* SEARCH COMPONENT (brand/model step only) */}
+                {step !== 'category' && !isCustomMode && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                         <div className="relative max-w-lg">
                             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
@@ -336,19 +349,77 @@ const VehicleSelection = () => {
                 <AnimatePresence mode="wait">
 
                     {/* ── STEP 1: Category ── */}
-                    {step === 'category' && (
+                    {step === 'category' && !isCustomMode && (
                         <motion.div key="category" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
-                            className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            {Object.entries(VEHICLE_DATA).map(([key, val]) => (
-                                <motion.button key={key} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                                    onClick={() => handleCategorySelect(key)}
-                                    className={`group relative overflow-hidden bg-gradient-to-br ${val.color} border rounded-2xl p-8 text-left transition-all hover:shadow-xl`}>
-                                    <span className={`material-symbols-outlined text-6xl mb-4 block`} style={{ fontSize: '64px' }}>{val.icon}</span>
-                                    <h3 className="text-xl font-black text-slate-900 dark:text-white">{val.label}</h3>
-                                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{val.brands.length} brands available</p>
-                                    <span className="material-symbols-outlined absolute bottom-5 right-5 text-slate-300 dark:text-slate-600 group-hover:text-current transition-colors">arrow_forward</span>
-                                </motion.button>
-                            ))}
+                            className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                {Object.entries(VEHICLE_DATA).map(([key, val]) => (
+                                    <motion.button key={key} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                                        onClick={() => handleCategorySelect(key)}
+                                        className={`group relative overflow-hidden bg-gradient-to-br ${val.color} border rounded-2xl p-8 text-left transition-all hover:shadow-xl`}>
+                                        <span className={`material-symbols-outlined text-6xl mb-4 block`} style={{ fontSize: '64px' }}>{val.icon}</span>
+                                        <h3 className="text-xl font-black text-slate-900 dark:text-white">{val.label}</h3>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{val.brands.length} brands available</p>
+                                        <span className="material-symbols-outlined absolute bottom-5 right-5 text-slate-300 dark:text-slate-600 group-hover:text-current transition-colors">arrow_forward</span>
+                                    </motion.button>
+                                ))}
+                            </div>
+
+                            {/* Custom Vehicle Option */}
+                            <motion.button 
+                                whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
+                                onClick={() => setIsCustomMode(true)}
+                                className="w-full flex items-center justify-between p-6 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:border-cyan-400/50 hover:bg-cyan-400/5 transition-all group"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="size-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 group-hover:text-cyan-400 transition-colors">
+                                        <span className="material-symbols-outlined text-2xl">add_circle</span>
+                                    </div>
+                                    <div className="text-left">
+                                        <h4 className="font-bold text-slate-900 dark:text-white">Custom Vehicle</h4>
+                                        <p className="text-xs text-slate-500">Don't see your brand or model? Add it manually.</p>
+                                    </div>
+                                </div>
+                                <span className="material-symbols-outlined text-slate-300 group-hover:text-cyan-400 transition-colors">chevron_right</span>
+                            </motion.button>
+                        </motion.div>
+                    )}
+
+                    {/* ── Custom Form ── */}
+                    {isCustomMode && (
+                        <motion.div key="custom" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
+                            className="max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-2xl space-y-6">
+                            <form onSubmit={handleCustomSubmit} className="space-y-6">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-black uppercase text-slate-400 tracking-widest pl-1">Vehicle Type</label>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {['car', 'bike', 'cargo'].map(t => (
+                                            <button key={t} type="button" onClick={() => setCustomData({...customData, type: t})}
+                                                className={`py-3 rounded-xl border-2 font-bold text-xs capitalize transition-all ${customData.type === t ? 'border-cyan-400 bg-cyan-400/10 text-cyan-400' : 'border-slate-100 dark:border-slate-800 text-slate-500 hover:border-slate-200 dark:hover:border-slate-700'}`}>
+                                                {t}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-black uppercase text-slate-400 tracking-widest pl-1">Brand Name</label>
+                                    <input required placeholder="e.g. Tesla, Tata, etc." 
+                                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-none outline-none focus:ring-2 ring-cyan-400/50 transition-all font-medium text-sm"
+                                        value={customData.brand} onChange={e => setCustomData({...customData, brand: e.target.value})}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-black uppercase text-slate-400 tracking-widest pl-1">Model Name</label>
+                                    <input required placeholder="e.g. Model 3, Nexon, etc." 
+                                        className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-none outline-none focus:ring-2 ring-cyan-400/50 transition-all font-medium text-sm"
+                                        value={customData.model} onChange={e => setCustomData({...customData, model: e.target.value})}
+                                    />
+                                </div>
+                                <button type="submit" 
+                                    className="w-full py-4 rounded-xl bg-cyan-400 text-white font-black hover:brightness-110 shadow-lg shadow-cyan-400/20 active:scale-[0.98] transition-all">
+                                    Continue to Details
+                                </button>
+                            </form>
                         </motion.div>
                     )}
 

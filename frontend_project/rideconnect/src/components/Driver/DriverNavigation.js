@@ -1,10 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { authorizedFetch } from '../../utils/apiUtils';
+import API_BASE_URL from '../../apiConfig';
+import { getPubNubInstance, RIDE_UPDATES_CHANNEL } from '../../utils/pubnubService';
 
 const DriverNavigation = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     const rideId = state?.rideId;
+    const [currentLocation, setCurrentLocation] = useState(null);
+
+    useEffect(() => {
+        if (!rideId) return;
+
+        const pubnub = getPubNubInstance('driver_location');
+
+        const updateLocation = async (position) => {
+            const { latitude, longitude } = position.coords;
+            const locData = { lat: latitude, lng: longitude };
+            setCurrentLocation(locData);
+
+            // 1. Update Backend
+            try {
+                authorizedFetch(`${API_BASE_URL}/api/driver/update-location/`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        ride_id: rideId,
+                        latitude: latitude,
+                        longitude: longitude
+                    })
+                });
+            } catch (e) { console.error("Update backend location error:", e); }
+
+            // 2. Publish to PubNub for real-time customer tracking
+            if (pubnub) {
+                pubnub.publish({
+                    channel: RIDE_UPDATES_CHANNEL,
+                    message: {
+                        type: 'location_update',
+                        ride_id: rideId,
+                        location: locData
+                    }
+                });
+            }
+        };
+
+        const geoId = navigator.geolocation.watchPosition(
+            updateLocation,
+            (err) => console.error("Geo error:", err),
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+
+        return () => navigator.geolocation.clearWatch(geoId);
+    }, [rideId]);
 
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 overflow-hidden h-screen">

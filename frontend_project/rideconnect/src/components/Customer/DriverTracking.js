@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import API_BASE_URL from '../../apiConfig';
 import { getAuthStatus } from '../../utils/authUtils';
 import { authorizedFetch } from '../../utils/apiUtils';
+import LiveTrackingMap from './LiveTrackingMap';
 
 const DriverTracking = () => {
     const navigate = useNavigate();
@@ -91,28 +92,15 @@ const DriverTracking = () => {
 
                 {/* Main Content Area (Interactive Map Background) */}
                 <main className="flex-1 relative bg-slate-900 overflow-hidden">
-                    {/* Simulated Map Component */}
-                    <div className="absolute inset-0 z-0 bg-cover bg-center opacity-60 grayscale-[0.8] brightness-[0.4]" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCz2qPqvQQ4urvCgMMOVXqrZqUWyrM77Zb31no6UbzrbYtu8-JZZgGex0yoOhyn06P1vppFMvHw2cf5Yk145DTCM2a_6bjKA85XvmHkJFESvLrJ6WhShlqVVemujglcnQRUUl1Ry-ykBOIp0iLdF4Bjud2qmzo-HRrGGNBlXTz9S1lnoOZdsv0gGGOhmTkFRhy5es1i0ylw-GTlZDMBayzVqnvFMrZePhNWWYDh-J3zUYHo9AwftLiAnkH5UZ1avfJ_bF1AA8N4h7s')" }}>
-                    </div>
-                    {/* Route Visualization (Simplified SVG) */}
-                    <svg className="absolute inset-0 w-full h-full z-10 pointer-events-none" preserveAspectRatio="none">
-                        {/* Path Glow */}
-                        <path className="opacity-20 blur-md" d="M 300,600 Q 500,500 700,400 T 900,200" fill="none" stroke="#0dccf2" strokeLinecap="round" strokeLinejoin="round" strokeWidth="6"></path>
-                        {/* Main Path */}
-                        <path d="M 300,600 Q 500,500 700,400 T 900,200" fill="none" stroke="#0dccf2" strokeDasharray="1, 8" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4"></path>
-                        {/* Destination Pin */}
-                        <circle cx="900" cy="200" fill="#0dccf2" r="8"></circle>
-                        <circle className="opacity-30 animate-ping" cx="900" cy="200" fill="#0dccf2" r="16"></circle>
-                    </svg>
-                    {/* Driver Marker */}
-                    <div className="absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[450px] md:top-[520px]">
-                        <div className="relative flex items-center justify-center">
-                            <div className="absolute size-14 bg-primary/20 rounded-full blur-xl"></div>
-                            <div className="size-10 bg-primary rounded-full shadow-[0_0_20px_rgba(13,204,242,0.6)] flex items-center justify-center transform rotate-[-45deg]">
-                                <span className="material-symbols-outlined text-background-dark font-bold text-2xl">navigation</span>
-                            </div>
-                        </div>
-                    </div>
+                    {rideData && (
+                        <LiveTrackingMap 
+                            rideId={rideId}
+                            pickupCoords={[rideData.pickup_lat, rideData.pickup_lng]}
+                            dropCoords={[rideData.drop_lat, rideData.drop_lng]}
+                            initialDriverCoords={rideData.driver_lat ? [rideData.driver_lat, rideData.driver_lng] : null}
+                        />
+                    )}
+                    
                     {/* Safety SOS Button Overlay */}
                     <div className="absolute right-6 top-24 z-30 flex flex-col gap-3">
                         <button className="flex items-center justify-center size-12 rounded-xl bg-background-dark/90 border border-white/10 text-slate-100 shadow-xl backdrop-blur-md hover:bg-white/10 transition-colors">
@@ -135,7 +123,7 @@ const DriverTracking = () => {
                             <span className="text-xs font-bold tracking-widest text-primary uppercase">Live Tracking</span>
                         </div>
                         <div className="h-4 w-px bg-white/10"></div>
-                        <p className="text-sm font-medium text-slate-100">ETA: <span className="text-primary font-bold">3 mins</span></p>
+                        <p className="text-sm font-medium text-slate-100">ETA: <span className="text-primary font-bold">{rideStatus === 'accepted' ? '3 mins' : 'In Progress'}</span></p>
                     </div>
                 </main>
 

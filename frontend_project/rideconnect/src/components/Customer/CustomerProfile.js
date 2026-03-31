@@ -1,8 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authorizedFetch } from '../../utils/apiUtils';
+import API_BASE_URL from '../../apiConfig';
+import { getAuthStatus } from '../../utils/authUtils';
 
 const CustomerProfile = () => {
     const navigate = useNavigate();
+    const [userData, setUserData] = useState({
+        full_name: '',
+        email: '',
+        phone: '',
+        profile_picture: null,
+        membership: 'Gold Member'
+    });
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        const { isAuthenticated, email } = getAuthStatus();
+        if (!isAuthenticated) {
+            navigate('/login');
+            return;
+        }
+
+        authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`)
+            .then(res => res.json())
+            .then(data => {
+                setUserData({
+                    ...data,
+                    full_name: data.full_name || data.name || 'Customer'
+                });
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
+            });
+    }, [navigate]);
+
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            const response = await authorizedFetch(`${API_BASE_URL}/api/update-profile/`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: userData.email,
+                    full_name: userData.full_name,
+                    phone: userData.phone
+                })
+            });
+
+            if (response.ok) {
+                alert('Profile updated successfully');
+            } else {
+                const errorData = await response.json();
+                alert(errorData.error || 'Failed to update profile');
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('An error occurred');
+        } finally {
+            setSaving(false);
+        }
+    };
 
     return (
         <div className="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased font-display min-h-screen">
@@ -77,10 +138,10 @@ const CustomerProfile = () => {
                             <div className="h-8 w-px bg-slate-200 dark:border-primary/20 mx-2"></div>
                             <div className="flex items-center gap-3">
                                 <div className="text-right hidden sm:block">
-                                    <p className="text-sm font-bold leading-none">Alex Mitchell</p>
-                                    <p className="text-xs text-primary font-medium">Gold Member</p>
+                                    <p className="text-sm font-bold leading-none">{userData.full_name}</p>
+                                    <p className="text-xs text-primary font-medium">{userData.membership}</p>
                                 </div>
-                                <div className="size-10 rounded-full border-2 border-primary bg-cover bg-center" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAW6ef7VXgaB-a5zFSMQylTfdZgS8He-tFPdVqcdaUbp-5tCdimJuxCKIw3FIp8khrKqa9JUwUz0IBfOB1zgjItI-Sun1pXKY3gI-VXgm0_Gb2vzfgC18pVAkxDdEkf9CLF-0EmDDXpSUA5IeOYWzTab2waqzN0Ef5W4ZWr1B32T_kYfMFDk86MzJdIcxEPB2iUQ-0DLJ1dw9V5yRRRXR74_4Z1LNGhC3qcv2k7G3oqC4vo2jDChmsfKAbAW1dOuvoKMuENHfrblCE')" }}></div>
+                                <div className="size-10 rounded-full border-2 border-primary bg-cover bg-center" style={{ backgroundImage: userData.profile_picture ? `url(${API_BASE_URL}${userData.profile_picture})` : "url('https://avatar.iran.liara.run/public/boy')" }}></div>
                             </div>
                         </div>
                     </header>
@@ -97,16 +158,20 @@ const CustomerProfile = () => {
                             </div>
                             <div className="flex-1 text-center md:text-left space-y-1">
                                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                                    <h2 className="text-3xl font-bold">Alex Mitchell</h2>
+                                    <h2 className="text-3xl font-bold">{userData.full_name}</h2>
                                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/20 text-primary border border-primary/30 w-fit self-center">
-                                        Gold Member
+                                        {userData.membership}
                                     </span>
                                 </div>
                                 <p className="text-slate-500 dark:text-slate-400">Member since February 2022 • New York, USA</p>
                             </div>
                             <div className="flex gap-3">
-                                <button className="px-6 py-2.5 bg-primary text-background-dark font-bold rounded-lg hover:brightness-110 transition-all shadow-lg shadow-primary/20">
-                                    Save Changes
+                                <button 
+                                    onClick={handleSave}
+                                    disabled={saving}
+                                    className="px-6 py-2.5 bg-primary text-background-dark font-bold rounded-lg hover:brightness-110 transition-all shadow-lg shadow-primary/20 disabled:opacity-50"
+                                >
+                                    {saving ? 'Saving...' : 'Save Changes'}
                                 </button>
                             </div>
                         </div>
@@ -122,15 +187,25 @@ const CustomerProfile = () => {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Full Name</label>
-                                            <input className="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" type="text" defaultValue="Alex Mitchell" />
+                                            <input 
+                                                className="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" 
+                                                type="text" 
+                                                value={userData.full_name} 
+                                                onChange={(e) => setUserData({...userData, full_name: e.target.value})}
+                                            />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Phone Number</label>
-                                            <input className="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" type="tel" defaultValue="+1 (555) 012-3456" />
+                                            <input 
+                                                className="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" 
+                                                type="tel" 
+                                                value={userData.phone} 
+                                                onChange={(e) => setUserData({...userData, phone: e.target.value})}
+                                            />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Email Address</label>
-                                            <input className="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" type="email" defaultValue="alex.mitchell@example.com" />
+                                            <input className="w-full bg-slate-50/50 dark:bg-background-dark/50 border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 h-12 outline-none cursor-not-allowed opacity-70" type="email" value={userData.email} readOnly />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Occupation</label>

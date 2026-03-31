@@ -11,7 +11,14 @@ import API_BASE_URL from '../../apiConfig';
 
 const DriverProfile = () => {
     const navigate = useNavigate();
-    const [userData, setUserData] = useState({ name: '', email: '', phone: '', profile_picture: null });
+    const [userData, setUserData] = useState({ 
+        name: '', 
+        full_name: '', 
+        email: '', 
+        phone: '', 
+        profile_picture: null, 
+        address: '' 
+    });
     const [verificationStatus, setVerificationStatus] = useState(null);
     const [licenseDetails, setLicenseDetails] = useState({ number: '', expiry: '', type: '' });
     const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -31,7 +38,13 @@ const DriverProfile = () => {
         authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`)
             .then(res => res.json())
             .then(data => {
-                if (data.email) setUserData(data);
+                if (data.email) {
+                    setUserData({
+                        ...data,
+                        full_name: data.full_name || data.name || '',
+                        address: data.address || ''
+                    });
+                }
             })
             .catch(console.error);
 
@@ -119,6 +132,34 @@ const DriverProfile = () => {
         }
     };
 
+    const handleSaveProfile = async () => {
+        setUploading(true);
+        try {
+            const response = await authorizedFetch(`${API_BASE_URL}/api/update-profile/`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: userData.email,
+                    full_name: userData.full_name,
+                    phone: userData.phone,
+                    address: userData.address
+                })
+            });
+
+            if (response.ok) {
+                alert('Profile updated successfully');
+            } else {
+                const errorData = await response.json();
+                alert(errorData.error || 'Failed to update profile');
+            }
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('An error occurred');
+        } finally {
+            setUploading(false);
+        }
+    };
+
     return (
         <div className="flex-1 overflow-y-auto p-8 lg:p-12 custom-scrollbar">
             <div className="max-w-4xl mx-auto space-y-10">
@@ -187,7 +228,13 @@ const DriverProfile = () => {
                                 <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Partner: {userData.email}</p>
                             </div>
                         </div>
-                        <button className="px-10 py-4 bg-primary text-background-dark font-black text-sm uppercase tracking-widest rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all relative">Save Changes</button>
+                        <button 
+                            onClick={handleSaveProfile}
+                            disabled={uploading}
+                            className="px-10 py-4 bg-primary text-background-dark font-black text-sm uppercase tracking-widest rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all relative disabled:opacity-50"
+                        >
+                            {uploading ? 'Saving...' : 'Save Changes'}
+                        </button>
                     </motion.section>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -199,7 +246,12 @@ const DriverProfile = () => {
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Full Name</label>
-                                    <input className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary h-14 outline-none" defaultValue={userData.name} />
+                                    <input 
+                                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary h-14 outline-none" 
+                                        value={userData.full_name} 
+                                        onChange={(e) => setUserData({...userData, full_name: e.target.value})}
+                                        placeholder="Enter your full name"
+                                    />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Phone</label>
@@ -225,7 +277,12 @@ const DriverProfile = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Address</label>
-                                    <textarea className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary h-24 outline-none resize-none" defaultValue="123 Sunset Blvd, CA 90028" />
+                                    <textarea 
+                                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary h-24 outline-none resize-none" 
+                                        value={userData.address} 
+                                        onChange={(e) => setUserData({...userData, address: e.target.value})}
+                                        placeholder="Enter your registered address"
+                                    />
                                 </div>
                             </div>
                         </section>

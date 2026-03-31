@@ -14,6 +14,7 @@ const AddVehicleDetails = () => {
     const [searchParams] = useSearchParams();
     const brand = searchParams.get('brand') || '';
     const model = searchParams.get('model') || '';
+    const isCustom = searchParams.get('is_custom') === 'true';
 
     // Form State
     const [regNumber, setRegNumber] = useState('');
@@ -152,6 +153,7 @@ const AddVehicleDetails = () => {
         formData.append('registration_number', regNumber);
         formData.append('fuel_type', fuelType);
         formData.append('transmission', transmission);
+        formData.append('is_custom', isCustom);
         if (vehicleType === 'cargo' && loadCapacity) {
             formData.append('load_capacity', loadCapacity);
         }
@@ -225,8 +227,11 @@ const AddVehicleDetails = () => {
                                     <div className="h-full rounded-full bg-primary" style={{ width: '100%' }}></div>
                                 </div>
                                 {brand && model && (
-                                    <p className="text-slate-500 dark:text-primary/70 text-sm font-normal">
+                                    <p className="text-slate-500 dark:text-primary/70 text-sm font-normal flex items-center gap-2">
                                         Adding: <span className="text-primary font-bold">{brand} {model}</span>
+                                        {isCustom && (
+                                            <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-black uppercase tracking-tighter border border-amber-500/20">Custom</span>
+                                        )}
                                     </p>
                                 )}
                             </div>

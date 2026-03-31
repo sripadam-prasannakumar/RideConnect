@@ -4,6 +4,9 @@ import RideRequestNotification from './RideRequestNotification';
 import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
 import { getPubNubInstance, RIDE_REQUESTS_CHANNEL, RIDE_UPDATES_CHANNEL } from '../../utils/pubnubService';
+import VoiceService from '../../utils/voiceService';
+import useVoicePreference from '../../hooks/useVoicePreference';
+import { Volume2, VolumeX } from 'lucide-react';
 
 const DriverDashboard = () => {
     const navigate = useNavigate();
@@ -16,6 +19,7 @@ const DriverDashboard = () => {
     const [driverId, setDriverId] = useState(null);
     const [isOnline, setIsOnline] = useState(false);
     const [togglingStatus, setTogglingStatus] = useState(false);
+    const [voiceEnabled, toggleVoice] = useVoicePreference();
     const email = sessionStorage.getItem('user_email');
 
     useEffect(() => {
@@ -113,8 +117,13 @@ const DriverDashboard = () => {
         };
 
         const statusInterval = setInterval(pollStatus, 10000); // Poll every 10s
+        return () => clearInterval(statusInterval);
+    }, [email, verificationStatus]);
 
-        /* --- Location Tracking --- */
+    /* --- Location Tracking --- */
+    useEffect(() => {
+        if (!email || !isOnline) return;
+
         let watchId = null;
         if ("geolocation" in navigator) {
             watchId = navigator.geolocation.watchPosition(
@@ -126,7 +135,7 @@ const DriverDashboard = () => {
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ lat: latitude, lng: longitude })
                         });
-                        console.log("Location updated:", latitude, longitude);
+                        console.log("Driver location updated:", latitude, longitude);
                     } catch (err) {
                         console.error("Failed to update location:", err);
                     }
@@ -137,44 +146,52 @@ const DriverDashboard = () => {
         }
 
         return () => {
-            clearInterval(statusInterval);
             if (watchId !== null) navigator.geolocation.clearWatch(watchId);
         };
-    }, [email, verificationStatus]);
+    }, [email, isOnline]);
 
     // PubNub Real-Time Integration
     useEffect(() => {
-        if (!driverId || verificationStatus !== 'verified') return;
+        if (!driverId || !isOnline) return;
 
-        let pubnub = null;
-        if (isOnline) {
-            pubnub = getPubNubInstance(`driver_${driverId}`);
-            if (pubnub) {
-                pubnub.addListener({
-                    message: (event) => {
-                        if (event.channel === RIDE_REQUESTS_CHANNEL && event.message.type === 'ride_request') {
-                            console.log("PubNub ride request received:", event.message.ride_data);
-                            setActiveRideRequest(event.message.ride_data);
-                        } else if (event.channel === RIDE_UPDATES_CHANNEL && event.message.status === 'accepted') {
-                            console.log("PubNub ride accepted by another driver:", event.message.ride_id);
-                            setActiveRideRequest(prev => {
-                                if (prev && prev.id === event.message.ride_id) {
-                                    return null;
-                                }
-                                return prev;
-                            });
-                            // Refresh list
-                            authorizedFetch(`${API_BASE_URL}/api/ride/available/?email=${encodeURIComponent(email)}`)
-                                .then(res => res.json())
-                                .then(data => setAvailableRides(data));
-                        }
+        const pubnub = getPubNubInstance(`driver_${driverId}`);
+        if (pubnub) {
+            pubnub.addListener({
+                message: (event) => {
+                    if (event.channel === RIDE_REQUESTS_CHANNEL) {
+                        console.log("PubNub Ride Request Received:", event.message);
+                        // Map PubNub format to our app's internal format
+                        const mappedRide = {
+                            id: event.message.ride_id,
+                            pickup_location: event.message.pickup,
+                            destination: event.message.destination,
+                            estimated_fare: event.message.fare,
+                            customer_id: event.message.customer_id,
+                            duration_text: event.message.duration_text || "Checking...",
+                            vehicle_type: event.message.vehicle_type || "Car"
+                        };
+                        setActiveRideRequest(mappedRide);
+                    } else if (event.channel === RIDE_UPDATES_CHANNEL && event.message.status === 'accepted') {
+                        console.log("Ride accepted by another driver:", event.message.ride_id);
+                        setActiveRideRequest(prev => {
+                            if (prev && prev.id === event.message.ride_id) {
+                                // Show "Already Taken" feedback if it was the active request
+                                alert("This ride has already been taken by another driver.");
+                                return null;
+                            }
+                            return prev;
+                        });
+                        // Refresh background list
+                        authorizedFetch(`${API_BASE_URL}/api/ride/available/?email=${encodeURIComponent(email)}`)
+                            .then(res => res.json())
+                            .then(data => setAvailableRides(data));
                     }
-                });
-                
-                pubnub.subscribe({
-                    channels: [RIDE_REQUESTS_CHANNEL, RIDE_UPDATES_CHANNEL]
-                });
-            }
+                }
+            });
+            
+            pubnub.subscribe({
+                channels: [RIDE_REQUESTS_CHANNEL, RIDE_UPDATES_CHANNEL]
+            });
         }
 
         return () => {
@@ -182,7 +199,7 @@ const DriverDashboard = () => {
                 pubnub.unsubscribeAll();
             }
         };
-    }, [isOnline, driverId, verificationStatus, email]);
+    }, [isOnline, driverId, email]);
 
     const handleAcceptRide = async (rideId) => {
         try {
@@ -192,6 +209,8 @@ const DriverDashboard = () => {
                 body: JSON.stringify({ ride_id: rideId, driver_email: email })
             });
             if (res.ok) {
+                const rideData = await res.json();
+                
                 // Publish accept to PubNub
                 const pubnub = getPubNubInstance(`driver_${driverId}`);
                 if (pubnub) {
@@ -199,11 +218,18 @@ const DriverDashboard = () => {
                         channel: RIDE_UPDATES_CHANNEL,
                         message: {
                             ride_id: rideId,
-                            status: 'accepted'
+                            status: 'accepted',
+                            ride_data: rideData
                         }
                     });
                 }
                 setActiveRideRequest(null);
+                
+                // Voice Instruction for Driver
+                if (voiceEnabled) {
+                    const pickup = activeRideRequest?.pickup_location || "the pickup point";
+                    VoiceService.speak(`Ride accepted. Please proceed to ${pickup}.`);
+                }
                 
                 // Get full ride details if available in availableRides or activeRideRequest
                 // Navigate to tracking
@@ -237,8 +263,8 @@ const DriverDashboard = () => {
                 const data = await res.json();
                 setIsOnline(data.is_online);
             } else {
-                console.error("Failed to toggle status");
-                alert("Failed to update status. Please try again.");
+                const data = await res.json();
+                alert(data.error || "Failed to update status. Please try again.");
             }
         } catch (err) {
             console.error("Error toggling status:", err);
@@ -387,6 +413,13 @@ const DriverDashboard = () => {
                                 </label>
                                 <span className={`text-xs font-bold uppercase tracking-wider ${isOnline ? 'text-primary' : 'text-slate-400 dark:text-slate-600'}`}>Online</span>
                             </div>
+                            <button 
+                                onClick={toggleVoice}
+                                className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                                title={voiceEnabled ? "Mute Voice" : "Unmute Voice"}
+                            >
+                                {voiceEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+                            </button>
                             <button className="relative p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
                                 <span className="material-symbols-outlined">notifications</span>
                                 <span className="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>

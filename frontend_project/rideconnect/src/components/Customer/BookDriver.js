@@ -4,11 +4,13 @@ import { getAuthStatus } from '../../utils/authUtils';
 import { authorizedFetch } from '../../utils/apiUtils';
 import GlobalBackButton from '../Shared/GlobalBackButton';
 import API_BASE_URL from '../../apiConfig';
+import { getPubNubInstance, RIDE_REQUESTS_CHANNEL } from '../../utils/pubnubService';
 import { MapPin, Navigation, Info, Target, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import BikeFareDetailsModal from './BikeFareDetailsModal';
 
 // Fix for default marker icons in Leaflet + React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -52,6 +54,8 @@ const BookDriver = () => {
     const [vehicles, setVehicles] = useState([]);
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [showVehicleSelector, setShowVehicleSelector] = useState(false);
+    const [showFareModal, setShowFareModal] = useState(false);
+    const [fareDetails, setFareDetails] = useState(null);
     
     // Search states
     const [pickupSearch, setPickupSearch] = useState('');
@@ -193,49 +197,34 @@ const BookDriver = () => {
                 const onwardDistanceRaw = route.distance / 1000.0;
                 const onwardDurationSec = route.duration;
 
-                let totalPrice = 0;
-                let totalDistance = onwardDistanceRaw;
-                let totalDuration = onwardDurationSec;
-
-                if (tripType === 'daily') {
-                    // Daily Package: ₹1000 for 150km, extra ₹3/km
-                    totalPrice = 1000;
-                    if (onwardDistanceRaw > 150) {
-                        totalPrice += (onwardDistanceRaw - 150) * 3;
+                // --- Call Backend Fare API ---
+                try {
+                    const fareRes = await authorizedFetch(`${API_BASE_URL}/api/calculate-fare/`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            distance: onwardDistanceRaw,
+                            vehicle_type: selectedType,
+                            trip_type: tripType
+                        })
+                    });
+                    if (fareRes.ok) {
+                        const fareData = await fareRes.json();
+                        setFareDetails(fareData);
+                        setPrice(Math.round(fareData.total_fare));
+                        setDistance(fareData.total_distance);
+                        setDurationSeconds(onwardDurationSec);
                     }
-                    totalDistance = onwardDistanceRaw;
-                    totalDuration = onwardDurationSec; // 12h is fixed, but we show route duration
-                } else if (tripType === 'round_trip') {
-                    // Round Trip: Onward (₹600 for 40km, then ₹3/km) + Return (km * ₹3)
-                    let onwardFare = 600;
-                    if (onwardDistanceRaw > 40) {
-                        onwardFare += (onwardDistanceRaw - 40) * 3;
-                    }
-                    const returnFare = onwardDistanceRaw * 3;
-                    totalPrice = onwardFare + returnFare;
-                    totalDistance = onwardDistanceRaw * 2;
-                    totalDuration = onwardDurationSec * 2;
-                } else {
-                    // One Way: ₹600 for 40km, then ₹3/km
-                    totalPrice = 600;
-                    if (onwardDistanceRaw > 40) {
-                        totalPrice += (onwardDistanceRaw - 40) * 3;
-                    }
-                    totalDistance = onwardDistanceRaw;
-                    totalDuration = onwardDurationSec;
+                } catch (e) {
+                    console.error("Fare API error:", e);
                 }
-
-                setPrice(Math.round(totalPrice));
-                setDistance(totalDistance);
-                setDurationSeconds(totalDuration);
                 
-                const durText = totalDuration > 3600 
-                    ? `${Math.floor(totalDuration/3600)}h ${Math.floor((totalDuration%3600)/60)}m`
-                    : `${Math.ceil(totalDuration/60)} mins`;
+                const durText = onwardDurationSec > 3600 
+                    ? `${Math.floor(onwardDurationSec/3600)}h ${Math.floor((onwardDurationSec%3600)/60)}m`
+                    : `${Math.ceil(onwardDurationSec/60)} mins`;
                 setDurationText(durText);
             }
         } catch (error) { console.error("Routing error:", error); }
-    }, [pickupLocation, dropLocation, tripType, durationSeconds, durationText]);
+    }, [pickupLocation, dropLocation, tripType, selectedType]);
 
     useEffect(() => {
         calculateRoute();
@@ -272,6 +261,27 @@ const BookDriver = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                
+                // Publish to PubNub if it's an immediate search
+                if (data.status === 'searching') {
+                    const { isAuthenticated, email } = getAuthStatus();
+                    const pubnub = getPubNubInstance(`customer_${email}`);
+                    if (pubnub) {
+                        pubnub.publish({
+                            channel: RIDE_REQUESTS_CHANNEL,
+                            message: {
+                                ride_id: data.ride_id,
+                                pickup: pickupLocation.label,
+                                destination: dropLocation.label,
+                                fare: price,
+                                customer_id: email, // or user ID if available
+                                vehicle_type: selectedType,
+                                duration_text: durationText
+                            }
+                        });
+                    }
+                }
+
                 if (data.status === 'scheduled') {
                     alert("Ride scheduled successfully! You can view it in your Ride History.");
                     navigate('/customer/dashboard');
@@ -493,7 +503,13 @@ const BookDriver = () => {
                             </div>
                             
                             <div className="pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
-                                <span className="text-sm font-black uppercase tracking-[0.1em]">Total Estimate</span>
+                                <button 
+                                    onClick={() => selectedType === 'bike' && setShowFareModal(true)}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-black text-primary uppercase tracking-wider hover:bg-primary/10 transition-all"
+                                >
+                                    <span className="material-symbols-outlined text-sm">info</span>
+                                    Fare Details
+                                </button>
                                 <div className="text-right">
                                     <span className="text-2xl font-black text-primary">₹{price}</span>
                                     <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">All inclusive</p>
@@ -525,7 +541,7 @@ const BookDriver = () => {
 
                     <button onClick={handleBookRide} disabled={!pickupLocation || !dropLocation || !selectedVehicle || (isScheduled && !scheduledTime)}
                         className="w-full py-5 bg-primary text-background-dark font-black text-lg rounded-2xl shadow-xl hover:shadow-primary/20 transition-all disabled:opacity-50 disabled:grayscale uppercase tracking-widest active:scale-95">
-                        {isScheduled ? 'Schedule Booking' : 'Confirm Booking'}
+                        {isScheduled ? 'Schedule Booking' : `Book ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)}`}
                     </button>
                 </div>
             </main>
@@ -558,6 +574,12 @@ const BookDriver = () => {
                     </div>
                 )}
             </AnimatePresence>
+
+            <BikeFareDetailsModal 
+                isOpen={showFareModal} 
+                onClose={() => setShowFareModal(false)} 
+                fareDetails={fareDetails} 
+            />
         </div>
     );
 };

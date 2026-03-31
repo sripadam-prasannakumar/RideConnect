@@ -7,6 +7,7 @@ from django.utils import timezone
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer')
+    full_name = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=15, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     is_online = models.BooleanField(default=False)
@@ -42,6 +43,7 @@ class Driver(models.Model):
     
     # New fields for manual verification
     full_name = models.CharField(max_length=200, blank=True)
+    address = models.TextField(blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     verification_status = models.CharField(
         max_length=20, choices=VERIFICATION_STATUS, default='unverified'
@@ -160,6 +162,7 @@ class UserVehicle(models.Model):
     registration_number = models.CharField(max_length=20)
     fuel_type = models.CharField(max_length=20)
     transmission = models.CharField(max_length=20)
+    is_custom = models.BooleanField(default=False)
     load_capacity = models.FloatField(null=True, blank=True, help_text="Load capacity in kg (for cargo vehicles)")
     created_at = models.DateTimeField(auto_now_add=True)
 
