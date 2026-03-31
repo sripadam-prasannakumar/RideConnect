@@ -93,14 +93,14 @@ const DriverTracking = () => {
                 {/* Main Content Area (Interactive Map Background) */}
                 <main className="flex-1 relative bg-slate-900 overflow-hidden">
                     {rideData && (
-                        <LiveTrackingMap 
+                        <LiveTrackingMap
                             rideId={rideId}
                             pickupCoords={[rideData.pickup_lat, rideData.pickup_lng]}
                             dropCoords={[rideData.drop_lat, rideData.drop_lng]}
                             initialDriverCoords={rideData.driver_lat ? [rideData.driver_lat, rideData.driver_lng] : null}
                         />
                     )}
-                    
+
                     {/* Safety SOS Button Overlay */}
                     <div className="absolute right-6 top-24 z-30 flex flex-col gap-3">
                         <button className="flex items-center justify-center size-12 rounded-xl bg-background-dark/90 border border-white/10 text-slate-100 shadow-xl backdrop-blur-md hover:bg-white/10 transition-colors">
@@ -140,35 +140,35 @@ const DriverTracking = () => {
                             {/* Driver Profile & Info */}
                             <div className="flex items-center gap-5 flex-1 w-full cursor-pointer" onClick={() => navigate('/customer/trip-status')}>
                                 <div className="relative group">
-                                <div className="size-20 rounded-2xl overflow-hidden border-2 border-primary/40 shadow-lg bg-slate-800 flex items-center justify-center">
-                                    {driverData?.user?.profile_picture ? (
-                                        <img alt="Driver Profile" className="w-full h-full object-cover" src={driverData.user.profile_picture} />
-                                    ) : (
-                                        <span className="material-symbols-outlined text-4xl text-slate-600">person</span>
-                                    )}
+                                    <div className="size-20 rounded-2xl overflow-hidden border-2 border-primary/40 shadow-lg bg-slate-800 flex items-center justify-center">
+                                        {driverData?.user?.profile_picture ? (
+                                            <img alt="Driver Profile" className="w-full h-full object-cover" src={driverData.user.profile_picture} />
+                                        ) : (
+                                            <span className="material-symbols-outlined text-4xl text-slate-600">person</span>
+                                        )}
+                                    </div>
+                                    <div className="absolute -bottom-2 -right-2 bg-background-dark border border-white/10 rounded-lg px-2 py-0.5 flex items-center gap-1 shadow-md">
+                                        <span className="material-symbols-outlined text-primary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                                        <span className="text-xs font-bold text-slate-100">4.9</span>
+                                    </div>
                                 </div>
-                                <div className="absolute -bottom-2 -right-2 bg-background-dark border border-white/10 rounded-lg px-2 py-0.5 flex items-center gap-1 shadow-md">
-                                    <span className="material-symbols-outlined text-primary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                                    <span className="text-xs font-bold text-slate-100">4.9</span>
+                                <div className="flex flex-col items-center gap-1 px-4 py-2 bg-primary/10 rounded-xl border border-primary/20">
+                                    <span className="text-[10px] font-black text-primary uppercase tracking-widest">Start OTP</span>
+                                    <span className="text-2xl font-black text-white tracking-widest">{rideStatus === 'accepted' ? (rideData?.otp || "----") : "STARTED"}</span>
                                 </div>
-                            </div>
-                            <div className="flex flex-col items-center gap-1 px-4 py-2 bg-primary/10 rounded-xl border border-primary/20">
-                                <span className="text-[10px] font-black text-primary uppercase tracking-widest">Start OTP</span>
-                                <span className="text-2xl font-black text-white tracking-widest">{rideStatus === 'accepted' ? (rideData?.otp || "----") : "STARTED"}</span>
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-xl font-extrabold text-slate-100 mb-1">{driverData?.user?.first_name || "Assigned Driver"}</h3>
-                                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                                    <span className="text-sm text-slate-400 flex items-center gap-1.5">
-                                        <span className="material-symbols-outlined text-primary text-sm">
-                                            {driverData?.vehicle_type === 'bike' ? 'motorcycle' : 'directions_car'}
+                                <div className="flex-1">
+                                    <h3 className="text-xl font-extrabold text-slate-100 mb-1">{driverData?.user?.first_name || "Assigned Driver"}</h3>
+                                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                                        <span className="text-sm text-slate-400 flex items-center gap-1.5">
+                                            <span className="material-symbols-outlined text-primary text-sm">
+                                                {driverData?.vehicle_type === 'bike' ? 'motorcycle' : 'directions_car'}
+                                            </span>
+                                            {driverData?.vehicle_details || `${driverData?.vehicle_type || 'Vehicle'} assigned`}
                                         </span>
-                                        {driverData?.vehicle_details || `${driverData?.vehicle_type || 'Vehicle'} assigned`}
-                                    </span>
-                                    <div className="size-1 bg-slate-600 rounded-full"></div>
-                                    <span className="text-sm font-mono text-primary font-bold tracking-wider">{driverData?.license_plate || "RIDE-CONNECT"}</span>
+                                        <div className="size-1 bg-slate-600 rounded-full"></div>
+                                        <span className="text-sm font-mono text-primary font-bold tracking-wider">{driverData?.license_plate || "RIDE-CONNECT"}</span>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                             {/* CTA Buttons */}
                             <div className="flex items-center gap-3 w-full md:w-auto">
@@ -214,7 +214,7 @@ const DriverTracking = () => {
                                         <p className="text-sm font-bold">In-App Wallet / Cash</p>
                                     </div>
                                 </div>
-                                <button 
+                                <button
                                     onClick={() => navigate('/customer/dashboard')}
                                     className="w-full py-4 bg-primary text-background-dark font-black rounded-2xl shadow-lg hover:shadow-primary/40 hover:-translate-y-1 transition-all active:scale-95"
                                 >

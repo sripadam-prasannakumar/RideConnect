@@ -49,14 +49,14 @@ const BookDriver = () => {
     const [durationSeconds, setDurationSeconds] = useState(0);
     const [distance, setDistance] = useState(0);
     const [price, setPrice] = useState(0);
-    
+
     const [selectedType, setSelectedType] = useState('car');
     const [vehicles, setVehicles] = useState([]);
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     const [showVehicleSelector, setShowVehicleSelector] = useState(false);
     const [showFareModal, setShowFareModal] = useState(false);
     const [fareDetails, setFareDetails] = useState(null);
-    
+
     // Search states
     const [pickupSearch, setPickupSearch] = useState('');
     const [dropSearch, setDropSearch] = useState('');
@@ -65,11 +65,11 @@ const BookDriver = () => {
     const [isSearchingPickup, setIsSearchingPickup] = useState(false);
     const [isSearchingDrop, setIsSearchingDrop] = useState(false);
     const [isLocating, setIsLocating] = useState(false);
-    
+
     // Trip Type
     const [tripType, setTripType] = useState('one_way'); // 'one_way', 'round_trip', 'daily'
     const [isPickupDrop, setIsPickupDrop] = useState(false); // Kept for backward compatibility if needed, but we'll use tripType
-    
+
     // Advance Booking
     const [isScheduled, setIsScheduled] = useState(false);
     const [scheduledTime, setScheduledTime] = useState('');
@@ -188,12 +188,12 @@ const BookDriver = () => {
         try {
             const res = await fetch(`https://router.project-osrm.org/route/v1/driving/${pickupLocation.lng},${pickupLocation.lat};${dropLocation.lng},${dropLocation.lat}?overview=full&geometries=geojson`);
             const data = await res.json();
-            
+
             if (data.code === 'Ok' && data.routes.length > 0) {
                 const route = data.routes[0];
                 const coordinates = route.geometry.coordinates.map(c => [c[1], c[0]]);
                 setRoutePolyline(coordinates);
-                
+
                 const onwardDistanceRaw = route.distance / 1000.0;
                 const onwardDurationSec = route.duration;
 
@@ -217,10 +217,10 @@ const BookDriver = () => {
                 } catch (e) {
                     console.error("Fare API error:", e);
                 }
-                
-                const durText = onwardDurationSec > 3600 
-                    ? `${Math.floor(onwardDurationSec/3600)}h ${Math.floor((onwardDurationSec%3600)/60)}m`
-                    : `${Math.ceil(onwardDurationSec/60)} mins`;
+
+                const durText = onwardDurationSec > 3600
+                    ? `${Math.floor(onwardDurationSec / 3600)}h ${Math.floor((onwardDurationSec % 3600) / 60)}m`
+                    : `${Math.ceil(onwardDurationSec / 60)} mins`;
                 setDurationText(durText);
             }
         } catch (error) { console.error("Routing error:", error); }
@@ -232,7 +232,7 @@ const BookDriver = () => {
 
     const handleBookRide = async () => {
         if (!pickupLocation || !dropLocation || !selectedVehicle) return;
-        
+
         const rideData = {
             pickup_location: pickupLocation.label,
             destination: dropLocation.label,
@@ -253,7 +253,7 @@ const BookDriver = () => {
         try {
             const response = await authorizedFetch(`${API_BASE_URL}/api/ride/request/`, {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(rideData)
@@ -261,7 +261,7 @@ const BookDriver = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                
+
                 // Publish to PubNub if it's an immediate search
                 if (data.status === 'searching') {
                     const { isAuthenticated, email } = getAuthStatus();
@@ -319,9 +319,9 @@ const BookDriver = () => {
                                 attribution='&copy; OSM'
                             />
                             {pickupLocation && (
-                                <Marker 
-                                    position={[pickupLocation.lat, pickupLocation.lng]} 
-                                    icon={pickupIcon} 
+                                <Marker
+                                    position={[pickupLocation.lat, pickupLocation.lng]}
+                                    icon={pickupIcon}
                                     draggable={true}
                                     eventHandlers={{
                                         dragend: async (e) => {
@@ -334,9 +334,9 @@ const BookDriver = () => {
                                 />
                             )}
                             {dropLocation && (
-                                <Marker 
-                                    position={[dropLocation.lat, dropLocation.lng]} 
-                                    icon={dropIcon} 
+                                <Marker
+                                    position={[dropLocation.lat, dropLocation.lng]}
+                                    icon={dropIcon}
                                     draggable={true}
                                     eventHandlers={{
                                         dragend: async (e) => {
@@ -423,7 +423,7 @@ const BookDriver = () => {
                             {isScheduled && (
                                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                                     <div className="pt-3">
-                                        <input type="datetime-local" 
+                                        <input type="datetime-local"
                                             value={scheduledTime}
                                             onChange={(e) => setScheduledTime(e.target.value)}
                                             min={new Date(Date.now() + 30 * 60000).toISOString().slice(0, 16)}
@@ -501,9 +501,9 @@ const BookDriver = () => {
                                 </div>
                                 <span className="font-bold text-slate-700 dark:text-slate-300">{distance.toFixed(1)} km / {durationText}</span>
                             </div>
-                            
+
                             <div className="pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
-                                <button 
+                                <button
                                     onClick={() => selectedType === 'bike' && setShowFareModal(true)}
                                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-[10px] font-black text-primary uppercase tracking-wider hover:bg-primary/10 transition-all"
                                 >
@@ -575,10 +575,10 @@ const BookDriver = () => {
                 )}
             </AnimatePresence>
 
-            <BikeFareDetailsModal 
-                isOpen={showFareModal} 
-                onClose={() => setShowFareModal(false)} 
-                fareDetails={fareDetails} 
+            <BikeFareDetailsModal
+                isOpen={showFareModal}
+                onClose={() => setShowFareModal(false)}
+                fareDetails={fareDetails}
             />
         </div>
     );

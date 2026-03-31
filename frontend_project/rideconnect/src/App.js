@@ -34,6 +34,7 @@ import ProtectedRoute from './components/Shared/ProtectedRoute';
 import NotFound from './components/Public/NotFound';
 import LiveTrackingMap from './components/Customer/LiveTrackingMap';
 import DriverTracking from './components/Customer/DriverTracking';
+import Offers from './components/Customer/Offers';
 
 function AppContent() {
   const location = useLocation();
@@ -63,9 +64,10 @@ function AppContent() {
           <Route path="/customer/searching" element={<SearchingDriver />} />
           <Route path="/customer/tracking" element={<DriverTracking />} />
           <Route path="/customer/driver-assigned" element={<DriverAssigned />} />
-          <Route path="/customer/history" element={<RideHistory />} />
+           <Route path="/customer/history" element={<RideHistory />} />
           <Route path="/customer/profile" element={<CustomerProfile />} />
           <Route path="/customer/settings" element={<Settings />} />
+          <Route path="/customer/offers" element={<Offers />} />
         </Route>
 
         {/* Driver Routes */}

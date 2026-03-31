@@ -8,10 +8,10 @@ import { getAccessToken } from './authUtils';
  */
 export const authorizedFetch = async (url, options = {}) => {
     const token = getAccessToken();
-    
+
     // Create a new headers object or modify existing one
-    const headers = options.headers instanceof Headers 
-        ? new Headers(options.headers) 
+    const headers = options.headers instanceof Headers
+        ? new Headers(options.headers)
         : { ...(options.headers || {}) };
 
     if (token) {

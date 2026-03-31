@@ -67,27 +67,27 @@ const LiveTrackingMap = ({ rideId, pickupCoords, dropCoords, initialDriverCoords
                     url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
                     attribution='&copy; OSM'
                 />
-                
+
                 {/* Pickup Marker */}
                 <Marker position={pickupCoords} icon={pickupIcon}>
                     <Popup>Pickup</Popup>
                 </Marker>
-                
+
                 {/* Drop Marker */}
                 <Marker position={dropCoords} icon={dropIcon}>
                     <Popup>Destination</Popup>
                 </Marker>
-                
+
                 {/* Driver Marker */}
                 {driverLocation && (
                     <Marker position={driverLocation} icon={driverIcon}>
                         <Popup>Driver</Popup>
                     </Marker>
                 )}
-                
+
                 {/* Full Route Line (Dashed) */}
                 <Polyline positions={routeCoords} color="#94a3b8" weight={3} opacity={0.5} dashArray="5, 10" />
-                
+
                 {/* Driver Trail (Solid) */}
                 <Polyline positions={trail} color="#06b6d4" weight={5} opacity={0.8} />
 

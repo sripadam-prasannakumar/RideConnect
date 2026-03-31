@@ -42,7 +42,7 @@ const TripStatus = () => {
         }
         setVerifying(true);
         try {
-            const res = await authorizedFetch(`${API_BASE_URL}/api/ride/verify-otp/${rideId}/`, { 
+            const res = await authorizedFetch(`${API_BASE_URL}/api/ride/verify-otp/${rideId}/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ otp })
@@ -124,7 +124,7 @@ const TripStatus = () => {
                             <span className="material-symbols-outlined">navigation</span>
                         </button>
                     </div>
-                    
+
                     {/* Destination Indicator */}
                     <div className="absolute top-28 left-1/2 -translate-x-1/2 z-10 w-[90%] max-w-md">
                         <div className="bg-background-dark/90 backdrop-blur-md p-4 rounded-xl border border-slate-700 flex items-center gap-4 shadow-2xl">
@@ -143,7 +143,7 @@ const TripStatus = () => {
                 <section className="relative z-30 bg-background-dark border-t border-slate-800 rounded-t-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
                     <div className="mx-auto w-12 h-1.5 bg-slate-700 rounded-full mt-3 mb-6"></div>
                     <div className="px-6 pb-8 space-y-6 max-w-2xl mx-auto">
-                        
+
                         {/* Customer & Vehicle Info */}
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
@@ -209,8 +209,8 @@ const TripStatus = () => {
                                 <div className="space-y-4">
                                     <div className="space-y-2">
                                         <p className="text-[10px] font-black text-primary uppercase tracking-widest text-center">Enter Ride OTP</p>
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             maxLength="4"
                                             placeholder="----"
                                             value={otp}

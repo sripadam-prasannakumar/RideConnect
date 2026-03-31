@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, History, User, Settings, LogOut, Heart } from 'lucide-react';
+import { LayoutDashboard, History, User, Settings, LogOut, Gift } from 'lucide-react';
 import { clearAuthInfo } from '../../utils/authUtils';
 import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
@@ -26,6 +26,7 @@ const CustomerSidebar = () => {
 
     const menuItems = [
         { name: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/customer/dashboard' },
+        { name: 'Offers', icon: <Gift size={20} />, path: '/customer/offers' },
         { name: 'History', icon: <History size={20} />, path: '/customer/history' },
         { name: 'Profile', icon: <User size={20} />, path: '/customer/profile' },
         { name: 'Settings', icon: <Settings size={20} />, path: '/customer/settings' },

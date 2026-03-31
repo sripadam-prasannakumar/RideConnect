@@ -67,9 +67,9 @@ const CustomerDashboard = () => {
                                 <p className="text-slate-500 dark:text-slate-400 mt-1">{userData.email || 'Customer Account'}</p>
                             </div>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button onClick={() => navigate('/test-tracking')} className="flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-6 py-4 rounded-xl shadow-lg shadow-indigo-500/20 transition-all transform hover:scale-[1.02]">
-                                    <span className="material-symbols-outlined">map</span>
-                                    Test Live Map
+                                <button onClick={() => navigate('/customer/offers')} className="flex items-center justify-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold px-6 py-4 rounded-xl border-2 border-amber-500/30 transition-all transform hover:scale-[1.02]">
+                                    <span className="material-symbols-outlined">redeem</span>
+                                    Offers & Rewards
                                 </button>
                                 <button onClick={() => navigate('/customer/book')} className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-background-dark font-bold px-8 py-4 rounded-xl shadow-lg shadow-primary/20 transition-all transform hover:scale-[1.02]">
                                     <span className="material-symbols-outlined">add_circle</span>

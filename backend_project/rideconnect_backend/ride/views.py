@@ -391,11 +391,29 @@ class AvailableRidesView(APIView):
         
         try:
             driver = Driver.objects.get(user__username=email)
+            
+            # Get all potential candidate rides
             rides = Ride.objects.filter(
                 status='searching', 
                 vehicle_type=driver.vehicle_type
             ).order_by('-created_at')
-            serializer = RideSerializer(rides, many=True)
+            
+            # Filter by radius if driver location is known
+            filtered_rides = []
+            if driver.current_lat is not None and driver.current_lng is not None:
+                for ride in rides:
+                    dist = haversine_distance(
+                        ride.pickup_lat, ride.pickup_lng,
+                        driver.current_lat, driver.current_lng
+                    )
+                    if dist <= 25.0: # Increased slightly from 20 to 25 for better polling catch
+                        filtered_rides.append(ride)
+            else:
+                # If driver has no location yet, show most recent rides for their vehicle type
+                # but limit to last 5 to keep the feed clean
+                filtered_rides = list(rides[:5])
+            
+            serializer = RideSerializer(filtered_rides, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Driver.DoesNotExist:
             return Response({"error": "Driver not found"}, status=status.HTTP_404_NOT_FOUND)

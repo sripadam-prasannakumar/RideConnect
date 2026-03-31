@@ -16,7 +16,7 @@ const SearchingDriver = () => {
     const { state } = useLocation();
     const rideId = state?.rideId;
     const initialRideData = state?.rideData;
-    
+
     const [status, setStatus] = useState('searching'); // searching, accepted
     const [rideData, setRideData] = useState(initialRideData);
     const [socket, setSocket] = useState(null);
@@ -29,7 +29,7 @@ const SearchingDriver = () => {
     const handleAcceptance = useCallback((data) => {
         setStatus('accepted');
         setRideData(data);
-        
+
         // Voice Instruction for Customer
         if (voiceEnabled) {
             const driverName = data?.driver?.name || "Your pro";
@@ -78,7 +78,7 @@ const SearchingDriver = () => {
             navigate('/login');
             return;
         }
-        
+
         const userId = initialRideData?.customer?.user?.id || email;
 
         // --- PubNub Integration ---
@@ -89,7 +89,7 @@ const SearchingDriver = () => {
                     // Standard message: { ride_id, status: 'accepted' }
                     const msg = event.message;
                     const msgRideId = msg.ride_id || msg.rideId;
-                    
+
                     if (event.channel === RIDE_UPDATES_CHANNEL && msg.status === 'accepted' && String(msgRideId) === String(rideId)) {
                         console.log("PubNub: Driver Assigned Update Received", msg);
                         handleAcceptance(msg.ride_data || msg);
@@ -174,7 +174,7 @@ const SearchingDriver = () => {
                         <h2 className="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight flex-1">
                             {status === 'searching' ? 'Looking for Driver' : 'Driver Assigned'}
                         </h2>
-                        <button 
+                        <button
                             onClick={toggleVoice}
                             className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
                             title={voiceEnabled ? "Mute Voice" : "Unmute Voice"}
@@ -188,7 +188,7 @@ const SearchingDriver = () => {
                             <div className="relative size-64 flex items-center justify-center">
                                 <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-75"></div>
                                 <div className="absolute inset-4 rounded-full bg-primary/10 animate-pulse"></div>
-                                
+
                                 <div className="relative z-10 size-40 rounded-full border-4 border-primary bg-background-dark flex items-center justify-center shadow-[0_0_50px_rgba(13,204,242,0.5)] overflow-hidden">
                                     <div className="absolute inset-0 bg-slate-900 flex items-center justify-center overflow-hidden">
                                         <div className="absolute top-0 left-0 w-full h-1 bg-primary/40 animate-scan"></div>
@@ -236,7 +236,7 @@ const SearchingDriver = () => {
 
             <AnimatePresence>
                 {status === 'accepted' && (
-                    <motion.div 
+                    <motion.div
                         initial={{ y: "100%" }}
                         animate={{ y: 0 }}
                         exit={{ y: "100%" }}
@@ -244,7 +244,7 @@ const SearchingDriver = () => {
                         className="absolute inset-x-0 bottom-0 z-[100] bg-white dark:bg-slate-900 rounded-t-[2.5rem] shadow-[0_-20px_50px_rgba(0,0,0,0.3)] border-t border-slate-200 dark:border-slate-800 overflow-hidden"
                     >
                         <div className="w-12 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto my-4"></div>
-                        
+
                         <div className="px-6 pb-10 flex flex-col gap-6">
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-3">
@@ -266,9 +266,9 @@ const SearchingDriver = () => {
                                 <div className="relative">
                                     <div className="size-20 rounded-full bg-primary/20 border-4 border-white dark:border-slate-900 flex items-center justify-center overflow-hidden shadow-2xl">
                                         {driver?.profile_picture ? (
-                                            <img 
-                                                src={`${API_BASE_URL}${driver.profile_picture}`} 
-                                                alt={driver?.name} 
+                                            <img
+                                                src={`${API_BASE_URL}${driver.profile_picture}`}
+                                                alt={driver?.name}
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
@@ -316,14 +316,14 @@ const SearchingDriver = () => {
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
-                                <a 
+                                <a
                                     href={`tel:${driver?.phone || '9876543210'}`}
                                     className="flex items-center justify-center gap-3 rounded-[1.5rem] h-14 bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 font-black hover:bg-green-500/20 transition-all active:scale-95 shadow-sm"
                                 >
                                     <Phone className="w-5 h-5" />
                                     Call Driver
                                 </a>
-                                <button 
+                                <button
                                     className="flex items-center justify-center gap-3 rounded-[1.5rem] h-14 bg-primary/10 border border-primary/20 text-primary font-black hover:bg-primary/20 transition-all active:scale-95 shadow-sm"
                                 >
                                     <MessageSquare className="w-5 h-5" />
@@ -331,7 +331,7 @@ const SearchingDriver = () => {
                                 </button>
                             </div>
 
-                            <button 
+                            <button
                                 onClick={() => navigate('/customer/tracking', { state: { rideId, driverData: driver, rideStatus: 'accepted' } })}
                                 className="group relative flex w-full items-center justify-center gap-3 rounded-2xl h-16 bg-primary text-background-dark font-black text-xl overflow-hidden shadow-[0_15px_30px_rgba(13,204,242,0.3)] active:scale-[0.98] transition-transform"
                             >
@@ -345,7 +345,7 @@ const SearchingDriver = () => {
                 )}
             </AnimatePresence>
 
-            <SurgeSelectionModal 
+            <SurgeSelectionModal
                 isOpen={isSurgeModalOpen}
                 onClose={() => setIsSurgeModalOpen(false)}
                 onSelect={handleApplySurge}

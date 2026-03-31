@@ -52,7 +52,7 @@ const DriverDashboard = () => {
                     // The driver connects to their specific group
                     const wsUrl = API_BASE_URL.replace(/^http/, 'ws') + `/ws/driver/${vData.id}/?vehicle_type=${vt}`;
                     const ws = new WebSocket(wsUrl);
-                    
+
                     ws.onopen = () => console.log(`Connected to driver socket (ID: ${vData.id}) for ${vt}`);
                     ws.onmessage = (e) => {
                         const data = JSON.parse(e.data);
@@ -82,7 +82,7 @@ const DriverDashboard = () => {
         };
 
         fetchData();
-        
+
         const interval = setInterval(() => {
             if (verificationStatus === 'verified') {
                 authorizedFetch(`${API_BASE_URL}/api/ride/available/?email=${encodeURIComponent(email)}`)
@@ -188,7 +188,7 @@ const DriverDashboard = () => {
                     }
                 }
             });
-            
+
             pubnub.subscribe({
                 channels: [RIDE_REQUESTS_CHANNEL, RIDE_UPDATES_CHANNEL]
             });
@@ -210,7 +210,7 @@ const DriverDashboard = () => {
             });
             if (res.ok) {
                 const rideData = await res.json();
-                
+
                 // Publish accept to PubNub
                 const pubnub = getPubNubInstance(`driver_${driverId}`);
                 if (pubnub) {
@@ -224,13 +224,13 @@ const DriverDashboard = () => {
                     });
                 }
                 setActiveRideRequest(null);
-                
+
                 // Voice Instruction for Driver
                 if (voiceEnabled) {
                     const pickup = activeRideRequest?.pickup_location || "the pickup point";
                     VoiceService.speak(`Ride accepted. Please proceed to ${pickup}.`);
                 }
-                
+
                 // Get full ride details if available in availableRides or activeRideRequest
                 // Navigate to tracking
                 navigate('/driver/navigation', { state: { rideId: rideId } });
@@ -297,8 +297,8 @@ const DriverDashboard = () => {
 
             {/* Ride Request Notification Overlay */}
             {activeRideRequest && (
-                <RideRequestNotification 
-                    rideData={activeRideRequest} 
+                <RideRequestNotification
+                    rideData={activeRideRequest}
                     onAccept={handleAcceptRide}
                     onDecline={handleDeclineRide}
                 />
@@ -317,21 +317,21 @@ const DriverDashboard = () => {
                             {verificationStatus === 'pending' ? 'Verification Pending' : 'Account Verification Required'}
                         </h2>
                         <p className="text-slate-400 mb-8">
-                            {verificationStatus === 'pending' 
-                                ? "Our team is currently reviewing your documents. You'll receive an email once your account is activated." 
+                            {verificationStatus === 'pending'
+                                ? "Our team is currently reviewing your documents. You'll receive an email once your account is activated."
                                 : "To start accepting rides and accessing your driver tools, please complete your profile verification."}
                         </p>
-                        
+
                         <div className="space-y-4">
                             {verificationStatus !== 'pending' && (
-                                <button 
+                                <button
                                     onClick={() => navigate('/driver/license')}
                                     className="w-full py-4 bg-primary text-background-dark font-black rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
                                 >
                                     Complete Verification <span className="material-symbols-outlined">chevron_right</span>
                                 </button>
                             )}
-                            <button 
+                            <button
                                 onClick={() => navigate('/login')}
                                 className="w-full py-4 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 transition-all border border-slate-700"
                             >
@@ -402,9 +402,9 @@ const DriverDashboard = () => {
                             <div className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800/50 p-1.5 rounded-full px-4 border border-slate-200 dark:border-slate-700">
                                 <span className={`text-xs font-bold uppercase tracking-wider ${!isOnline ? 'text-slate-500 dark:text-slate-400' : 'text-slate-400 dark:text-slate-600'}`}>Offline</span>
                                 <label className={`relative flex h-[24px] w-[44px] cursor-pointer items-center rounded-full p-1 transition-colors ${isOnline ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-700'} ${togglingStatus ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                    <input 
-                                        type="checkbox" 
-                                        className="sr-only peer" 
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
                                         checked={isOnline}
                                         onChange={toggleOnlineStatus}
                                         disabled={togglingStatus}
@@ -413,7 +413,7 @@ const DriverDashboard = () => {
                                 </label>
                                 <span className={`text-xs font-bold uppercase tracking-wider ${isOnline ? 'text-primary' : 'text-slate-400 dark:text-slate-600'}`}>Online</span>
                             </div>
-                            <button 
+                            <button
                                 onClick={toggleVoice}
                                 className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
                                 title={voiceEnabled ? "Mute Voice" : "Unmute Voice"}
