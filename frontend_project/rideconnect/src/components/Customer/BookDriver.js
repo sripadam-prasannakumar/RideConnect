@@ -304,15 +304,15 @@ const BookDriver = () => {
                 </div>
             </header>
 
-            <main className="max-w-[1400px] mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100vh-80px)]">
+            <main className="max-w-[1400px] mx-auto p-4 md:p-8 flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 min-h-[calc(100vh-80px)] lg:h-[calc(100vh-80px)]">
                 {/* Map Section */}
-                <div className="lg:col-span-7 flex flex-col gap-4">
-                    <div className="flex flex-col">
+                <div className="lg:col-span-7 flex flex-col gap-4 h-[40vh] lg:h-auto shrink-0">
+                    <div className="flex flex-col hidden lg:flex">
                         <h1 className="text-2xl font-black">Plan Your Ride</h1>
                         <p className="text-sm text-slate-500">Fixed base pricing and transparent distance tracking.</p>
                     </div>
 
-                    <div className="flex-1 bg-slate-200 dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner relative z-0">
+                    <div className="w-full h-full bg-slate-200 dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner relative z-0">
                         <MapContainer center={defaultCenter} zoom={13} style={{ height: '100%', width: '100%' }}>
                             <TileLayer
                                 url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"

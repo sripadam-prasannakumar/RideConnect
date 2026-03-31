@@ -145,25 +145,26 @@ const TripStatus = () => {
                     <div className="px-6 pb-8 space-y-6 max-w-2xl mx-auto">
 
                         {/* Customer & Vehicle Info */}
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                                <div className="relative">
+                        {/* Customer & Vehicle Info */}
+                        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-y-4 gap-x-2">
+                            <div className="flex items-center gap-4 min-w-[200px]">
+                                <div className="relative shrink-0">
                                     <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPe-zePhHWHH2_jZ9_JbY8QxaQRFvhLOuJ6VXDSn67Oac-i64gUA8YpipvR1sg8WsHBfRZrJadtBsRkOLZKOY31KCMZVQDHGE6txhE4QBegqf76i9ROmr-9P7XyGNMuh5ZT7hxDHBgh8Vad_UFqOD_BpwEoyNNoKSdCRLetTMprRMzbF5qoianQ0lwyDVyrbsrwlbTW1t871fMY5JmQjDo43YC_wo9zIUanpdea8IQpVUZ5mZkxjoIBV3b3zupnE1GhWKBRMNV1h4" alt="Customer Portrait" className="size-16 rounded-2xl object-cover border-2 border-primary/30" />
                                     <div className="absolute -bottom-1 -right-1 size-6 bg-green-500 border-4 border-background-dark rounded-full"></div>
                                 </div>
-                                <div>
-                                    <h2 className="text-xl font-bold text-white">{ride.customer_name || "Sarah J."}</h2>
+                                <div className="truncate">
+                                    <h2 className="text-xl font-bold text-white truncate">{ride.customer_name || "Sarah J."}</h2>
                                     <div className="flex items-center gap-2 text-slate-400 text-sm">
                                         <span className="material-symbols-outlined text-sm">person</span>
                                         <span>Customer</span>
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex gap-2">
-                                <button className="flex size-12 items-center justify-center rounded-xl bg-slate-800 text-primary border border-slate-700 hover:bg-slate-700 transition-colors">
+                            <div className="flex gap-2 shrink-0">
+                                <button className="flex size-12 items-center justify-center rounded-xl bg-slate-800 text-primary border border-slate-700 hover:bg-slate-700 transition-colors shadow-md">
                                     <span className="material-symbols-outlined">chat_bubble</span>
                                 </button>
-                                <button className="flex size-12 items-center justify-center rounded-xl bg-slate-800 text-primary border border-slate-700 hover:bg-slate-700 transition-colors">
+                                <button className="flex size-12 items-center justify-center rounded-xl bg-slate-800 text-primary border border-slate-700 hover:bg-slate-700 transition-colors shadow-md">
                                     <span className="material-symbols-outlined">call</span>
                                 </button>
                             </div>
