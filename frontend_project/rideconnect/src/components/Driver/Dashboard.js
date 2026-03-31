@@ -511,9 +511,9 @@ const DriverDashboard = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="flex gap-2">
-                                                    <button onClick={() => handleRejectRide(request.id)} className="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-rose-500 font-bold text-[9px] uppercase tracking-widest rounded-lg transition-all">Ignore</button>
-                                                    <button onClick={() => handleAcceptRide(request.id)} className="flex-[2.5] py-2.5 bg-primary text-background-dark font-black text-[9px] uppercase tracking-widest rounded-lg shadow-md hover:shadow-primary/40 hover:-translate-y-0.5 transition-all">Accept Trip</button>
+                                                <div className="flex gap-3 mt-1">
+                                                    <button onClick={() => handleRejectRide(request.id)} className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-rose-50 hover:text-rose-500 font-black text-[10px] sm:text-xs uppercase tracking-widest rounded-xl transition-all">Ignore</button>
+                                                    <button onClick={() => handleAcceptRide(request.id)} className="flex-[2] py-3 bg-primary text-background-dark font-black text-[10px] sm:text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all">Accept Trip</button>
                                                 </div>
                                             </div>
                                         </motion.div>

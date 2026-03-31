@@ -60,7 +60,7 @@ const Offers = () => {
     return (
         <div className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50 dark:bg-background-dark font-display pb-20">
             {/* Header section with curve */}
-            <div className="bg-primary pt-12 pb-24 px-6 rounded-b-[3rem] shadow-lg shadow-primary/20 relative">
+            <div className="bg-primary pt-12 pb-16 px-6 rounded-b-[3rem] shadow-lg shadow-primary/20 relative z-0">
                 <div className="max-w-4xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <GlobalBackButton variant="ghost" className="text-background-dark hover:bg-background-dark/10" />
@@ -70,10 +70,11 @@ const Offers = () => {
                         </div>
                     </div>
                 </div>
+            </div>
                 
-                {/* Floating Referral Card */}
-                <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                    className="absolute -bottom-16 left-6 right-6 max-w-lg mx-auto bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-2xl border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center gap-6 z-10">
+            {/* Floating Referral Card */}
+            <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                className="relative -mt-10 mx-6 sm:mx-auto max-w-lg bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-2xl border border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center gap-6 z-10">
                     <div className="size-20 rounded-2xl bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center shrink-0">
                         <span className="material-symbols-outlined text-amber-500 text-4xl">redeem</span>
                     </div>
@@ -88,9 +89,8 @@ const Offers = () => {
                         </div>
                     </div>
                 </motion.div>
-            </div>
 
-            <div className="mt-24 px-6 max-w-4xl mx-auto space-y-6">
+            <div className="mt-8 px-6 max-w-4xl mx-auto space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {offers.map((offer, index) => (
                         <motion.div 
