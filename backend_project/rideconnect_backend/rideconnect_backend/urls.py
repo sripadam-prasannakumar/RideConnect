@@ -16,7 +16,11 @@ from ride.views import (
     UserPreferenceView, ProfilePictureUploadView, ProfilePictureDeleteView,
     AdminDashboardStatsView, AdminUserManagementView, AdminBookingView,
     DriverStatusToggleView, ActiveDriversListView, DriverDashboardStatsView,
-    RideVerifyOTPView, RideEndView, ApplySurgeView, DriverLocationUpdateView
+    RideVerifyOTPView, RideEndView, ApplySurgeView, DriverLocationUpdateView,
+    RidePayView, UpdateDriverUPIView, DriverProfileView,
+    PlatformSettingsView, CommissionTrackingView, DriverWalletView,
+    MarkCommissionAsPaidView, AdminDriverCommissionListView,
+    RidePaymentMethodView, RidePaymentCompleteView
 )
 
 urlpatterns = [
@@ -62,4 +66,14 @@ urlpatterns = [
     path('api/ride/end/<int:ride_id>/', RideEndView.as_view(), name='ride-end'),
     path('api/ride/apply-surge/<int:ride_id>/', ApplySurgeView.as_view(), name='apply_surge'),
     path('api/driver/update-location/', DriverLocationUpdateView.as_view(), name='driver_update_location'),
+    path('api/ride/pay/<int:ride_id>/', RidePayView.as_view(), name='ride-pay'),
+    path('api/driver/update-upi/', UpdateDriverUPIView.as_view(), name='driver-update-upi'),
+    path('api/driver/profile/', DriverProfileView.as_view(), name='driver-profile'),
+    path('api/admin/platform-settings/', PlatformSettingsView.as_view(), name='platform-settings'),
+    path('api/admin/commissions/', CommissionTrackingView.as_view(), name='commission-tracking'),
+    path('api/driver/wallet/', DriverWalletView.as_view(), name='driver-wallet'),
+    path('api/driver/pay-commission/', MarkCommissionAsPaidView.as_view(), name='pay-commission'),
+    path('api/admin/driver-commissions/', AdminDriverCommissionListView.as_view(), name='admin-driver-commissions'),
+    path('api/payment/method/', RidePaymentMethodView.as_view(), name='payment_method'),
+    path('api/payment/complete/', RidePaymentCompleteView.as_view(), name='payment_complete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

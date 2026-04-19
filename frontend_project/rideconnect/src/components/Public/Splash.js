@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getAuthStatus } from '../../utils/authUtils';
+import LogoBadge from '../Shared/LogoBadge';
+
 
 const Splash = () => {
     const navigate = useNavigate();
@@ -24,6 +26,7 @@ const Splash = () => {
 
     useEffect(() => {
         if (progress >= 100) {
+            sessionStorage.removeItem('manualDashboard'); // Reset manual navigation flag for fresh load
             const { isAuthenticated, role: userRole } = getAuthStatus();
             const timer = setTimeout(() => {
                 if (isAuthenticated) {
@@ -73,44 +76,8 @@ const Splash = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="mb-12 relative"
                 >
-                    <div className="w-40 h-40 flex items-center justify-center rounded-3xl bg-gradient-to-br from-surface-dark to-background-dark border border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
-                        {/* Custom SVG Logo */}
-                        <svg className="w-24 h-24 text-primary" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <motion.path 
-                                initial={{ pathLength: 0, opacity: 0 }}
-                                animate={{ pathLength: 1, opacity: 1 }}
-                                transition={{ duration: 2, ease: "easeInOut" }}
-                                d="M50 10L90 30V70L50 90L10 70V30L50 10Z" 
-                                stroke="currentColor" 
-                                strokeWidth="2"
-                                strokeLinejoin="round"
-                            />
-                            <motion.path 
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-                                d="M50 30L80 45V65L50 80L20 65V45L50 30Z" 
-                                fill="currentColor" 
-                                fillOpacity="0.2"
-                            />
-                            <motion.path 
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1 }}
-                                d="M35 50L45 60L65 40" 
-                                stroke="white" 
-                                strokeWidth="4" 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                    </div>
-                    {/* Pulsing ring */}
-                    <motion.div 
-                        animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.1, 0.3] }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                        className="absolute inset-0 border-2 border-primary/20 rounded-3xl"
-                    />
+                    <LogoBadge size="xl" />
+
                 </motion.div>
 
                 {/* Brand Identity */}

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import LogoBadge from './LogoBadge';
+
 
 const SplashScreen = () => {
     const [progress, setProgress] = useState(0);
@@ -29,15 +31,8 @@ const SplashScreen = () => {
                     <div className="hidden">
                         <div className="bg-center bg-no-repeat bg-cover" data-alt="High-end luxury car interior dashboard lighting" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCs2B0Qc_2YCefSGHpOsZ7BG7KjdS14_vCT2XkNPoDKKGBLVyc806MGbJXs8QF6sPr01YXyB52abz2jjzLi7e6btEKPJNddc4pcuGoGqngwydJ8uZUUzhEx0-kZXjJtB_JfBbIDYWlq_yV0-7TlNrlo7-Ac8ZadxmFk3iyVlDwithjxh02nHTSwQaYN7vWIr0sPrxb3ORULxEyznY3H9IaCKwnOHA0K4hOHVlwXATVA5-uBIF7OLAalThiDOPt-bD9t6M4HThLcGEc")' }}></div>
                     </div>
-                    <div className="w-36 h-36 flex items-center justify-center rounded-full bg-surface-dark/40 backdrop-blur-xl shadow-[0_0_50px_rgba(13,204,242,0.2)] border-2 border-primary/30 overflow-hidden relative group">
-                        <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(13,204,242,0.8)_360deg)] animate-[spin_3s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite]"></div>
-                        <div className="absolute inset-1 bg-background-dark/80 rounded-full backdrop-blur-md z-0"></div>
-                        <img 
-                            src="/drivemate_logo.png" 
-                            alt="RideConnect Logo" 
-                            className="w-28 h-28 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10" 
-                        />
-                    </div>
+                    <LogoBadge size="lg" />
+
                 </div>
                 
                 {/* Brand Content */}

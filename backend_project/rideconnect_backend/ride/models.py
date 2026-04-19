@@ -55,6 +55,38 @@ class Driver(models.Model):
     total_earnings = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     current_lat = models.FloatField(null=True, blank=True)
     current_lng = models.FloatField(null=True, blank=True)
+    upi_id = models.CharField(max_length=100, blank=True, null=True, help_text="Driver's UPI ID for direct payments")
+    
+    # Bank Details (Added for receiving payments)
+    bank_account_holder_name = models.CharField(max_length=200, blank=True, null=True)
+    bank_account_number = models.CharField(max_length=50, blank=True, null=True)
+    bank_ifsc_code = models.CharField(max_length=20, blank=True, null=True)
+    
+    # Vehicle fields for quick access (especially for Bike registration)
+    vehicle_number = models.CharField(max_length=20, blank=True, null=True)
+    vehicle_model = models.CharField(max_length=100, blank=True, null=True)
+    
+    # Wallet / Commission Fields
+    total_commission_pending = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
+    total_commission_paid = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
+
+    @property
+    def net_balance(self):
+        return self.total_earnings - (self.total_commission_pending + self.total_commission_paid)
+
+    @property
+    def is_bank_details_added(self):
+        return all([self.bank_account_holder_name, self.bank_account_number, self.bank_ifsc_code])
+
+    @property
+    def masked_account_number(self):
+        if not self.bank_account_number:
+            return None
+        # Mask all but the last 4 digits
+        acc_str = str(self.bank_account_number)
+        if len(acc_str) <= 4:
+            return acc_str
+        return ("*" * (len(acc_str) - 4)) + acc_str[-4:]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -186,6 +218,7 @@ class Ride(models.Model):
         ('accepted', 'Accepted'),
         ('ongoing', 'Ongoing'),
         ('completed', 'Completed'),
+        ('paid', 'Paid'),
         ('cancelled', 'Cancelled'),
     ]
     
@@ -235,6 +268,15 @@ class Ride(models.Model):
     # Surge fields
     surge_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     
+    # Cargo specific fields
+    cargo_capacity = models.CharField(max_length=50, blank=True, null=True)
+    load_type = models.CharField(max_length=50, blank=True, null=True)
+    load_charge = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    night_charge = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    
+    payment_method = models.CharField(max_length=20, default='cash')
+    payment_status = models.CharField(max_length=20, default='pending')
+    
     otp = models.CharField(max_length=6, null=True, blank=True)
 
     def __str__(self):
@@ -259,3 +301,34 @@ class UserPreference(models.Model):
 
     def __str__(self):
         return f"Preferences for {self.user.username}"
+
+
+class PlatformSettings(models.Model):
+    account_holder_name = models.CharField(max_length=200, blank=True)
+    bank_account_number = models.CharField(max_length=50, blank=True)
+    bank_ifsc_code = models.CharField(max_length=20, blank=True)
+    upi_id = models.CharField(max_length=100, blank=True, null=True)
+    commission_percentage = models.FloatField(default=8.0)  # Default 8%
+    commission_limit = models.DecimalField(max_digits=10, decimal_places=2, default=500.00)  # Max pending before block
+
+    def __str__(self):
+        return "Platform Settings"
+
+    class Meta:
+        verbose_name_plural = "Platform Settings"
+
+class CommissionPayment(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending Verification'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    ]
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name='commission_payments')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_method = models.CharField(max_length=50, default='UPI')
+    transaction_id = models.CharField(max_length=100, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='approved') # default to approved for "manual mark as paid" as requested
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.driver.user.username} - ₹{self.amount} ({self.status})"

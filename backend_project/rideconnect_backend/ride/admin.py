@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Driver, Customer, Ride, UserVehicle, UserVehicleImage, CarBrand, CarModel, EmailOTP
+from .models import Driver, Customer, Ride, UserVehicle, UserVehicleImage, CarBrand, CarModel, EmailOTP, PlatformSettings
 
 @admin.register(Driver)
 class DriverAdmin(admin.ModelAdmin):
@@ -78,3 +78,7 @@ class CarModelAdmin(admin.ModelAdmin):
 class EmailOTPAdmin(admin.ModelAdmin):
     list_display = ['email', 'otp', 'created_at']
     search_fields = ['email']
+
+@admin.register(PlatformSettings)
+class PlatformSettingsAdmin(admin.ModelAdmin):
+    list_display = ['account_holder_name', 'commission_percentage']

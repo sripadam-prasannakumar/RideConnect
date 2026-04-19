@@ -14,11 +14,27 @@ export const authorizedFetch = async (url, options = {}) => {
         ? new Headers(options.headers)
         : { ...(options.headers || {}) };
 
-    if (token) {
+    if (token && token !== 'undefined' && token !== 'null') {
         if (headers instanceof Headers) {
             headers.set('Authorization', `Bearer ${token}`);
         } else {
             headers['Authorization'] = `Bearer ${token}`;
+        }
+    } else {
+        console.warn(`authorizedFetch: No valid token found for ${url}`);
+    }
+
+    // Default to application/json for POST/PUT/PATCH if not sending FormData
+    const method = (options.method || 'GET').toUpperCase();
+    if (['POST', 'PUT', 'PATCH'].includes(method) && options.body && !(options.body instanceof FormData)) {
+        if (headers instanceof Headers) {
+            if (!headers.has('Content-Type')) {
+                headers.set('Content-Type', 'application/json');
+            }
+        } else {
+            if (!headers['Content-Type'] && !headers['content-type']) {
+                headers['Content-Type'] = 'application/json';
+            }
         }
     }
 

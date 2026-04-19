@@ -2,14 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { storeAuthInfo, decodeJwt, getAuthStatus } from '../../utils/authUtils';
+import LogoBadge from '../Shared/LogoBadge';
 import GlobalBackButton from '../Shared/GlobalBackButton';
+
 import API_BASE_URL from '../../apiConfig';
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const role = queryParams.get('role') || 'customer';
+    const isSecureAdminRoute = location.pathname === '/admin/login' || location.pathname === '/secure-admin-login';
+    let role = queryParams.get('role') || 'customer';
+    
+    // Security enhancement: Only allow admin role if directly accessing the admin login route.
+    if (isSecureAdminRoute) {
+        role = 'admin';
+    } else if (role === 'admin') {
+        role = 'customer';
+    }
 
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
@@ -19,25 +29,16 @@ const LoginPage = () => {
 
     useEffect(() => {
         const { isAuthenticated, role: userRole } = getAuthStatus();
-        // Only auto-redirect if authenticated AND the role matches the intended login role
-        // This prevents being stuck in a loop when trying to switch roles in a new tab
-        if (isAuthenticated && userRole === role) {
+        if (isAuthenticated) {
             if (userRole === 'admin') navigate('/admin/dashboard');
             else if (userRole === 'driver') navigate('/driver/dashboard');
             else navigate('/customer/dashboard');
         }
-    }, [navigate, role]);
+    }, [navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setApiError('');
-
-        // Admin demo shortcut (local bypass removed to enforce OTP flow)
-        if (identifier === 'admin' && password === 'Ksdkt@006') {
-            setIdentifier('drivemate.rideconnect@gmail.com');
-            setPassword('RideConnect@123');
-            // Form will continue submitting with these real admin credentials
-        }
 
         setIsLoading(true);
         try {
@@ -55,7 +56,7 @@ const LoginPage = () => {
                 if (data.require_otp) {
                     sessionStorage.setItem('pending_email', data.email);
                     sessionStorage.setItem('user_role', userRole);
-                    navigate('/verify-email');
+                    navigate('/verify-otp');
                 } else {
                     // Only store auth info if NOT requiring OTP (e.g. some internal bypass or future feature)
                     storeAuthInfo({
@@ -84,44 +85,41 @@ const LoginPage = () => {
     };
 
     const handleGoogleSuccess = async (credentialResponse) => {
-        console.log('Google Login Success:', credentialResponse);
+        console.log('Google Login Success Handshake:', credentialResponse);
         
         try {
-            // Decode real Google identity
+            // Decode Google ID Token
             const decoded = decodeJwt(credentialResponse.credential);
             if (decoded) {
-                console.log('Decoded Google User:', decoded);
+                console.log('Decoded Google User Profile:', decoded);
                 
-                // Store real user info from Google
+                // CRITICAL FIX: We must store a token (even if simulated for now) 
+                // so that getAuthStatus().isAuthenticated returns true, 
+                // otherwise ProtectedRoute will immediately kick the user back to login.
                 storeAuthInfo({
                     email: decoded.email,
                     name: decoded.name,
-                    role: role
+                    role: role,
+                    tokens: { 
+                        access: credentialResponse.credential, // Use Google's ID token as the session token for now
+                        refresh: 'google-session-refresh' 
+                    }
                 });
 
+                console.log('Authentication stored. Navigating to dashboard...');
                 navigate(role === 'driver' ? '/driver/dashboard' : '/customer/dashboard');
             } else {
-                setApiError('Failed to parse Google account information.');
+                setApiError('Failed to parse Google account information. Please try standard login.');
             }
         } catch (error) {
             console.error('Google handling error:', error);
-            setApiError('Error processing Google login.');
+            setApiError('Error processing Google secure login.');
         }
     };
 
-    const handleGoogleError = () => {
-        console.log('Google Login Failed');
-        setApiError('Google Login Failed. Please try again.');
-    };
-
-    const fillDemoAdmin = () => {
-        setIdentifier('admin');
-        setPassword('Ksdkt@006');
-    };
-
-    const fillDemoDriver = () => {
-        setIdentifier('driver@drivemate.com');
-        setPassword('password123');
+    const handleGoogleError = (error) => {
+        console.error('Google Identity Service Error:', error);
+        setApiError('Google Login blocked or failed. Please check if your domain is authorized in Google Cloud.');
     };
 
 
@@ -150,37 +148,18 @@ const LoginPage = () => {
                 {/* Header/Logo Area */}
                 <div className="mb-8 flex flex-col items-center">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-16 h-16 flex items-center justify-center rounded-full bg-surface-dark/60 backdrop-blur-md shadow-[0_0_20px_rgba(13,204,242,0.2)] border border-primary/30 overflow-hidden relative group">
-                            <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(13,204,242,0.8)_360deg)] animate-[spin_3s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite]"></div>
-                            <div className="absolute inset-1 bg-background-dark/90 rounded-full backdrop-blur-md z-0"></div>
-                            <img 
-                                src="/drivemate_logo.png" 
-                                alt="RideConnect" 
-                                className="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10" 
-                            />
-                        </div>
-                        <h1 className="text-3xl font-black tracking-tight text-white">Drive<span className="text-primary">Mate</span></h1>
+                        <LogoBadge size="md" />
+
+                        <h1 className="text-3xl font-black tracking-tight text-white">Ride<span className="text-primary">Connect</span></h1>
                     </div>
                 </div>
 
                 {/* Login Card */}
                 <div className="w-full max-w-md space-y-8 rounded-2xl bg-slate-900/40 p-8 backdrop-blur-xl border border-slate-800 shadow-2xl relative overflow-hidden">
-                    {/* Demo Buttons (Admin/Driver) */}
-                    {(role === 'admin' || role === 'driver') && (
-                        <div className="absolute top-4 right-4 z-30">
-                            <button 
-                                type="button" 
-                                onClick={role === 'admin' ? fillDemoAdmin : fillDemoDriver} 
-                                className="text-[10px] uppercase tracking-wider bg-primary/20 text-primary font-bold px-3 py-1 rounded-full hover:bg-primary/30 transition-all border border-primary/20"
-                            >
-                                Demo {role === 'admin' ? 'Admin' : 'Driver'}
-                            </button>
-                        </div>
-                    )}
 
                     <div className="text-center">
                         <h2 className="text-2xl font-bold tracking-tight text-white">
-                            {role === 'admin' ? 'Admin Access' : role === 'driver' ? 'Partner Login' : 'Welcome Back'}
+                            {role === 'admin' ? 'Admin Access' : 'Welcome Back'}
                         </h2>
                         <p className="mt-2 text-sm text-slate-400">
                             {role === 'admin' ? 'Manage the RideConnect ecosystem' : 'Enter your credentials to continue'}
@@ -282,10 +261,10 @@ const LoginPage = () => {
                                     Don't have an account? 
                                     <button 
                                         type="button" 
-                                        onClick={() => navigate(`/register?role=${role}`)} 
+                                        onClick={() => navigate(`/role-selection`)} 
                                         className="text-primary font-bold hover:underline ml-1"
                                     >
-                                        Sign up as {role === 'driver' ? 'Driver' : 'Customer'}
+                                        Sign up
                                     </button>
                                 </p>
                             </div>

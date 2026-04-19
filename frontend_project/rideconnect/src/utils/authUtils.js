@@ -37,8 +37,11 @@ export const storeAuthInfo = ({ email, name, role, tokens }) => {
         localStorage.setItem('userRole', role);
         sessionStorage.setItem('user_role', role);
     }
-    if (tokens) {
+    if (tokens && tokens.access) {
         localStorage.setItem('access_token', tokens.access);
+        sessionStorage.setItem('access_token', tokens.access);
+    }
+    if (tokens && tokens.refresh) {
         localStorage.setItem('refresh_token', tokens.refresh);
     }
 };
@@ -64,6 +67,12 @@ export const clearAuthInfo = () => {
     localStorage.removeItem('userName');
     localStorage.removeItem('userRole');
     
+    // Clear any active ride data
+    localStorage.removeItem('activeRide');
+    localStorage.removeItem('lastActiveRideId');
+    localStorage.removeItem('lastSearchingRideId');
+    localStorage.removeItem('lastSearchingRideData');
+    
     // Clear session-specific registration markers
     sessionStorage.removeItem('registration_success');
     sessionStorage.removeItem('pending_email');
@@ -83,6 +92,7 @@ export const clearAuthInfo = () => {
  */
 export const getAuthStatus = () => {
     const email = sessionStorage.getItem('user_email') || localStorage.getItem('userEmail');
+    const name = sessionStorage.getItem('user_name') || localStorage.getItem('userName');
     const role = sessionStorage.getItem('user_role') || localStorage.getItem('userRole');
     const token = localStorage.getItem('access_token');
     
@@ -96,6 +106,36 @@ export const getAuthStatus = () => {
     return {
         isAuthenticated: !!email && !!token,
         email: email,
+        name: name,
         role: role
     };
+};
+
+/**
+ * Stores active ride information for persistence.
+ */
+export const storeActiveRide = (rideData) => {
+    if (rideData && rideData.id) {
+        localStorage.setItem('activeRide', JSON.stringify(rideData));
+    } else {
+        localStorage.removeItem('activeRide');
+    }
+};
+
+/**
+ * Retrieves stored active ride information.
+ */
+export const getActiveRide = () => {
+    const ride = localStorage.getItem('activeRide');
+    return ride ? JSON.parse(ride) : null;
+};
+
+/**
+ * Clears all ride-related persistence data.
+ */
+export const clearActiveRide = () => {
+    localStorage.removeItem('activeRide');
+    localStorage.removeItem('lastActiveRideId');
+    localStorage.removeItem('lastSearchingRideId');
+    localStorage.removeItem('lastSearchingRideData');
 };

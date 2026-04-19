@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, History, User, Settings, LogOut, Gift } from 'lucide-react';
+import { LayoutDashboard, History, User, Settings, LogOut, Gift, MessageCircle, ChevronRight, X } from 'lucide-react';
 import { clearAuthInfo } from '../../utils/authUtils';
 import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
+import { useUser } from '../../UserContext';
+import { getDefaultAvatar } from '../../utils/avatarUtils';
+import SupportChat from '../Common/SupportChat';
+import LogoBadge from '../Shared/LogoBadge';
 
-const CustomerSidebar = () => {
+
+const CustomerSidebar = ({ onClose }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [userData, setUserData] = useState({ name: '', email: '', profile_picture: null });
-
-    useEffect(() => {
-        const email = sessionStorage.getItem('user_email');
-        if (!email) return;
-
-        // Fetch User Profile
-        authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.email) setUserData(data);
-            })
-            .catch(console.error);
-    }, []);
+    const { userProfile } = useUser();
+    const [isSupportOpen, setIsSupportOpen] = useState(false);
 
     const menuItems = [
         { name: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/customer/dashboard' },
@@ -49,14 +42,19 @@ const CustomerSidebar = () => {
         }
     };
 
+    const avatarUrl = userProfile?.profile_image || getDefaultAvatar('customer', userProfile?.email);
+
     return (
         <aside className="w-64 h-screen flex-shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col sticky top-0 left-0 z-50 font-display">
             {/* Logo Section */}
-            <div className="p-6 flex items-center gap-3">
-                <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark shadow-lg shadow-primary/20">
-                    <span className="material-symbols-outlined font-bold">minor_crash</span>
-                </div>
-                <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white uppercase">RideConnect</h1>
+            <div className="p-6 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
+                <LogoBadge size="md" />
+
+                {onClose && (
+                    <button onClick={onClose} className="lg:hidden p-2 text-slate-500 hover:text-primary transition-colors bg-slate-100 dark:bg-slate-800 rounded-lg">
+                        <X size={20} />
+                    </button>
+                )}
             </div>
 
             {/* Navigation Menu */}
@@ -64,7 +62,7 @@ const CustomerSidebar = () => {
                 {menuItems.map((item) => (
                     <button
                         key={item.name}
-                        onClick={() => navigate(item.path)}
+                        onClick={() => { navigate(item.path); if(onClose) onClose(); }}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
                             isActive(item.path)
                                 ? 'bg-primary/10 text-primary shadow-sm shadow-primary/5'
@@ -87,36 +85,35 @@ const CustomerSidebar = () => {
                 ))}
             </nav>
 
-            {/* Support and User Footer */}
             <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-4">
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 space-y-3">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Support Center</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Have questions or need help with a ride?</p>
-                    <button className="w-full py-2 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg text-xs font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
-                        Get Help
-                    </button>
+                <div 
+                    onClick={() => setIsSupportOpen(true)}
+                    className="p-4 rounded-2xl bg-primary/5 dark:bg-primary/10 border border-primary/20 space-y-3 group cursor-pointer hover:bg-primary/10 transition-all"
+                >
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="size-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                                <MessageCircle size={18} />
+                            </div>
+                            <div>
+                                <p className="text-[10px] font-black text-primary uppercase tracking-widest">24x7 Support</p>
+                                <p className="text-xs text-slate-900 dark:text-white font-bold">Chat with us</p>
+                            </div>
+                        </div>
+                        <ChevronRight size={16} className="text-primary group-hover:translate-x-1 transition-transform" />
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-900/80 rounded-2xl border border-slate-100 dark:border-white/5 group hover:border-primary/30 transition-all">
-                    <div className="size-10 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden ring-2 ring-transparent group-hover:ring-primary/20 transition-all">
-                        {userData.profile_picture ? (
-                            <img 
-                                src={`${API_BASE_URL}${userData.profile_picture}`} 
-                                alt="User" 
-                                className="w-full h-full object-cover"
-                            />
-                        ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-slate-700">
-                                <User className="size-5 text-slate-400" />
-                            </div>
-                        )}
+                <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-900/80 rounded-2xl border border-slate-100 dark:border-white/5 group hover:border-primary/30 transition-all cursor-pointer" onClick={() => navigate('/customer/profile')}>
+                    <div className="size-9 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 overflow-hidden">
+                        <img src={avatarUrl} alt="Profile" className="size-full object-cover" />
                     </div>
                     <div className="flex flex-col min-w-0">
                         <span className="text-sm font-black text-slate-900 dark:text-white leading-none truncate">
-                            {userData.name || 'Member'}
+                            {userProfile?.full_name || ''}
                         </span>
                         <span className="text-[9px] text-slate-500 font-black uppercase tracking-widest mt-1 truncate">
-                            {userData.email || 'Customer'}
+                            {userProfile?.email || ''}
                         </span>
                     </div>
                 </div>
@@ -129,6 +126,7 @@ const CustomerSidebar = () => {
                     Logout
                 </button>
             </div>
+            <SupportChat isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
         </aside>
     );
 };

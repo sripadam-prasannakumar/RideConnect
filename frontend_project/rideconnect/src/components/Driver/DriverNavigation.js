@@ -3,10 +3,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
 import { getPubNubInstance, RIDE_UPDATES_CHANNEL } from '../../utils/pubnubService';
+import LiveTrackingMap from '../Customer/LiveTrackingMap';
+import { useUser } from '../../UserContext';
+import { getDefaultAvatar } from '../../utils/avatarUtils';
 
 const DriverNavigation = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
+    const { userProfile } = useUser();
     const rideId = state?.rideId;
     const [currentLocation, setCurrentLocation] = useState(null);
 
@@ -71,25 +75,34 @@ const DriverNavigation = () => {
             </style>
             <div className="relative h-screen w-full flex flex-col overflow-hidden">
                 {/* Full Screen Map Background */}
-                <div className="absolute inset-0 z-0 bg-slate-800 dark:bg-background-dark">
-                    <div className="w-full h-full bg-cover bg-center opacity-80" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuA141lXwVYqMYlRISjF0VtP70Y82g5q5xVg6lvjVa0g8tbiMF1IqlmjN4dCR0Hv0cqh7LULJvK6y14sEAc8xxJpQwvIhsVn0gwXDoRNJXF1GpvmTbpiS0sNsk4N0XLYE7rXbfLKn4Mh2lQ5hEieuJUQPI3ZICtNdlerKaw90T0GT1zvMf0G6tfNHi6UZNXPxDQ8wkBiYD4uXA3dIvexcQqpAG88iwZq37jVT-ole2HsMFIFkHn1xwzP2qFcwUr1etAokOrJJjdjBNM')" }}>
-                    </div>
-                    <div className="absolute inset-0 map-gradient-overlay"></div>
+                <div className="absolute inset-0 z-0 bg-background-dark">
+                    <LiveTrackingMap 
+                        rideId={rideId}
+                        pickupCoords={currentLocation ? [currentLocation.lat, currentLocation.lng] : [17.3850, 78.4867]}
+                        dropCoords={state?.pickupCoords || [17.4447, 78.3483]} // Falls back to a dummy if missing
+                        initialDriverCoords={currentLocation ? [currentLocation.lat, currentLocation.lng] : null}
+                    />
                 </div>
 
                 {/* Top Navigation Bar & Turn Instruction */}
                 <div className="relative z-10 w-full max-w-2xl mx-auto pt-4 px-4">
                     <header className="flex items-center justify-between bg-background-dark/80 backdrop-blur-md rounded-xl border border-primary/20 px-6 py-3 mb-4 shadow-2xl">
                         <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/driver/dashboard')}>
-                            <img className="size-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_kP4HKY45dhZC3l2ulerdHut6_2XxDMrQ43Lx6F442vumJC2paaeHCVsxrQYBcxGgX12dZaxFxbX_gDCSxPh_KfoyaRg32z0dNggoAjcvtNNFasilK2pUbNoaivV1cOa1as8hi-G3gIdMYCxtpjKBzZSX5N4q9n5bkIwUije1ZcANQ4MmbTiunKePgrq695xqINom5nrucuLX7muf65yONdGtIRgxLr-SCN-gV_KrcfjRhnQ5Dk1G7xtvZxFak3bt17A0BLV8xVI" alt="RideConnect Logo" />
+                            <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark shadow-lg shadow-primary/20">
+                                <span className="material-symbols-outlined font-bold">minor_crash</span>
+                            </div>
                             <h1 className="text-primary text-xl font-bold tracking-tight">RideConnect</h1>
                         </div>
                         <div className="flex gap-2">
                             <button onClick={() => navigate('/driver/settings')} className="size-10 flex items-center justify-center rounded-lg bg-primary/10 border border-primary/20 text-primary transition-colors hover:bg-primary/20">
                                 <span className="material-symbols-outlined">settings</span>
                             </button>
-                            <div onClick={() => navigate('/driver/profile')} className="size-10 rounded-full bg-primary/20 border-2 border-primary overflow-hidden cursor-pointer">
-                                <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB323O5I3cEBwHhFsuXtIuorcp3IlGTMMRMz7rGroeZ7H1cp_PxfxRkBLg4Iph4lk7OUCN8W5NtuIHQeKEqmBOU92aIoko9vMfp4OJegiyn_HUswpXEmn99cl4_EP3f3Dt4PWr2122sPTvK_mOMSL-K5LPJvz64ORsR5dKinA8cvBuLMiTTcs2AG2MGlLi2whx8cO9zjj-vxzw9VUjoRtcW79pLvZ7JcqtQRy76iq5dnkb5GeKC2V2kb_AT8uCdDmem55WJqLQGN9w" alt="Driver Profile Avatar" />
+                            <div onClick={() => navigate('/driver/profile')} className="size-10 rounded-full bg-primary/20 border-2 border-primary overflow-hidden cursor-pointer flex items-center justify-center">
+                                {userProfile?.profile_image ? (
+                                    <img className="w-full h-full object-cover" src={userProfile.profile_image} alt="Profile" />
+                                ) : (
+                                    <span className="material-symbols-outlined text-primary">person</span>
+                                )}
                             </div>
                         </div>
                     </header>

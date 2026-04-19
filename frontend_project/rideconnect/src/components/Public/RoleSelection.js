@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import GlobalBackButton from '../Shared/GlobalBackButton';
+import LogoBadge from '../Shared/LogoBadge';
+
 
 const RoleSelection = () => {
     const navigate = useNavigate();
@@ -10,11 +12,7 @@ const RoleSelection = () => {
     const action = queryParams.get('action') || 'register';
 
     const handleRoleSelect = (role) => {
-        if (action === 'login') {
-            navigate(`/login?role=${role}`);
-        } else {
-            navigate(`/register?role=${role}`);
-        }
+        navigate(`/register?role=${role}`);
     };
 
     const containerVariants = {
@@ -54,15 +52,8 @@ const RoleSelection = () => {
                         className="flex items-center gap-3 text-primary cursor-pointer group" 
                         onClick={() => navigate('/')}
                     >
-                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-surface-dark/60 backdrop-blur-md shadow-[0_0_20px_rgba(13,204,242,0.2)] border border-primary/30 overflow-hidden relative group">
-                        <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(13,204,242,0.8)_360deg)] animate-[spin_3s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite]"></div>
-                        <div className="absolute inset-[2px] bg-background-dark/90 rounded-full backdrop-blur-md z-0"></div>
-                        <img 
-                            src="/drivemate_logo.png" 
-                            alt="RideConnect" 
-                            className="w-8 h-8 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10" 
-                        />
-                    </div>
+                    <LogoBadge size="sm" />
+
                     <h2 className="text-white text-xl font-bold tracking-tight">RideConnect</h2>
                 </motion.div>
                 </div>
@@ -163,7 +154,7 @@ const RoleSelection = () => {
                     {/* Footer Action */}
                     <motion.div variants={itemVariants} className="mt-12 flex justify-center">
                         <button 
-                            onClick={() => navigate('/role-selection?action=login')} 
+                            onClick={() => navigate('/login')} 
                             className="group flex items-center gap-4 px-10 py-5 rounded-2xl bg-white/5 border border-white/5 text-white/80 text-sm font-bold hover:bg-white/10 transition-all"
                         >
                             <span>Already have an account?</span>

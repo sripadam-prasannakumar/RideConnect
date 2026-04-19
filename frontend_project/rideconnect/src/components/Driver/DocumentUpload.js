@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import GlobalBackButton from '../Shared/GlobalBackButton';
 import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
+import { Bike, Car, Truck, Smartphone, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 
 
 /* ─── Per-field validation helper ─── */
 const DL_REGEX = /^[A-Z]{2}[0-9]{2,3}\s?[0-9]{4}[0-9]{7}$/;
+const VEHICLE_NUM_REGEX = /^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$/;
 
 /* ─── Indian State Codes ─── */
 const STATE_CODES = {
@@ -66,6 +68,9 @@ function validateFields(fields) {
         errs.licenseNumber = 'Invalid format. Example: AP0520250012833';
     if (!fields.licenseType) errs.licenseType = 'License type is required';
     if (!fields.vehicleType) errs.vehicleType = 'Vehicle type is required';
+    if (!fields.vehicleNumber.trim()) errs.vehicleNumber = 'Vehicle registration number is required';
+    else if (!VEHICLE_NUM_REGEX.test(fields.vehicleNumber.trim().replace(/\s/g, '').toUpperCase()))
+        errs.vehicleNumber = 'Enter valid registration (e.g., TS09EA1234)';
     if (!fields.licenseExpiry) errs.licenseExpiry = 'Expiry date is required';
     if (!fields.licenseFile && !fields.hasExistingFront)
         errs.licenseFile = 'Front image is required';
@@ -116,33 +121,35 @@ function ImageUploadBox({ label, previewUrl, onChange, error, inputRef }) {
 }
 
 /* ─── Shared Components ─── */
-const InputField = ({ id, label, type = 'text', placeholder, value, onChange, error, icon, maxLength, readOnly }) => (
-    <div className="space-y-2">
+const InputField = ({ id, label, type = 'text', placeholder, value, onChange, error, icon, maxLength, readOnly, fields }) => (
+    <div className="space-y-4">
         <label htmlFor={id} className="block text-xs font-black text-slate-400 uppercase tracking-widest">
             {label} <span className="text-red-500">*</span>
         </label>
-        <div className="relative">
-            {icon && <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg">{icon}</span>}
-            {type === 'select' ? (
-                <select
-                    id={id} value={value} onChange={onChange}
-                    className={`w-full ${icon ? 'pl-12' : 'pl-4'} pr-4 py-4 bg-slate-50/50 dark:bg-slate-800/40 border ${error ? 'border-red-500' : 'border-slate-200 dark:border-slate-700 focus:border-primary'
-                        } rounded-xl text-slate-900 dark:text-white outline-none focus:ring-1 focus:ring-primary transition-all appearance-none`}
-                >
-                    {placeholder && <option value="">{placeholder}</option>}
-                    {id === 'licenseType' && [
-                        <option key="LMV" value="LMV" style={{ background: '#1e3a5f', color: '#0a2c41ff' }}>🚗 Light Motor Vehicle (LMV)</option>,
-                        <option key="HMV" value="HMV" style={{ background: '#3b1f5e', color: '#c084fc' }}>🚛 Heavy Motor Vehicle (HMV)</option>,
-                        <option key="MCWG" value="MCWG" style={{ background: '#1a4731', color: '#4ade80' }}>🏍️ Motorcycle with Gear (MCWG)</option>,
-                        <option key="Commercial" value="Commercial" style={{ background: '#4a2000', color: '#fb923c' }}>🏗️ Commercial / Transport</option>
-                    ]}
-                    {id === 'vehicleType' && [
-                        <option key="car" value="car" style={{ background: '#1e3a5f', color: '#60c2ff' }}>🚗 Car</option>,
-                        <option key="bike" value="bike" style={{ background: '#1a4731', color: '#4ade80' }}>🏍️ Bike</option>,
-                        <option key="cargo" value="cargo" style={{ background: '#4a2000', color: '#fb923c' }}>🚐 Cargo Van</option>
-                    ]}
-                </select>
-            ) : (
+        
+        {id === 'vehicleType' ? (
+            <div className="grid grid-cols-3 gap-3">
+                {[
+                    { id: 'car', label: 'Car', icon: <Car className="size-5" /> },
+                    { id: 'bike', label: 'Bike', icon: <Bike className="size-5" /> },
+                    { id: 'cargo', label: 'Cargo Van', icon: <Truck className="size-5" /> },
+                ].map(v => (
+                    <button
+                        key={v.id}
+                        type="button"
+                        onClick={() => onChange({ target: { value: v.id } })}
+                        className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all gap-2 ${value === v.id ? 'border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(13,204,242,0.2)]' : 'border-slate-100 dark:border-slate-800 hover:border-primary/40'}`}
+                    >
+                        {v.id === 'car' && <Car className="size-5" />}
+                        {v.id === 'bike' && <Bike className="size-5" />}
+                        {v.id === 'cargo' && <Truck className="size-5" />}
+                        <span className="text-[10px] font-black uppercase tracking-tighter leading-none">{v.label}</span>
+                    </button>
+                ))}
+            </div>
+        ) : (
+            <div className="relative">
+                {icon && <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-lg">{icon}</span>}
                 <input
                     id={id} type={type} value={value} onChange={onChange} placeholder={placeholder}
                     maxLength={maxLength} readOnly={readOnly}
@@ -150,14 +157,13 @@ const InputField = ({ id, label, type = 'text', placeholder, value, onChange, er
                         } rounded-xl text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:ring-1 focus:ring-primary transition-all ${id === 'licenseNumber' ? 'font-mono tracking-widest uppercase' : ''
                         } dark:[color-scheme:dark]`}
                 />
-            )}
-            {type === 'select' && (
-                <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">expand_more</span>
-            )}
-        </div>
+            </div>
+        )}
+
         {error && (
-            <p className="text-red-500 text-xs font-semibold flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm">error</span>{error}
+            <p className="text-red-500 text-[11px] font-bold flex items-center gap-1 mt-1 transition-all">
+                <AlertCircle className="size-3.5" />
+                {error}
             </p>
         )}
     </div>
@@ -174,6 +180,7 @@ const LicenseUpload = () => {
     const [fields, setFields] = useState({
         fullName: '', dateOfBirth: '', licenseNumber: '',
         licenseType: '', vehicleType: '', licenseExpiry: '',
+        vehicleNumber: '', vehicleModel: ''
     });
     const [licenseFile, setLicenseFile] = useState(null);
     const [licenseFileBack, setLicenseFileBack] = useState(null);
@@ -247,6 +254,8 @@ const LicenseUpload = () => {
         formData.append('license_number', fields.licenseNumber.trim().toUpperCase());
         formData.append('license_type', fields.licenseType);
         formData.append('vehicle_type', fields.vehicleType);
+        formData.append('vehicle_number', fields.vehicleNumber.trim().toUpperCase());
+        formData.append('vehicle_model', fields.vehicleModel.trim());
         formData.append('license_expiry', fields.licenseExpiry);
         if (licenseFile) formData.append('license_image', licenseFile);
         if (licenseFileBack) formData.append('license_image_back', licenseFileBack);
@@ -254,13 +263,22 @@ const LicenseUpload = () => {
         try {
             const res = await authorizedFetch(`${API_BASE_URL}/api/driver/license/`, { method: 'POST', body: formData });
             const data = await res.json();
-            if (!res.ok) {
-                setSubmitError(data.error || 'Submission failed. Please try again.');
+            if (res.ok) {
+                setIsSuccess(true);
+                setTimeout(() => navigate('/driver/dashboard'), 2000);
+            } else {
+                // Check for specific unique validation errors
+                if (data.error && data.error.includes('license number')) {
+                    setFieldErrors(prev => ({ ...prev, licenseNumber: data.error }));
+                } else if (data.registration_number) {
+                    setFieldErrors(prev => ({ ...prev, vehicleNumber: data.registration_number[0] }));
+                } else {
+                    setSubmitError(data.error || "Failed to submit verification details.");
+                }
                 setIsSubmitting(false);
                 if (data.errors) setFieldErrors(data.errors);
                 return;
             }
-            setIsSuccess(true);
         } catch {
             setSubmitError('Cannot connect to server. Please make sure the backend is running.');
             setIsSubmitting(false);
@@ -482,10 +500,31 @@ const LicenseUpload = () => {
                         />
                         {/* Vehicle Type */}
                         <InputField
-                            id="vehicleType" label="Vehicle Type" type="select"
-                            placeholder="Select vehicle..."
+                            id="vehicleType" label="Vehicle Category" type="select"
+                            placeholder="Select Category..."
                             value={fields.vehicleType} onChange={set('vehicleType')}
-                            error={fieldErrors.vehicleType} icon="directions_car"
+                            error={fieldErrors.vehicleType} icon="category"
+                        />
+                    </div>
+
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 dark:border-slate-700 pb-2 pt-2">
+                        Professional Vehicle Details
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Vehicle Number */}
+                        <InputField
+                            id="vehicleNumber" label="Registration Number"
+                            placeholder="e.g. AP05 AB 1234"
+                            value={fields.vehicleNumber} onChange={set('vehicleNumber')}
+                            error={fieldErrors.vehicleNumber} icon="directions_car"
+                        />
+                        {/* Vehicle Model */}
+                        <InputField
+                            id="vehicleModel" label="Vehicle Model (Optional)"
+                            placeholder="e.g. Royal Enfield Classic 350"
+                            value={fields.vehicleModel} onChange={set('vehicleModel')}
+                            error={fieldErrors.vehicleModel} icon="model_training"
                         />
                     </div>
 

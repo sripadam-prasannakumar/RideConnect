@@ -4,39 +4,31 @@ import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
 import { getAuthStatus } from '../../utils/authUtils';
 
+import { useUser } from '../../UserContext';
+
 const CustomerProfile = () => {
     const navigate = useNavigate();
-    const [userData, setUserData] = useState({
+    const { userProfile, refreshUserProfile } = useUser();
+    const [localData, setLocalData] = useState({
         full_name: '',
         email: '',
         phone: '',
-        profile_picture: null,
         membership: 'Gold Member'
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
-        const { isAuthenticated, email } = getAuthStatus();
-        if (!isAuthenticated) {
-            navigate('/login');
-            return;
-        }
-
-        authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`)
-            .then(res => res.json())
-            .then(data => {
-                setUserData({
-                    ...data,
-                    full_name: data.full_name || data.name || 'Customer'
-                });
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
+        if (userProfile) {
+            setLocalData({
+                full_name: userProfile.full_name || '',
+                email: userProfile.email || '',
+                phone: userProfile.phone || '',
+                membership: 'Gold Member'
             });
-    }, [navigate]);
+            setLoading(false);
+        }
+    }, [userProfile]);
 
     const handleSave = async () => {
         setSaving(true);
@@ -45,13 +37,13 @@ const CustomerProfile = () => {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    email: userData.email,
-                    full_name: userData.full_name,
-                    phone: userData.phone
+                    full_name: localData.full_name,
+                    phone: localData.phone
                 })
             });
 
             if (response.ok) {
+                await refreshUserProfile();
                 alert('Profile updated successfully');
             } else {
                 const errorData = await response.json();
@@ -62,6 +54,27 @@ const CustomerProfile = () => {
             alert('An error occurred');
         } finally {
             setSaving(false);
+        }
+    };
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('profile_picture', file);
+
+        try {
+            const res = await authorizedFetch(`${API_BASE_URL}/api/profile-picture/upload/`, {
+                method: 'POST',
+                body: formData
+            });
+            if (res.ok) {
+                await refreshUserProfile();
+                alert('Profile picture updated!');
+            }
+        } catch (err) {
+            console.error("Image upload failed", err);
         }
     };
 
@@ -138,10 +151,18 @@ const CustomerProfile = () => {
                             <div className="h-8 w-px bg-slate-200 dark:border-primary/20 mx-2"></div>
                             <div className="flex items-center gap-3">
                                 <div className="text-right hidden sm:block">
-                                    <p className="text-sm font-bold leading-none">{userData.full_name}</p>
-                                    <p className="text-xs text-primary font-medium">{userData.membership}</p>
+                                    <p className="text-sm font-bold leading-none">{userProfile?.full_name}</p>
+                                    <p className="text-xs text-primary font-medium">{localData.membership}</p>
                                 </div>
-                                <div className="size-10 rounded-full border-2 border-primary bg-cover bg-center" style={{ backgroundImage: userData.profile_picture ? `url(${API_BASE_URL}${userData.profile_picture})` : "url('https://avatar.iran.liara.run/public/boy')" }}></div>
+                                <div className="size-10 rounded-full border-2 border-primary overflow-hidden">
+                                     {userProfile?.profile_image ? (
+                                         <img src={userProfile.profile_image} alt="Profile" className="size-full object-cover" />
+                                     ) : (
+                                         <div className="size-full flex items-center justify-center bg-slate-800 text-primary">
+                                             <span className="material-symbols-outlined">person</span>
+                                         </div>
+                                     )}
+                                </div>
                             </div>
                         </div>
                     </header>
@@ -151,19 +172,28 @@ const CustomerProfile = () => {
                         <div className="relative overflow-hidden rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-primary/10 p-8 flex flex-col md:flex-row items-center md:items-end gap-6 shadow-sm">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
                             <div className="relative">
-                                <div className="size-32 rounded-2xl bg-cover bg-center border-4 border-white dark:border-slate-800 shadow-xl" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxS1VF6xr6iAYxCdzPxu4YoL-o6UcO06t_C1p2-KTQLufATHl7HLOl2eZn2SdjgoF8AOULTOLMa_wdBKE3mVehLlQjyGso2iPEGCD0n4lyO8ZV6QLgJRdw5oGEEOaiyfzf3iD1uFHPCkqdPOku3eWozNCQyGPyOv7MxfbInuzR542KB1H4CxUYKVCOikLUKePiT-mDra3j9FxW72rKGA17le7r24TkjhCOwFmG86UYMBEFMVxNEupuNLMxJpDjjf9MLpirxzyZJus')" }}></div>
-                                <button className="absolute -bottom-2 -right-2 bg-primary text-background-dark p-2 rounded-lg shadow-lg hover:scale-105 transition-transform">
+                                <div className="size-32 rounded-2xl bg-slate-200 dark:bg-slate-800 border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden">
+                                     {userProfile?.profile_image ? (
+                                         <img src={userProfile.profile_image} alt="Profile" className="size-full object-cover" />
+                                     ) : (
+                                         <div className="size-full flex items-center justify-center text-slate-400">
+                                              <span className="material-symbols-outlined text-5xl">person</span>
+                                         </div>
+                                     )}
+                                </div>
+                                <label className="absolute -bottom-2 -right-2 bg-primary text-background-dark p-2 rounded-lg shadow-lg hover:scale-105 transition-transform cursor-pointer">
                                     <span className="material-symbols-outlined text-sm">photo_camera</span>
-                                </button>
+                                    <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
+                                </label>
                             </div>
                             <div className="flex-1 text-center md:text-left space-y-1">
                                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                                    <h2 className="text-3xl font-bold">{userData.full_name}</h2>
+                                    <h2 className="text-3xl font-bold">{userProfile?.full_name || 'Customer'}</h2>
                                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/20 text-primary border border-primary/30 w-fit self-center">
-                                        {userData.membership}
+                                        {localData.membership}
                                     </span>
                                 </div>
-                                <p className="text-slate-500 dark:text-slate-400">Member since February 2022 • New York, USA</p>
+                                <p className="text-slate-500 dark:text-slate-400">Verified User • {userProfile?.email}</p>
                             </div>
                             <div className="flex gap-3">
                                 <button 
@@ -190,8 +220,8 @@ const CustomerProfile = () => {
                                             <input 
                                                 className="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" 
                                                 type="text" 
-                                                value={userData.full_name} 
-                                                onChange={(e) => setUserData({...userData, full_name: e.target.value})}
+                                                value={localData.full_name} 
+                                                onChange={(e) => setLocalData({...localData, full_name: e.target.value})}
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -199,13 +229,13 @@ const CustomerProfile = () => {
                                             <input 
                                                 className="w-full bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all outline-none" 
                                                 type="tel" 
-                                                value={userData.phone} 
-                                                onChange={(e) => setUserData({...userData, phone: e.target.value})}
+                                                value={localData.phone} 
+                                                onChange={(e) => setLocalData({...localData, phone: e.target.value})}
                                             />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Email Address</label>
-                                            <input className="w-full bg-slate-50/50 dark:bg-background-dark/50 border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 h-12 outline-none cursor-not-allowed opacity-70" type="email" value={userData.email} readOnly />
+                                            <input className="w-full bg-slate-50/50 dark:bg-background-dark/50 border border-slate-200 dark:border-primary/20 rounded-lg px-4 py-3 h-12 outline-none cursor-not-allowed opacity-70" type="email" value={localData.email} readOnly />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Occupation</label>

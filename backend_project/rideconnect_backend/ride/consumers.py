@@ -2,6 +2,8 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 
+from .utils import sanitize_group_name
+
 @database_sync_to_async
 def set_user_online_status(user_id, is_online):
     from django.contrib.auth.models import User
@@ -22,7 +24,7 @@ def set_user_online_status(user_id, is_online):
 class RideConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.user_id = self.scope['url_route']['kwargs']['user_id']
-        self.user_group_name = f'user_{self.user_id}'
+        self.user_group_name = sanitize_group_name(f'user_{self.user_id}')
         self.drivers_group_name = 'drivers'
 
         # Join personal user group
@@ -45,7 +47,7 @@ class RideConsumer(AsyncWebsocketConsumer):
         v_type = params.get('vehicle_type', [None])[0]
         
         if v_type:
-            self.vehicle_group_name = f'drivers_{v_type}'
+            self.vehicle_group_name = sanitize_group_name(f'drivers_{v_type}')
             await self.channel_layer.group_add(
                 self.vehicle_group_name,
                 self.channel_name
@@ -80,7 +82,7 @@ class RideConsumer(AsyncWebsocketConsumer):
         if message_type == 'ride_request':
             ride_data = data.get('ride_data', {})
             v_type = ride_data.get('selected_vehicle_type', 'car')
-            target_group = f'drivers_{v_type}'
+            target_group = sanitize_group_name(f'drivers_{v_type}')
             
             # Broadcast only to drivers of that vehicle type
             await self.channel_layer.group_send(
@@ -99,7 +101,7 @@ class RideConsumer(AsyncWebsocketConsumer):
             
             # Notify customer
             await self.channel_layer.group_send(
-                f'user_{customer_id}',
+                sanitize_group_name(f'user_{customer_id}'),
                 {
                     'type': 'ride_update',
                     'ride_status': 'accepted',
@@ -118,15 +120,20 @@ class RideConsumer(AsyncWebsocketConsumer):
     async def ride_update(self, event):
         await self.send(text_data=json.dumps({
             'type': 'ride_update',
-            'status': event['ride_status'],
-            'status_details': event.get('driver_data')
+            'status': event.get('ride_status'),
+            'ride_status': event.get('ride_status'),
+            'status_details': event.get('driver_data'),
+            'ride_data': event.get('ride_data'),
+            'amount': event.get('amount'),
+            'ride_id': event.get('ride_id'),
+            'payment_status': event.get('payment_status'),
         }))
 
 
 class DriverConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.driver_id = self.scope['url_route']['kwargs']['driver_id']
-        self.group_name = f"driver_{self.driver_id}"
+        self.group_name = sanitize_group_name(f"driver_{self.driver_id}")
 
         # Join personal group
         await self.channel_layer.group_add(
@@ -142,7 +149,7 @@ class DriverConsumer(AsyncWebsocketConsumer):
         v_type = query_params.get('vehicle_type', [None])[0]
         
         if v_type:
-            self.vehicle_group_name = f"drivers_{v_type}"
+            self.vehicle_group_name = sanitize_group_name(f"drivers_{v_type}")
             await self.channel_layer.group_add(
                 self.vehicle_group_name,
                 self.channel_name

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuthStatus, clearAuthInfo } from '../../utils/authUtils';
+import { getAuthStatus, clearAuthInfo, storeActiveRide, getActiveRide } from '../../utils/authUtils';
 import { authorizedFetch } from '../../utils/apiUtils';
 import GlobalBackButton from '../Shared/GlobalBackButton';
 import CustomerSidebar from './CustomerSidebar';
+import { Car, Truck, Bike, Sparkles, ChevronRight, UserCircle, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 import API_BASE_URL from '../../apiConfig';
+
+import PaymentModal from './PaymentModal';
 
 const CustomerDashboard = () => {
     const navigate = useNavigate();
@@ -13,68 +17,139 @@ const CustomerDashboard = () => {
     const [activeBooking, setActiveBooking] = useState(null);
     const [rideHistory, setRideHistory] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+    const fetchData = async (email) => {
+        try {
+            // Fetch Profile
+            const profileRes = await authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`);
+            const profileData = await profileRes.json();
+            if (profileData.email) setUserData(profileData);
+
+            // Fetch Stats
+            const statsRes = await authorizedFetch(`${API_BASE_URL}/api/user-stats/?email=${encodeURIComponent(email)}`);
+            const statsData = await statsRes.json();
+            if (statsData && !statsData.error) {
+                setStats(statsData);
+            }
+
+            // Fetch Active Booking
+            const activeRes = await authorizedFetch(`${API_BASE_URL}/api/ride/active/?email=${encodeURIComponent(email)}`);
+            const activeData = await activeRes.json();
+            if (activeData && !activeData.error) {
+                setActiveBooking(activeData);
+                storeActiveRide(activeData);
+                
+                // Automatically open payment if ride is completed but not paid
+                // (Only once per session for this specific ride ID)
+                if ((activeData.status === 'completed' || activeData.status === 'COMPLETED') && 
+                    activeData.paymentStatus === 'PENDING' && !isPaymentModalOpen) {
+                    const hasAutoOpened = sessionStorage.getItem(`auto_opened_payment_${activeData.id}`);
+                    if (!hasAutoOpened) {
+                        setIsPaymentModalOpen(true);
+                        sessionStorage.setItem(`auto_opened_payment_${activeData.id}`, 'true');
+                    }
+                }
+            } else {
+                setActiveBooking(null);
+                storeActiveRide(null);
+            }
+
+            // Fetch History
+            const historyRes = await authorizedFetch(`${API_BASE_URL}/api/ride/history/?email=${encodeURIComponent(email)}&role=customer`);
+            const historyData = await historyRes.json();
+            if (Array.isArray(historyData)) setRideHistory(historyData.slice(0, 5));
+
+        } catch (error) {
+            console.error("Dashboard fetching error:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         const { isAuthenticated, email } = getAuthStatus();
-        if (!isAuthenticated) {
-            navigate('/login');
-            return;
+        if (!isAuthenticated) { navigate('/login'); return; }
+
+        // Initial check for cached active ride to speed up UI
+        // ONLY redirect if we haven't manually come back to the dashboard in this session
+        const savedRide = getActiveRide();
+        const hasManuallyNavigated = sessionStorage.getItem('manualDashboard');
+        
+        if (savedRide && (savedRide.status === 'ongoing' || savedRide.status === 'accepted') && !hasManuallyNavigated) {
+            navigate('/customer/tracking');
         }
 
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                // Fetch Profile
-                const profileRes = await authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`);
-                const profileData = await profileRes.json();
-                if (profileData.email) setUserData(profileData);
+        fetchData(email);
 
-                // Fetch Stats
-                const statsRes = await authorizedFetch(`${API_BASE_URL}/api/user-stats/?email=${encodeURIComponent(email)}`);
-                const statsData = await statsRes.json();
-                if (statsData && !statsData.error) {
-                    setStats(statsData);
-                } else if (statsData && statsData.error) {
-                    console.error("Stats API error:", statsData.error);
-                }
-
-                // Fetch Active Booking
-                const activeRes = await authorizedFetch(`${API_BASE_URL}/api/ride/active/?email=${encodeURIComponent(email)}`);
-                const activeData = await activeRes.json();
-                if (activeData && !activeData.error) setActiveBooking(activeData);
-
-                // Fetch History
-                const historyRes = await authorizedFetch(`${API_BASE_URL}/api/ride/history/?email=${encodeURIComponent(email)}&role=customer`);
-                const historyData = await historyRes.json();
-                if (Array.isArray(historyData)) setRideHistory(historyData.slice(0, 5)); // Get last 5
-
-            } catch (error) {
-                console.error("Dashboard fetching error:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+        // Polling for ride updates
+        const pollInterval = setInterval(() => fetchData(email), 5000);
+        return () => clearInterval(pollInterval);
     }, [navigate]);
 
     return (
         <main className="flex-1 flex flex-col h-screen overflow-hidden">
             <div className="flex-1 p-6 lg:p-10 space-y-8 overflow-y-auto custom-scrollbar">
-                        <section className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                            <div>
-                                <h1 className="text-3xl font-bold">Welcome back, {userData.name || 'there'}!</h1>
-                                <p className="text-slate-500 dark:text-slate-400 mt-1">{userData.email || 'Customer Account'}</p>
+                        <section className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-xl font-black uppercase italic tracking-wider flex items-center gap-2">
+                                    <Sparkles className="size-5 text-primary" /> Explore Services
+                                </h2>
+                                <button className="text-xs font-bold text-primary hover:underline">View All</button>
                             </div>
-                            <div className="flex flex-col sm:flex-row gap-3 mt-4 md:mt-0">
-                                <button onClick={() => navigate('/customer/offers')} className="flex items-center justify-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold px-4 py-3 sm:px-6 sm:py-4 text-sm sm:text-base rounded-xl border-2 border-amber-500/30 transition-all transform hover:scale-[1.02] w-full sm:w-auto">
-                                    <span className="material-symbols-outlined text-xl sm:text-2xl">redeem</span>
-                                    Offers & Rewards
-                                </button>
-                                <button onClick={() => navigate('/customer/book')} className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-background-dark font-bold px-4 py-3 sm:px-8 sm:py-4 text-sm sm:text-base rounded-xl shadow-lg shadow-primary/20 transition-all transform hover:scale-[1.02] w-full sm:w-auto">
-                                    <span className="material-symbols-outlined text-xl sm:text-2xl">add_circle</span>
-                                    Book a Driver Now
-                                </button>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+                                {/* Driver + Car Card */}
+                                <motion.div 
+                                    whileHover={{ y: -5 }} 
+                                    onClick={() => navigate('/customer/book', { state: { fastTrackType: 'car' } })}
+                                    className="cursor-pointer group relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all"
+                                >
+                                    <div className="size-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform relative group-hover:shadow-[0_0_20px_rgba(13,204,242,0.3)]">
+                                        <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-lg group-hover:bg-primary/20 transition-all"></div>
+                                        <div className="flex items-center -space-x-2 relative">
+                                            <UserCircle className="size-6 text-primary z-10" />
+                                            <Car className="size-8 text-primary/70" />
+                                        </div>
+                                    </div>
+                                    <h3 className="font-black text-lg">Driver</h3>
+                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Chauffeur Service</p>
+                                    <div className="mt-4 flex items-center text-primary text-[10px] font-black uppercase italic tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">
+                                        Hire Now <ChevronRight className="size-3" />
+                                    </div>
+                                </motion.div>
+
+                                {/* Cargo Card */}
+                                <motion.div 
+                                    whileHover={{ y: -5 }} 
+                                    onClick={() => navigate('/customer/book', { state: { fastTrackType: 'cargo' } })}
+                                    className="cursor-pointer group relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm hover:shadow-xl hover:border-emerald-500/50 transition-all"
+                                >
+                                    <div className="size-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <Truck className="size-8 text-emerald-500" />
+                                    </div>
+                                    <h3 className="font-black text-lg">Cargo</h3>
+                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Vans for Goods</p>
+                                    <div className="mt-4 flex items-center text-emerald-500 text-[10px] font-black uppercase italic tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">
+                                        Hire Pack <ChevronRight className="size-3" />
+                                    </div>
+                                </motion.div>
+
+                                {/* Bike Card */}
+                                <motion.div 
+                                    whileHover={{ y: -5 }} 
+                                    onClick={() => navigate('/customer/book', { state: { fastTrackType: 'bike' } })}
+                                    className="cursor-pointer group relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm hover:shadow-xl hover:border-orange-500/50 transition-all"
+                                >
+                                    <div className="size-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <Bike className="size-8 text-orange-500" />
+                                    </div>
+                                    <h3 className="font-black text-lg">Bike Rides</h3>
+                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Quick Bike Ride</p>
+                                    <div className="mt-4 flex items-center text-orange-500 text-[10px] font-black uppercase italic tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">
+                                        Fast Track <ChevronRight className="size-3" />
+                                    </div>
+                                </motion.div>
                             </div>
                         </section>
 
@@ -111,8 +186,17 @@ const CustomerDashboard = () => {
                         <section>
                             <h2 className="text-xl font-bold mb-4">Active Booking</h2>
                             {activeBooking && Object.keys(activeBooking).length > 0 ? (
-                                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl">
-                                    <div className="flex flex-col lg:flex-row">
+                                <motion.div 
+                                    whileHover={{ y: -2, borderBottomWidth: 4, borderBottomColor: 'var(--primary)' }}
+                                    onClick={() => navigate('/customer/tracking')}
+                                    className="cursor-pointer group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xl transition-all"
+                                >
+                                    <div className="flex flex-col lg:flex-row relative">
+                                        {/* Click Label Overlay */}
+                                        <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                                            <span className="text-[8px] font-black uppercase text-primary">Click to view details</span>
+                                            <ChevronRight className="size-2.5 text-primary" />
+                                        </div>
                                         <div className="flex-1 p-6 lg:p-8 space-y-6">
                                             <div className="flex items-center justify-between">
                                                 <span className={`px-3 py-1 ${activeBooking.status === 'pending' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-primary/20 text-primary'} text-xs font-bold rounded-full uppercase tracking-widest`}>
@@ -141,20 +225,39 @@ const CustomerDashboard = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {activeBooking.driver ? (
-                                                <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-                                                    <div className="size-12 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
-                                                        <span className="material-symbols-outlined">person</span>
+                                                 {activeBooking.driver ? (
+                                                <div className="flex flex-col gap-4">
+                                                    <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+                                                        <div className="size-12 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+                                                            <span className="material-symbols-outlined">person</span>
+                                                        </div>
+                                                        <div className="flex-1">
+                                                            <p className="font-bold">{activeBooking.driver.user.first_name}</p>
+                                                            <p className="text-sm text-slate-500">{activeBooking.vehicle?.brand} {activeBooking.vehicle?.model_name} • {activeBooking.vehicle?.registration_number}</p>
+                                                        </div>
+                                                        <div className="flex gap-2">
+                                                            <button className="size-10 flex items-center justify-center rounded-full bg-primary text-background-dark hover:brightness-110 transition-all">
+                                                                <span className="material-symbols-outlined">call</span>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div className="flex-1">
-                                                        <p className="font-bold">{activeBooking.driver.user.first_name}</p>
-                                                        <p className="text-sm text-slate-500">{activeBooking.vehicle?.brand} {activeBooking.vehicle?.model_name} • {activeBooking.vehicle?.registration_number}</p>
-                                                    </div>
-                                                    <div className="flex gap-2">
-                                                        <button className="size-10 flex items-center justify-center rounded-full bg-primary text-background-dark hover:brightness-110 transition-all">
-                                                            <span className="material-symbols-outlined">call</span>
+
+                                                    {((activeBooking.status === 'completed' || activeBooking.status === 'COMPLETED') && 
+                                                        activeBooking.paymentStatus === 'PENDING') && (
+                                                        <button 
+                                                            onClick={() => setIsPaymentModalOpen(true)}
+                                                            className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-black rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 animate-bounce"
+                                                        >
+                                                            <span className="material-symbols-outlined">payments</span>
+                                                            Pay Now (₹{activeBooking.total_fare || activeBooking.estimated_fare})
                                                         </button>
-                                                    </div>
+                                                    )}
+                                                    {activeBooking.paymentStatus === 'SUCCESS' && (
+                                                         <div className="w-full py-4 bg-emerald-500 border-2 border-emerald-500/20 text-white font-black rounded-xl flex items-center justify-center gap-2 animate-in slide-in-from-bottom duration-500">
+                                                             <CheckCircle size={20} className="animate-pulse" />
+                                                             Payment Completed
+                                                         </div>
+                                                    )}
                                                 </div>
                                             ) : (
                                                 <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center">
@@ -169,7 +272,7 @@ const CustomerDashboard = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ) : (
                                 <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-10 flex flex-col items-center justify-center text-center gap-4">
                                     <div className="size-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
@@ -209,7 +312,7 @@ const CustomerDashboard = () => {
                                                 <span className="text-sm font-bold">{ride.status === 'completed' ? '5.0' : '—'}</span>
                                             </div>
                                             <div className="text-right">
-                                                <p className="font-bold">₹{ride.estimated_fare}</p>
+                                                <p className="font-bold">₹{ride.total_fare || ride.estimated_fare}</p>
                                                 <p className={`text-[10px] ${ride.status === 'completed' ? 'text-green-500' : ride.status === 'cancelled' ? 'text-red-500' : 'text-primary'} uppercase font-bold`}>
                                                     {ride.status}
                                                 </p>
@@ -222,6 +325,19 @@ const CustomerDashboard = () => {
                             </div>
                         </section>
             </div>
+
+            {activeBooking && (
+                <PaymentModal 
+                    isOpen={isPaymentModalOpen} 
+                    onClose={() => setIsPaymentModalOpen(false)} 
+                    ride={activeBooking}
+                    onPaymentSuccess={() => {
+                        setIsPaymentModalOpen(false);
+                        const { email } = getAuthStatus();
+                        fetchData(email);
+                    }}
+                />
+            )}
         </main>
     );
 };

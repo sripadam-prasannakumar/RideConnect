@@ -6,7 +6,6 @@ import { Loader2, MapPin, ShieldCheck, UserCheck, Smartphone, Phone, Star, Car, 
 import SurgeSelectionModal from './SurgeSelectionModal';
 import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
-import { getPubNubInstance, RIDE_REQUESTS_CHANNEL, RIDE_UPDATES_CHANNEL } from '../../utils/pubnubService';
 import { motion, AnimatePresence } from 'framer-motion';
 import VoiceService from '../../utils/voiceService';
 import useVoicePreference from '../../hooks/useVoicePreference';
@@ -14,8 +13,8 @@ import useVoicePreference from '../../hooks/useVoicePreference';
 const SearchingDriver = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
-    const rideId = state?.rideId;
-    const initialRideData = state?.rideData;
+    const rideId = state?.rideId || localStorage.getItem('lastSearchingRideId');
+    const initialRideData = state?.rideData || (localStorage.getItem('lastSearchingRideData') ? JSON.parse(localStorage.getItem('lastSearchingRideData')) : null);
 
     const [status, setStatus] = useState('searching'); // searching, accepted
     const [rideData, setRideData] = useState(initialRideData);
@@ -32,11 +31,16 @@ const SearchingDriver = () => {
 
         // Voice Instruction for Customer
         if (voiceEnabled) {
-            const driverName = data?.driver?.name || "Your pro";
+            const driverName = data?.driver?.full_name || data?.driver?.name || "Your pro";
             const pickup = initialRideData?.pickup_location || "the pickup point";
             VoiceService.speak(`Driver ${driverName} assigned. Arriving at ${pickup} in approximately 4 minutes.`);
         }
-    }, [initialRideData, voiceEnabled]);
+
+        // Auto-navigate after 4 seconds to give user time to see the driver details
+        setTimeout(() => {
+            navigate('/customer/tracking', { state: { rideId, driverData: data.driver || data, rideStatus: 'accepted' } });
+        }, 4000);
+    }, [initialRideData, voiceEnabled, navigate, rideId]);
 
     useEffect(() => {
         let interval;
@@ -79,25 +83,20 @@ const SearchingDriver = () => {
             return;
         }
 
+        if (rideId) {
+            localStorage.setItem('lastSearchingRideId', rideId);
+            if (initialRideData) {
+                localStorage.setItem('lastSearchingRideData', JSON.stringify(initialRideData));
+            }
+        } else {
+            navigate('/customer/dashboard');
+            return;
+        }
+
         const userId = initialRideData?.customer?.user?.id || email;
 
-        // --- PubNub Integration ---
-        const pubnub = getPubNubInstance(`customer_${userId}`);
-        if (pubnub) {
-            pubnub.addListener({
-                message: (event) => {
-                    // Standard message: { ride_id, status: 'accepted' }
-                    const msg = event.message;
-                    const msgRideId = msg.ride_id || msg.rideId;
-
-                    if (event.channel === RIDE_UPDATES_CHANNEL && msg.status === 'accepted' && String(msgRideId) === String(rideId)) {
-                        console.log("PubNub: Driver Assigned Update Received", msg);
-                        handleAcceptance(msg.ride_data || msg);
-                    }
-                }
-            });
-            pubnub.subscribe({ channels: [RIDE_UPDATES_CHANNEL] });
-        }
+        // --- Real-time Updates via WebSockets ---
+    
 
         const wsUrl = API_BASE_URL.replace(/^http/, 'ws') + `/ws/ride/${userId}/`;
         const ws = new WebSocket(wsUrl);
@@ -110,16 +109,6 @@ const SearchingDriver = () => {
                     type: 'ride_request',
                     ride_data: messageData
                 }));
-
-                if (pubnub) {
-                    pubnub.publish({
-                        channel: RIDE_REQUESTS_CHANNEL,
-                        message: {
-                            type: 'ride_request',
-                            ride_data: messageData
-                        }
-                    });
-                }
             }
         };
 
@@ -137,7 +126,6 @@ const SearchingDriver = () => {
 
         return () => {
             ws.close();
-            if (pubnub) pubnub.unsubscribeAll();
         }
     }, [navigate, rideId, currentFare, initialRideData, handleAcceptance]);
 
@@ -287,7 +275,7 @@ const SearchingDriver = () => {
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <h4 className="text-2xl font-black italic dark:text-white leading-none tracking-tight">
-                                                {driver?.name || "Ravi Kumar"}
+                                                {driver?.full_name || driver?.name || "Driver"}
                                             </h4>
                                             <div className="flex items-center gap-1.5 mt-1.5">
                                                 <div className="flex items-center gap-0.5">
@@ -303,10 +291,10 @@ const SearchingDriver = () => {
                                         <div className="flex flex-col">
                                             <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-0.5">Vehicle</span>
                                             <span className="text-sm font-bold dark:text-slate-200">
-                                                {driver?.vehicle_type || "Car"}
+                                                {driver?.vehicle_info || driver?.vehicle_type || "Car"}
                                             </span>
                                         </div>
-                                        <div className="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg">
+                                        <div className={`px-3 py-1.5 rounded-xl ${driver?.vehicle_type?.toLowerCase() === 'bike' ? 'bg-orange-500 shadow-orange-500/40' : 'bg-slate-900 dark:bg-white shadow-xl'} text-white dark:text-slate-900`}>
                                             <span className="text-xs font-black tracking-widest">
                                                 {driver?.vehicle_number || "AP05AB1234"}
                                             </span>

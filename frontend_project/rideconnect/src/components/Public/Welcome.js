@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import LogoBadge from '../Shared/LogoBadge';
 
 const Welcome = () => {
     const navigate = useNavigate();
@@ -17,13 +18,7 @@ const Welcome = () => {
             {/* Header */}
             <header className="relative z-10 flex items-center justify-between px-8 py-6 backdrop-blur-md border-b border-white/5">
                 <div className="flex items-center gap-3">
-                    <div className="size-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(13,204,242,0.15)] border border-primary/20 overflow-hidden">
-                        <img 
-                            src="/drivemate_logo.png" 
-                            alt="RideConnect" 
-                            className="w-7 h-7 object-contain drop-shadow-md" 
-                        />
-                    </div>
+                    <LogoBadge size="sm" />
                     <span className="text-white text-lg font-bold tracking-tight">RideConnect</span>
                 </div>
                 <div className="flex items-center gap-6">
@@ -42,27 +37,14 @@ const Welcome = () => {
             <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6">
                 <div className="w-full max-w-2xl flex flex-col items-center text-center">
                     
-                    {/* Animated Logo */}
+                    {/* Logo */}
                     <motion.div
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.8 }}
                         className="mb-10 relative"
                     >
-                        <div className="size-36 flex items-center justify-center rounded-full bg-surface-dark/40 backdrop-blur-xl shadow-[0_0_50px_rgba(13,204,242,0.2)] border-2 border-primary/30 overflow-hidden relative group">
-                            <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(13,204,242,0.8)_360deg)] animate-[spin_3s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite]"></div>
-                            <div className="absolute inset-1 bg-background-dark/80 rounded-full backdrop-blur-md z-0"></div>
-                            <img 
-                                src="/drivemate_logo.png" 
-                                alt="RideConnect" 
-                                className="w-28 h-28 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10" 
-                            />
-                        </div>
-                        <motion.div 
-                            animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0, 0.2] }}
-                            transition={{ duration: 4, repeat: Infinity }}
-                            className="absolute -inset-4 border border-primary/20 rounded-[40px]"
-                        />
+                        <LogoBadge size="lg" />
                     </motion.div>
 
                     {/* Headline */}

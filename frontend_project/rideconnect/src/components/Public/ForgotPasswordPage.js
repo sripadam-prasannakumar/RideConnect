@@ -149,7 +149,7 @@ const ForgotPasswordPage = () => {
                                                 onChange={(e) => setEmail(e.target.value)} 
                                                 required 
                                                 className="form-input flex w-full rounded-lg text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50 border border-slate-700 bg-slate-800/50 h-12 placeholder:text-slate-500 px-4 text-base transition-all" 
-                                                placeholder="hello@drivemate.com" 
+                                                placeholder="hello@rideconnect.com" 
                                                 type="email" 
                                             />
                                         </div>

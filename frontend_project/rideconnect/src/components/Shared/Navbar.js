@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Car, Menu, X } from 'lucide-react';
 import Button from './Button';
+import LogoBadge from './LogoBadge';
 import './Navbar.css';
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -12,9 +14,10 @@ const Navbar = () => {
         <nav className="navbar glass">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
-                    <Car className="logo-icon" size={24} />
-                    <span className="logo-text">Ride<span className="text-gradient">Connect</span></span>
+                    <LogoBadge size="sm" />
+                    <span className="ml-2">RideConnect</span>
                 </Link>
+
 
                 {/* Desktop Menu */}
                 <div className="navbar-links">

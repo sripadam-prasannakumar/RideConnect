@@ -16,13 +16,14 @@ const LogoBadge = ({ size = 'md', className = '' }) => {
     };
     const s = sizeMap[size] || sizeMap.md;
 
-    const spinnerStyle = {
+    const borderStyle = {
         position: 'absolute',
         inset: 0,
         borderRadius: '50%',
-        background: 'conic-gradient(#0dccf2 0deg, rgba(13,204,242,0.3) 90deg, transparent 160deg, rgba(13,204,242,0.1) 220deg, #0dccf2 360deg)',
-        animation: 'dm-logo-spin 2.5s linear infinite',
+        background: 'rgba(13,204,242,0.4)',
+        boxShadow: '0 0 20px rgba(13,204,242,0.3)',
     };
+
 
     const innerStyle = {
         position: 'relative',
@@ -30,22 +31,19 @@ const LogoBadge = ({ size = 'md', className = '' }) => {
         width: s.inner,
         height: s.inner,
         borderRadius: '50%',
-        background: '#101f22',
+        background: 'linear-gradient(135deg, rgba(13,204,242,0.4) 0%, rgba(0,0,0,0.9) 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: '5px',
         overflow: 'hidden',
-        border: '1.5px solid rgba(13,204,242,0.2)',
+        border: '1.5px solid rgba(13,204,242,0.6)',
+        boxShadow: 'inset 0 0 10px rgba(13,204,242,0.2), 0 0 15px rgba(13,204,242,0.4)',
     };
 
     return (
         <>
-            <style>{`
-                @keyframes dm-logo-spin {
-                    from { transform: rotate(0deg); }
-                    to   { transform: rotate(360deg); }
-                }
-            `}</style>
+
             <div
                 className={`dm-logo-outer ${className}`}
                 style={{
@@ -59,18 +57,21 @@ const LogoBadge = ({ size = 'md', className = '' }) => {
                     height: s.outer,
                 }}
             >
-                {/* Spinning conic border */}
-                <div style={spinnerStyle} />
+                {/* Static glow border */}
+                <div style={borderStyle} />
+
 
                 {/* Inner circle with logo */}
                 <div style={innerStyle}>
                     <img
-                        src="/drivemate_logo.png"
+                        src="/rideconnect_logo.png"
                         alt="RideConnect"
                         style={{
-                            width: s.img,
-                            height: s.img,
-                            objectFit: 'cover',
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            mixBlendMode: 'screen',
+                            filter: 'contrast(1.15) brightness(1.1)',
                         }}
                     />
                 </div>

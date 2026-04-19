@@ -19,6 +19,7 @@ const DriverDashboard = () => {
     const [driverId, setDriverId] = useState(null);
     const [isOnline, setIsOnline] = useState(false);
     const [togglingStatus, setTogglingStatus] = useState(false);
+    const [isBankAdded, setIsBankAdded] = useState(true);
     const [voiceEnabled, toggleVoice] = useVoicePreference();
     const email = sessionStorage.getItem('user_email');
 
@@ -38,6 +39,7 @@ const DriverDashboard = () => {
                 setVehicleType(vData.vehicle_type);
                 setIsOnline(vData.is_online || false);
                 setDriverId(vData.id);
+                setIsBankAdded(vData.is_bank_details_added);
 
                 // If approved, fetch available rides
                 if (status === 'verified') {
@@ -489,7 +491,7 @@ const DriverDashboard = () => {
                                         <button onClick={() => navigate('/driver/earnings')} className="text-primary text-sm font-semibold hover:underline">View Detailed Report</button>
                                     </div>
                                     <div className="bg-white dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-                                        <div className="grid grid-cols-3 divide-x divide-slate-200 dark:divide-slate-800">
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-800">
                                             <div className="p-6 text-center">
                                                 <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Today</p>
                                                 <p className="text-2xl font-bold mt-2 text-slate-900 dark:text-white">$142.50</p>
@@ -569,6 +571,25 @@ const DriverDashboard = () => {
                                         <h2 className="text-xl font-bold text-slate-900 dark:text-white">Live Requests</h2>
                                         <span className="px-2 py-0.5 rounded bg-primary/20 text-primary text-[10px] font-bold uppercase animate-pulse">Live</span>
                                     </div>
+                                    
+                                    {!isBankAdded && (
+                                        <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 mb-6 flex items-start gap-4 animate-bounce">
+                                            <div className="size-10 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center flex-shrink-0">
+                                                <span className="material-symbols-outlined text-lg">warning</span>
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className="text-sm font-black text-red-500 uppercase tracking-tight">Bank Details Required</p>
+                                                <p className="text-xs text-slate-500 mt-1">Please add your bank details to receive payments. You cannot go online without this.</p>
+                                                <button 
+                                                    onClick={() => navigate('/driver/profile')}
+                                                    className="mt-3 text-red-500 text-[10px] font-black uppercase tracking-widest hover:underline"
+                                                >
+                                                    Add Bank Details Now →
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="space-y-4">
                                         {availableRides.length > 0 ? (
                                             availableRides.map((ride) => (

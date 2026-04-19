@@ -111,46 +111,6 @@ const VEHICLE_DATA = {
             ]}
         ]
     },
-    bike: {
-        label: 'Bike',
-        icon: 'motorcycle',
-        color: 'from-orange-500/20 to-amber-500/20 border-orange-500/30 text-orange-500',
-        brands: [
-            { id: 'yamaha_bike', name: 'Yamaha', logo: 'https://logo.clearbit.com/yamaha-motor.com', tag: 'Popular', models: [
-                {name:'R15'},{name:'R3'},{name:'R6'},{name:'R1'},{name:'MT-15'},{name:'MT-03'},{name:'MT-07'},{name:'MT-09'},{name:'FZ'},{name:'Fazer'}
-            ]},
-            { id: 'honda_bike', name: 'Honda', logo: 'https://logo.clearbit.com/honda.com', tag: 'Popular', models: [
-                {name:'Shine'},{name:'Unicorn'},{name:'Hornet'},{name:'CBR150R'},{name:'CBR250R'},{name:'CBR500R'},{name:'CBR650R'},{name:'Africa Twin'}
-            ]},
-            { id: 'kawasaki', name: 'Kawasaki', logo: 'https://logo.clearbit.com/kawasaki.com', tag: 'Global', models: [
-                {name:'Ninja 300'},{name:'Ninja 400'},{name:'Ninja 650'},{name:'Ninja ZX-6R'},{name:'Ninja ZX-10R'},{name:'Z650'},{name:'Z900'},{name:'Versys 650'}
-            ]},
-            { id: 'ducati', name: 'Ducati', logo: 'https://logo.clearbit.com/ducati.com', tag: 'Supercar', models: [
-                {name:'Panigale V2'},{name:'Panigale V4'},{name:'Monster'},{name:'Multistrada'},{name:'Diavel'},{name:'Scrambler'}
-            ]},
-            { id: 'bmw_moto', name: 'BMW Motorrad', logo: 'https://logo.clearbit.com/bmw-motorrad.com', tag: 'Luxury', models: [
-                {name:'G310R'},{name:'G310GS'},{name:'F750GS'},{name:'F850GS'},{name:'S1000RR'},{name:'R1250GS'}
-            ]},
-            { id: 'harley', name: 'Harley-Davidson', logo: 'https://logo.clearbit.com/harley-davidson.com', tag: 'Supercar', models: [
-                {name:'Iron 883'},{name:'Street 750'},{name:'Fat Boy'},{name:'Road King'},{name:'Street Glide'}
-            ]},
-            { id: 'royal_enfield', name: 'Royal Enfield', logo: 'https://logo.clearbit.com/royalenfield.com', tag: 'Popular', models: [
-                {name:'Classic 350'},{name:'Bullet 350'},{name:'Meteor 350'},{name:'Himalayan'},{name:'Hunter 350'},{name:'Interceptor 650'},{name:'Continental GT 650'}
-            ]},
-            { id: 'bajaj', name: 'Bajaj', logo: 'https://logo.clearbit.com/bajajauto.com', tag: 'Popular', models: [
-                {name:'Pulsar 125'},{name:'Pulsar 150'},{name:'Pulsar 220F'},{name:'Pulsar NS200'},{name:'Dominar 250'},{name:'Dominar 400'}
-            ]},
-            { id: 'tvs', name: 'TVS', logo: 'https://logo.clearbit.com/tvsmotor.com', tag: 'Popular', models: [
-                {name:'Apache RTR 160'},{name:'RTR 180'},{name:'RTR 200'},{name:'RR 310'},{name:'Raider'}
-            ]},
-            { id: 'hero', name: 'Hero', logo: 'https://logo.clearbit.com/heromotocorp.com', tag: 'Popular', models: [
-                {name:'Splendor Plus'},{name:'HF Deluxe'},{name:'Passion Pro'},{name:'Glamour'},{name:'Xtreme 160R'},{name:'Xpulse 200'}
-            ]},
-            { id: 'suzuki_bike', name: 'Suzuki', logo: 'https://logo.clearbit.com/globalsuzuki.com', tag: 'Global', models: [
-                {name:'Gixxer'},{name:'Gixxer SF'},{name:'Hayabusa'},{name:'V-Strom'},{name:'GSX-S750'}
-            ]}
-        ]
-    },
     cargo: {
         label: 'Cargo Van',
         icon: 'local_shipping',

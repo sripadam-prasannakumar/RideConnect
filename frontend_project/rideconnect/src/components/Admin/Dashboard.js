@@ -11,6 +11,8 @@ const TABS = [
     { id: 'bookings',      label: 'Bookings',       icon: 'local_taxi' },
     { id: 'active_drivers',label: 'Active Drivers', icon: 'directions_car' },
     { id: 'verification',  label: 'Verification',   icon: 'verified_user' },
+    { id: 'platform_settings', label: 'Platform Settings', icon: 'settings' },
+    { id: 'commissions',   label: 'Commission Ledger', icon: 'payments' },
 ];
 
 const StatusPill = ({ status }) => {
@@ -59,8 +61,9 @@ const StatCard = ({ title, value, icon, color, loading }) => {
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
-    const { isAuthenticated, email: userEmail, role: userRole } = getAuthStatus();
+    const { isAuthenticated, email: userEmail, role: userRole, name: userName } = getAuthStatus();
 
+    const [isSidebarOpen, setIsSidebarOpen]       = useState(false);
     const [activeTab, setActiveTab]               = useState('overview');
     const [stats, setStats]                       = useState(null);
     const [users, setUsers]                       = useState([]);
@@ -113,6 +116,11 @@ const AdminDashboard = () => {
         try {
             const res = await authorizedFetch(`${API_BASE_URL}/api/admin/users/?role=${userRoleFilter}`);
             if (res.ok) setUsers(await res.json());
+            else if (res.status === 401) {
+                console.warn("Unauthorized access - redirecting to login");
+                clearAuthInfo();
+                navigate('/login?role=admin');
+            }
         } catch (e) { console.error(e); }
         finally { setUsersLoading(false); }
     }, [userRoleFilter]);
@@ -148,17 +156,29 @@ const AdminDashboard = () => {
         if (activeTab === 'overview') {
             fetchStats();
             fetchBookings();
-            const interval = setInterval(fetchStats, 30000); // 30s for stats
+            const interval = setInterval(() => { fetchStats(); fetchBookings(); }, 5000); // 5s for overview
             return () => clearInterval(interval);
         }
-        if (activeTab === 'users') fetchUsers();
+        if (activeTab === 'users') {
+            fetchUsers();
+            const interval = setInterval(fetchUsers, 10000); // 10s for users
+            return () => clearInterval(interval);
+        }
         if (activeTab === 'active_drivers') {
             fetchActiveDrivers();
-            const interval = setInterval(fetchActiveDrivers, 10000); // 10s for active drivers
+            const interval = setInterval(fetchActiveDrivers, 5000); // 5s for active drivers
             return () => clearInterval(interval);
         }
-        if (activeTab === 'bookings') fetchBookings();
-        if (activeTab === 'verification') fetchVerifications();
+        if (activeTab === 'bookings') {
+            fetchBookings();
+            const interval = setInterval(fetchBookings, 8000); // 8s for bookings
+            return () => clearInterval(interval);
+        }
+        if (activeTab === 'verification') {
+            fetchVerifications();
+            const interval = setInterval(fetchVerifications, 15000); // 15s for verification
+            return () => clearInterval(interval);
+        }
     }, [activeTab, fetchStats, fetchUsers, fetchActiveDrivers, fetchBookings, fetchVerifications]);
 
     useEffect(() => { if (activeTab === 'users') fetchUsers(); }, [userRoleFilter]);
@@ -243,32 +263,53 @@ const AdminDashboard = () => {
     ] : Array(6).fill(null);
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#0a1628] font-display text-slate-900 dark:text-white flex">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#0a1628] font-display text-slate-900 dark:text-white flex overflow-hidden">
             <style>{`
                 .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
                 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
                 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(13,204,242,0.3); border-radius: 99px; }
             `}</style>
 
-            {/* Sidebar */}
-            <aside className="w-64 shrink-0 border-r border-slate-200 dark:border-slate-800 flex flex-col bg-white dark:bg-slate-900/60 sticky top-0 h-screen">
+            {/* Mobile Header */}
+            <div className="lg:hidden flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0a1628] fixed top-0 left-0 w-full z-40">
+                <img src="/rideconnect_logo.png" alt="RideConnect Logo" className="h-10 object-contain drop-shadow-[0_0_15px_rgba(13,204,242,0.3)]" />
+                <button 
+                    onClick={() => setIsSidebarOpen(true)} 
+                    className="p-2 text-cyan-500 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 transition-colors"
+                >
+                    <span className="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+
+            {/* Mobile Overlay */}
+            {isSidebarOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden" 
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
+            {/* Sidebar Container */}
+            <div className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:relative lg:translate-x-0 transition-transform duration-300 ease-in-out z-[60] shadow-2xl lg:shadow-none bg-white dark:bg-slate-900/60`}>
+                <aside className="w-64 shrink-0 border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen">
                 {/* Logo */}
-                <div className="p-6 border-b border-slate-200 dark:border-slate-800">
-                    <div className="flex items-center gap-3">
-                        <div className="size-9 rounded-lg bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center">
-                            <span className="material-symbols-outlined text-cyan-400">shield_person</span>
-                        </div>
-                        <div>
-                            <p className="font-black text-slate-900 dark:text-white leading-none">RideConnect</p>
-                            <p className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest">Admin Panel</p>
-                        </div>
+                <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-center">
+                    <div className="relative">
+                        <img src="/rideconnect_logo.png" alt="RideConnect Admin" className="h-[72px] w-auto object-contain drop-shadow-[0_0_15px_rgba(13,204,242,0.3)]" />
+                        <span className="absolute -bottom-2 -right-2 text-[10px] text-cyan-400 font-bold uppercase tracking-widest bg-slate-900/80 px-2 py-0.5 rounded-full border border-cyan-500/30">Admin</span>
                     </div>
                 </div>
 
                 {/* Nav */}
                 <nav className="flex-1 p-4 space-y-1">
                     {TABS.map(tab => (
-                        <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                        <button key={tab.id} 
+                            onClick={() => {
+                                setIsSidebarOpen(false);
+                                if (tab.id === 'platform_settings') navigate('/admin/platform-settings');
+                                else if (tab.id === 'commissions') navigate('/admin/commissions');
+                                else setActiveTab(tab.id);
+                            }}
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all text-left ${
                                 activeTab === tab.id
                                     ? 'bg-cyan-500/15 text-cyan-500 border border-cyan-500/30'
@@ -287,7 +328,7 @@ const AdminDashboard = () => {
                             <span className="material-symbols-outlined text-cyan-400 text-sm">admin_panel_settings</span>
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-xs font-bold text-slate-900 dark:text-white truncate">Super Admin</p>
+                            <p className="text-xs font-bold text-slate-900 dark:text-white truncate">{userName || 'Admin'}</p>
                             <p className="text-[10px] text-slate-400 truncate">{userEmail || 'Admin'}</p>
                         </div>
                         <button onClick={() => { clearAuthInfo(); window.location.href = '/login?role=admin'; }}
@@ -296,10 +337,11 @@ const AdminDashboard = () => {
                         </button>
                     </div>
                 </div>
-            </aside>
+                </aside>
+            </div>
 
             {/* Main */}
-            <main className="flex-1 overflow-y-auto custom-scrollbar">
+            <main className="flex-1 w-full lg:w-auto overflow-y-auto overflow-x-hidden custom-scrollbar pt-[72px] lg:pt-0">
                 {/* Header */}
                 <header className="sticky top-0 z-20 px-8 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-[#0a1628]/80 backdrop-blur-md flex items-center justify-between">
                     <div>
@@ -318,13 +360,13 @@ const AdminDashboard = () => {
                     {activeTab === 'overview' && (
                         <motion.div key="overview" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-8">
                             {/* Stat cards */}
-                            <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                 {statCards.slice(0, 3).map((card, i) => (
                                     <StatCard key={i} loading={statsLoading || !card}
                                         title={card?.title} value={card?.value} icon={card?.icon} color={card?.color} />
                                 ))}
                             </div>
-                            <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                 {statCards.slice(3).map((card, i) => (
                                     <StatCard key={i+3} loading={statsLoading || !card}
                                         title={card?.title} value={card?.value} icon={card?.icon} color={card?.color} />

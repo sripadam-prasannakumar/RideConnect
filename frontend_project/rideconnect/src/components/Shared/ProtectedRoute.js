@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { getAuthStatus } from '../../utils/authUtils';
 
 /**
@@ -18,12 +18,23 @@ const ProtectedRoute = ({ children, role }) => {
     }
 
     if (role && userRole !== role) {
+        if (role === 'admin') {
+            return (
+                <div className="flex h-screen w-full items-center justify-center bg-slate-900 flex-col font-display">
+                    <div className="p-8 rounded-3xl bg-slate-800/50 border border-slate-700 backdrop-blur-xl flex flex-col items-center shadow-2xl">
+                        <span className="material-symbols-outlined text-red-500 text-6xl mb-4">gavel</span>
+                        <h1 className="text-3xl text-white font-black tracking-widest uppercase">Access Denied</h1>
+                        <p className="text-slate-400 mt-2 font-medium">Elevated privileges required to view this system.</p>
+                    </div>
+                </div>
+            );
+        }
         // If they don't have the right role, redirect to their own dashboard
         const redirectPath = userRole === 'driver' ? '/driver/dashboard' : '/customer/dashboard';
         return <Navigate to={redirectPath} replace />;
     }
 
-    return children;
+    return children ? children : <Outlet />;
 };
 
 export default ProtectedRoute;

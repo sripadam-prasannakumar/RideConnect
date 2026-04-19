@@ -1,26 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { getAuthStatus, clearAuthInfo } from '../../utils/authUtils';
+import { getAuthStatus } from '../../utils/authUtils';
 import { authorizedFetch } from '../../utils/apiUtils';
 import GlobalBackButton from '../Shared/GlobalBackButton';
-import CustomerSidebar from './CustomerSidebar';
 import API_BASE_URL from '../../apiConfig';
+import { getDefaultAvatar } from '../../utils/avatarUtils';
+import { MessageSquare, ChevronRight } from 'lucide-react';
+import SupportChat from '../Common/SupportChat';
 
 const CustomerProfile = () => {
     const navigate = useNavigate();
     const { isAuthenticated, email } = getAuthStatus();
+    const fileInputRef = useRef(null);
 
     const [profile, setProfile] = useState({
         name: '',
         email: email,
         phone: '',
         role: 'customer',
+        profile_image: null,
     });
 
     const [editedProfile, setEditedProfile] = useState({ ...profile });
+    const [previewImage, setPreviewImage] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [savedMsg, setSavedMsg] = useState('');
@@ -28,6 +34,7 @@ const CustomerProfile = () => {
 
     const [userVehicles, setUserVehicles] = useState([]);
     const [vehiclesLoading, setVehiclesLoading] = useState(true);
+    const [isSupportOpen, setIsSupportOpen] = useState(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -39,12 +46,13 @@ const CustomerProfile = () => {
         authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`)
             .then(res => res.json())
             .then(data => {
-                if (data.name !== undefined) {
+                if (data.full_name !== undefined) {
                     const fetched = {
-                        name: data.name || '',
+                        name: data.full_name || '',
                         email: data.email || email,
                         phone: data.phone || '',
                         role: data.role || 'customer',
+                        profile_image: data.profile_image || null,
                     };
                     setProfile(fetched);
                     setEditedProfile(fetched);
@@ -64,6 +72,14 @@ const CustomerProfile = () => {
             .catch(err => console.error('Error fetching vehicles:', err))
             .finally(() => setVehiclesLoading(false));
     }, [email, navigate]);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedFile(file);
+            setPreviewImage(URL.createObjectURL(file));
+        }
+    };
 
     const handleDeleteVehicle = async (vehicleId) => {
         if (!window.confirm('Are you sure you want to delete this vehicle?')) return;
@@ -110,18 +126,28 @@ const CustomerProfile = () => {
         setSavedMsg('');
 
         try {
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('full_name', editedProfile.name);
+            formData.append('phone', editedProfile.phone);
+            if (selectedFile) {
+                formData.append('profile_picture', selectedFile);
+            }
+
             const res = await authorizedFetch(`${API_BASE_URL}/api/update-profile/`, {
                 method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: email,
-                    name: editedProfile.name,
-                    phone: editedProfile.phone,
-                }),
+                body: formData,
             });
             const data = await res.json();
             if (res.ok) {
-                setProfile({ ...editedProfile });
+                const updated = {
+                    ...editedProfile,
+                    profile_image: data.profile_image || profile.profile_image
+                };
+                setProfile(updated);
+                setEditedProfile(updated);
+                setSelectedFile(null);
+                setPreviewImage(null);
                 setSavedMsg('✓ Profile updated successfully!');
                 setTimeout(() => setSavedMsg(''), 3000);
             } else {
@@ -133,6 +159,8 @@ const CustomerProfile = () => {
             setSaving(false);
         }
     };
+
+    const avatarUrl = previewImage || profile.profile_image || getDefaultAvatar('customer', profile.email);
 
     return (
         <div className="flex-1 overflow-y-auto custom-scrollbar">
@@ -150,8 +178,8 @@ const CustomerProfile = () => {
                                 <p className="text-sm font-bold leading-none">{loading ? '...' : (profile.name || 'Customer')}</p>
                                 <p className="text-[10px] text-primary font-black uppercase tracking-widest mt-1">Member</p>
                             </div>
-                            <div className="size-10 rounded-full border-2 border-primary bg-primary/10 flex items-center justify-center text-primary font-black text-sm">
-                                {profile.name ? profile.name.charAt(0).toUpperCase() : 'C'}
+                            <div className="size-10 rounded-full border-2 border-primary bg-primary/10 flex items-center justify-center overflow-hidden">
+                                <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                             </div>
                         </div>
                     </div>
@@ -173,9 +201,19 @@ const CustomerProfile = () => {
                             className="relative overflow-hidden rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 flex flex-col md:flex-row items-center md:items-end gap-8 shadow-xl"
                         >
                             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-                            <div className="relative">
-                                <div className="size-32 rounded-3xl border-4 border-white dark:border-slate-800 shadow-2xl bg-primary/10 flex items-center justify-center text-primary text-6xl font-black">
-                                    {profile.name ? profile.name.charAt(0).toUpperCase() : '?'}
+                            <div className="relative group cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+                                <input 
+                                    type="file" 
+                                    ref={fileInputRef} 
+                                    className="hidden" 
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                />
+                                <div className="size-32 rounded-3xl border-4 border-white dark:border-slate-800 shadow-2xl bg-primary/10 flex items-center justify-center overflow-hidden relative">
+                                    <img src={avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span className="material-symbols-outlined text-white text-3xl">add_a_photo</span>
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex-1 text-center md:text-left space-y-2">
@@ -190,12 +228,12 @@ const CustomerProfile = () => {
                             <motion.button
                                 whileTap={{ scale: 0.95 }}
                                 onClick={handleSave}
-                                disabled={saving || (profile.name === editedProfile.name && profile.phone === editedProfile.phone)}
+                                disabled={saving || (profile.name === editedProfile.name && profile.phone === editedProfile.phone && !selectedFile)}
                                 className="px-8 py-4 bg-primary text-background-dark font-black text-sm uppercase tracking-widest rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed flex items-center gap-2"
                             >
                                 {saving ? (
                                     <><span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> Saving...</>
-                                ) : (profile.name === editedProfile.name && profile.phone === editedProfile.phone) ? (
+                                ) : (profile.name === editedProfile.name && profile.phone === editedProfile.phone && !selectedFile) ? (
                                     <><span className="material-symbols-outlined text-sm">check_circle</span> No Changes</>
                                 ) : (
                                     <><span className="material-symbols-outlined text-sm">save</span> Save Profile</>
@@ -363,7 +401,7 @@ const CustomerProfile = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     {/* Image Gallery with Delete */}
                                                     {v.images && v.images.length > 0 && (
                                                         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
@@ -445,8 +483,37 @@ const CustomerProfile = () => {
                                 </motion.div>
                             </div>
                         </div>
+
+                        {/* Need more help? Section */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="space-y-6"
+                        >
+                            <h2 className="text-xl font-black tracking-tight">Need more help?</h2>
+                            <div 
+                                onClick={() => setIsSupportOpen(true)}
+                                className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 flex items-center justify-between group cursor-pointer hover:border-primary/40 transition-all shadow-sm"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="size-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all">
+                                        <MessageSquare size={24} />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-sm">24x7 support</h4>
+                                        <p className="text-[11px] text-slate-500 font-bold tracking-tight">Talk to us in your language</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                                    <span className="text-primary text-xs font-black uppercase tracking-widest">Chat Now</span>
+                                    <ChevronRight size={18} className="text-primary" />
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
                 )}
+            <SupportChat isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
         </div>
     );
 };

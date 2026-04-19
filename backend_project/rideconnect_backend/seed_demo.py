@@ -9,7 +9,7 @@ from ride.models import Driver, Customer
 
 def seed_demo_data():
     # Demo Driver
-    driver_email = "driver@drivemate.com"
+    driver_email = "driver@rideconnect.com"
     driver_pass = "password123"
     
     user, created = User.objects.get_or_create(
@@ -40,7 +40,7 @@ def seed_demo_data():
         print(f"Created Driver profile for: {driver_email}")
 
     # Demo Customer
-    customer_email = "customer@drivemate.com"
+    customer_email = "customer@rideconnect.com"
     customer_pass = "password123"
 
     user, created = User.objects.get_or_create(

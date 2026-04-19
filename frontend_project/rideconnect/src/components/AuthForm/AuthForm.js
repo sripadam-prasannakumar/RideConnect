@@ -93,7 +93,7 @@ const AuthForm = ({ onLogin }) => {
                 <div className="credentials-panel signin">
                     <div className="logo-container slide-element">
                         <div className="logo-circle">
-                            <img src="/drivemate_logo.png" alt="Drivemate Logo" />
+                            <img src="/rideconnect_logo.png" alt="RideConnect Logo" />
                             <div className="logo-aura"></div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ const AuthForm = ({ onLogin }) => {
                         <div className="field-group slide-element">
                             <label>Email or Phone</label>
                             <div className="field-wrapper">
-                                <input type="text" placeholder="hello@drivemate.com" required />
+                                <input type="text" placeholder="hello@rideconnect.com" required />
                                 <i className="fa-solid fa-user"></i>
                             </div>
                         </div>
@@ -164,7 +164,7 @@ const AuthForm = ({ onLogin }) => {
                 <div className="credentials-panel signup">
                     <div className="logo-container slide-element">
                         <div className="logo-circle">
-                            <img src="/drivemate_logo.png" alt="Drivemate Logo" />
+                            <img src="/rideconnect_logo.png" alt="RideConnect Logo" />
                             <div className="logo-aura"></div>
                         </div>
                     </div>

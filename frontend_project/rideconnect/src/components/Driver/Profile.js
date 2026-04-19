@@ -8,6 +8,9 @@ import { Camera, RefreshCw, Check, X, User, Trash2 } from 'lucide-react';
 import GlobalBackButton from '../Shared/GlobalBackButton';
 import { authorizedFetch } from '../../utils/apiUtils';
 import API_BASE_URL from '../../apiConfig';
+import { getDefaultAvatar } from '../../utils/avatarUtils';
+import { MessageSquare, ChevronRight } from 'lucide-react';
+import SupportChat from '../Common/SupportChat';
 
 const DriverProfile = () => {
     const navigate = useNavigate();
@@ -17,13 +20,21 @@ const DriverProfile = () => {
         email: '', 
         phone: '', 
         profile_picture: null, 
-        address: '' 
+        address: '',
+        upi_id: '',
+        bank_account_holder_name: '',
+        bank_account_number: '',
+        bank_ifsc_code: '',
+        is_bank_details_added: false,
+        masked_account_number: ''
     });
+    const [isEditingBank, setIsEditingBank] = useState(false);
     const [verificationStatus, setVerificationStatus] = useState(null);
     const [licenseDetails, setLicenseDetails] = useState({ number: '', expiry: '', type: '' });
     const [isCameraOpen, setIsCameraOpen] = useState(false);
     const [capturedImage, setCapturedImage] = useState(null);
     const [uploading, setUploading] = useState(false);
+    const [isSupportOpen, setIsSupportOpen] = useState(false);
     const webcamRef = React.useRef(null);
 
     const videoConstraints = {
@@ -34,32 +45,28 @@ const DriverProfile = () => {
         const email = sessionStorage.getItem('user_email');
         if (!email) { navigate('/login'); return; }
 
-        // Fetch User Profile
-        authorizedFetch(`${API_BASE_URL}/api/user-profile/?email=${encodeURIComponent(email)}`)
+        // Fetch Driver Profile (Consolidated)
+        authorizedFetch(`${API_BASE_URL}/api/driver/profile/`)
             .then(res => res.json())
             .then(data => {
-                if (data.email) {
+                if (data.id) {
                     setUserData({
                         ...data,
-                        full_name: data.full_name || data.name || '',
-                        address: data.address || ''
+                        full_name: data.full_name || '',
+                        address: data.address || '',
+                        upi_id: data.upi_id || '',
+                        bank_account_holder_name: data.bank_account_holder_name || '',
+                        bank_account_number: data.bank_account_number || '',
+                        bank_ifsc_code: data.bank_ifsc_code || '',
+                        is_bank_details_added: data.is_bank_details_added,
+                        masked_account_number: data.masked_account_number
                     });
+                    setVerificationStatus(data.verification_status);
                 }
             })
             .catch(console.error);
 
-        // Fetch Verification Status & License Details
-        authorizedFetch(`${API_BASE_URL}/api/driver/verification-status/?email=${encodeURIComponent(email)}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.verification_status) setVerificationStatus(data.verification_status);
-                setLicenseDetails({
-                    number: data.license_number || '',
-                    expiry: data.license_expiry || 'Not set',
-                    type: data.license_type || 'Not set'
-                });
-            })
-            .catch(console.error);
+        // Fetch License Details separately if needed, or get from profile
     }, [navigate]);
 
     const statusConfig = {
@@ -86,14 +93,14 @@ const DriverProfile = () => {
             formData.append('email', userData.email);
             formData.append('profile_picture', blob, 'selfie.jpg');
 
-            const response = await authorizedFetch(`${API_BASE_URL}/api/profile-picture/upload/`, {
-                method: 'POST',
+            const response = await authorizedFetch(`${API_BASE_URL}/api/update-profile/`, {
+                method: 'PATCH',
                 body: formData
             });
 
             if (response.ok) {
                 const data = await response.json();
-                setUserData({ ...userData, profile_picture: data.profile_picture });
+                setUserData({ ...userData, profile_picture: data.profile_image });
                 setIsCameraOpen(false);
                 setCapturedImage(null);
                 alert('Profile picture updated successfully');
@@ -132,33 +139,86 @@ const DriverProfile = () => {
         }
     };
 
-    const handleSaveProfile = async () => {
+    const handleSavePersonalInfo = async () => {
         setUploading(true);
         try {
-            const response = await authorizedFetch(`${API_BASE_URL}/api/update-profile/`, {
-                method: 'PATCH',
+            const response = await authorizedFetch(`${API_BASE_URL}/api/driver/profile/`, {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    email: userData.email,
                     full_name: userData.full_name,
                     phone: userData.phone,
-                    address: userData.address
+                    address: userData.address,
+                    upi_id: userData.upi_id
                 })
             });
 
             if (response.ok) {
-                alert('Profile updated successfully');
+                alert('Personal details updated successfully');
             } else {
-                const errorData = await response.json();
-                alert(errorData.error || 'Failed to update profile');
+                alert('Failed to update details');
             }
         } catch (error) {
-            console.error('Error updating profile:', error);
+            console.error('Error updating personal details:', error);
             alert('An error occurred');
         } finally {
             setUploading(false);
         }
     };
+
+    const handleSaveBank = async () => {
+        // Validation (Requirement 2)
+        const nameRegex = /^[A-Za-z\s]{3,}$/;
+        if (!nameRegex.test(userData.bank_account_holder_name)) {
+            alert("Account Holder Name: Min 3 characters, alphabets only.");
+            return;
+        }
+
+        const accRegex = /^\d{9,18}$/;
+        if (!accRegex.test(userData.bank_account_number)) {
+            alert("Account Number: Must be 9 to 18 digits.");
+            return;
+        }
+
+        const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+        if (!ifscRegex.test(userData.bank_ifsc_code)) {
+            alert("IFSC Code: Format SBIN0001234 (4 letters + 0 + 6 chars).");
+            return;
+        }
+
+        setUploading(true);
+        try {
+            const response = await authorizedFetch(`${API_BASE_URL}/api/driver/profile/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    bank_account_holder_name: userData.bank_account_holder_name,
+                    bank_account_number: userData.bank_account_number,
+                    bank_ifsc_code: userData.bank_ifsc_code
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUserData({
+                    ...userData,
+                    is_bank_details_added: true,
+                    masked_account_number: data.masked_account_number
+                });
+                setIsEditingBank(false);
+                alert('Bank details saved securely');
+            } else {
+                alert('Failed to save bank details');
+            }
+        } catch (error) {
+            console.error('Error saving bank details:', error);
+            alert('An error occurred');
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const avatarUrl = userData.profile_picture ? (userData.profile_picture.startsWith('http') ? userData.profile_picture : `${API_BASE_URL}${userData.profile_picture}`) : getDefaultAvatar('driver', userData.email);
 
     return (
         <div className="flex-1 overflow-y-auto p-8 lg:p-12 custom-scrollbar">
@@ -183,18 +243,12 @@ const DriverProfile = () => {
                         <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
                         <div className="flex flex-col md:flex-row items-center gap-8 text-center md:text-left relative">
                             <div className="relative">
-                                <div className="size-32 rounded-full ring-4 ring-primary ring-offset-4 ring-offset-slate-900 overflow-hidden shadow-2xl">
-                                    {userData.profile_picture ? (
-                                        <img
-                                            src={`${API_BASE_URL}${userData.profile_picture}`}
-                                            className="w-full h-full object-cover"
-                                            alt="Profile"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full bg-slate-800 flex items-center justify-center">
-                                            <User className="size-16 text-slate-500" />
-                                        </div>
-                                    )}
+                                <div className="size-32 rounded-full ring-4 ring-primary ring-offset-4 ring-offset-slate-900 overflow-hidden shadow-2xl bg-slate-800">
+                                    <img
+                                        src={avatarUrl}
+                                        className="w-full h-full object-cover"
+                                        alt="Profile"
+                                    />
                                 </div>
                                 <button 
                                     onClick={() => setIsCameraOpen(true)}
@@ -212,10 +266,10 @@ const DriverProfile = () => {
                                 )}
                             </div>
                             <div className="space-y-3">
-                                <h2 className="text-4xl font-black tracking-tight">{userData.name || 'Driver'}</h2>
+                                <h2 className="text-4xl font-black tracking-tight">{userData.full_name || 'Driver'}</h2>
                                 <div className="flex items-center gap-3 justify-center md:justify-start">
                                     <span className="px-3 py-1 bg-yellow-500/10 text-yellow-500 text-[10px] font-black rounded-full uppercase tracking-widest border border-yellow-500/20">Pro Driver</span>
-                                    {verificationStatus === 'verified' && (
+                                    {verificationStatus === 'approved' && (
                                         <span className="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-black rounded-full uppercase tracking-widest border border-emerald-500/20 flex items-center gap-1">
                                             <span className="material-symbols-outlined text-xs">verified</span> Verified
                                         </span>
@@ -229,7 +283,7 @@ const DriverProfile = () => {
                             </div>
                         </div>
                         <button 
-                            onClick={handleSaveProfile}
+                            onClick={handleSavePersonalInfo}
                             disabled={uploading}
                             className="px-10 py-4 bg-primary text-background-dark font-black text-sm uppercase tracking-widest rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all relative disabled:opacity-50"
                         >
@@ -284,6 +338,21 @@ const DriverProfile = () => {
                                         placeholder="Enter your registered address"
                                     />
                                 </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">UPI ID (For Direct Payments)</label>
+                                    <div className="relative">
+                                        <input 
+                                            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary h-14 outline-none font-bold" 
+                                            value={userData.upi_id} 
+                                            onChange={(e) => setUserData({...userData, upi_id: e.target.value})}
+                                            placeholder="example@upi"
+                                        />
+                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <span className="material-symbols-outlined text-primary/40">account_balance_wallet</span>
+                                        </div>
+                                    </div>
+                                    <p className="text-[9px] text-slate-500 font-bold uppercase ml-1">This ID will be used to generate your QR Code for customers.</p>
+                                </div>
                             </div>
                         </section>
 
@@ -311,6 +380,84 @@ const DriverProfile = () => {
                                             {verificationStatus && statusConfig[verificationStatus] ? statusConfig[verificationStatus].label : 'Not Submitted'}
                                         </span>
                                     </div>
+
+                                    {/* Bank Details Section (Requirement 1 & 3) */}
+                                    <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-950 border-2 border-dashed border-slate-200 dark:border-slate-800 space-y-6">
+                                        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                                                    <span className="material-symbols-outlined">account_balance</span>
+                                                </div>
+                                                <h4 className="text-xs font-black uppercase tracking-widest">Bank Details</h4>
+                                            </div>
+                                            {!isEditingBank && (
+                                                <button onClick={() => setIsEditingBank(true)} className="text-[10px] font-black text-primary uppercase tracking-widest hover:underline">
+                                                    {userData.is_bank_details_added ? 'Edit Details' : 'Add Details'}
+                                                </button>
+                                            )}
+                                        </div>
+
+                                        {isEditingBank ? (
+                                            <div className="grid gap-4">
+                                                <div className="space-y-1.5">
+                                                    <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-1">Account Holder Name</label>
+                                                    <input 
+                                                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-primary outline-none" 
+                                                        value={userData.bank_account_holder_name} 
+                                                        onChange={(e) => setUserData({...userData, bank_account_holder_name: e.target.value})}
+                                                        placeholder="As per bank passbook"
+                                                    />
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-1">Bank Account No</label>
+                                                        <input 
+                                                            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-primary outline-none" 
+                                                            value={userData.bank_account_number} 
+                                                            onChange={(e) => setUserData({...userData, bank_account_number: e.target.value})}
+                                                            placeholder="Account Number"
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest ml-1">IFSC Code</label>
+                                                        <input 
+                                                            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-primary outline-none uppercase" 
+                                                            value={userData.bank_ifsc_code} 
+                                                            onChange={(e) => setUserData({...userData, bank_ifsc_code: e.target.value})}
+                                                            placeholder="SBIN0001234"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="flex gap-3 pt-2">
+                                                    <button onClick={() => setIsEditingBank(false)} className="flex-1 py-3 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black text-[10px] uppercase rounded-xl">Cancel</button>
+                                                    <button onClick={handleSaveBank} className="flex-1 py-3 bg-primary text-background-dark font-black text-[10px] uppercase rounded-xl shadow-lg shadow-primary/20">Save Details</button>
+                                                </div>
+                                            </div>
+                                        ) : userData.is_bank_details_added ? (
+                                            <div className="space-y-4">
+                                                <div className="flex flex-col gap-1">
+                                                    <p className="text-[9px] text-slate-500 font-bold uppercase">Name</p>
+                                                    <p className="text-sm font-black italic">{userData.bank_account_holder_name}</p>
+                                                </div>
+                                                <div className="flex justify-between items-center">
+                                                    <div>
+                                                        <p className="text-[9px] text-slate-500 font-bold uppercase">Account No</p>
+                                                        <p className="text-sm font-black italic">•••• {userData.masked_account_number?.slice(-4)}</p>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <p className="text-[9px] text-slate-500 font-bold uppercase">IFSC</p>
+                                                        <p className="text-sm font-black italic uppercase">{userData.bank_ifsc_code}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="py-2 text-center">
+                                                <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest">Bank Details Not Added</p>
+                                                <p className="text-[9px] text-slate-500 mt-1 italic">Required to receive payments & go online</p>
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <div className="flex items-center justify-between p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group">
                                         <div className="flex items-center gap-4">
                                             <div className="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
@@ -348,7 +495,36 @@ const DriverProfile = () => {
                             </section>
                         </div>
                     </div>
+
+                    {/* Need more help? Section */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="space-y-6 mt-10"
+                    >
+                        <h2 className="text-xl font-black tracking-tight">Need more help?</h2>
+                        <div 
+                            onClick={() => setIsSupportOpen(true)}
+                            className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 flex items-center justify-between group cursor-pointer hover:border-primary/40 transition-all shadow-sm"
+                        >
+                            <div className="flex items-center gap-4">
+                                <div className="size-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all">
+                                    <MessageSquare size={24} />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-sm">24x7 support</h4>
+                                    <p className="text-[11px] text-slate-500 font-bold tracking-tight">Talk to us in your language</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                                <span className="text-primary text-xs font-black uppercase tracking-widest">Chat Now</span>
+                                <ChevronRight size={18} className="text-primary" />
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
+                <SupportChat isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
 
             <AnimatePresence>
                 {isCameraOpen && (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { UserProvider } from './UserContext';
 import { ThemeProvider } from './ThemeContext';
 import './App.css';
 import CustomerLayout from './components/Layouts/CustomerLayout';
@@ -35,6 +36,8 @@ import NotFound from './components/Public/NotFound';
 import LiveTrackingMap from './components/Customer/LiveTrackingMap';
 import DriverTracking from './components/Customer/DriverTracking';
 import Offers from './components/Customer/Offers';
+import PlatformSettings from './components/Admin/PlatformSettings';
+import CommissionTracking from './components/Admin/CommissionTracking';
 
 function AppContent() {
   const location = useLocation();
@@ -46,8 +49,10 @@ function AppContent() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/role-selection" element={<RoleSelection />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin/login" element={<LoginPage />} />
+        <Route path="/secure-admin-login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/verify-email" element={<OTPPage />} />
+        <Route path="/verify-otp" element={<OTPPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/test-tracking" element={<LiveTrackingMap />} />
 
@@ -79,7 +84,6 @@ function AppContent() {
           <Route path="/driver/dashboard" element={<DriverDashboard />} />
           <Route path="/driver/navigation" element={<DriverNavigation />} />
           <Route path="/driver/trip-status" element={<TripStatus />} />
-          <Route path="/driver/trip status" element={<TripStatus />} />
           <Route path="/driver/profile" element={<DriverProfile />} />
           <Route path="/driver/earnings" element={<DriverEarnings />} />
           <Route path="/driver/history" element={<RideHistory />} />
@@ -88,7 +92,14 @@ function AppContent() {
         </Route>
 
         {/* Admin Routes */}
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route element={
+          <ProtectedRoute role="admin" />
+        }>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/platform-settings" element={<PlatformSettings />} />
+          <Route path="/admin/platform_settings" element={<PlatformSettings />} />
+          <Route path="/admin/commissions" element={<CommissionTracking />} />
+        </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -98,13 +109,15 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <ThemeProvider>
-        <div className="App">
-          <AppContent />
-        </div>
-      </ThemeProvider>
-    </Router>
+    <ThemeProvider>
+      <UserProvider>
+        <Router>
+          <div className="App">
+            <AppContent />
+          </div>
+        </Router>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 

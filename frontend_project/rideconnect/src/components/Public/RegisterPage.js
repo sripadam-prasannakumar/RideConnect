@@ -4,6 +4,8 @@ import { GoogleLogin } from '@react-oauth/google';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { storeAuthInfo, decodeJwt, getAuthStatus } from '../../utils/authUtils';
+import LogoBadge from '../Shared/LogoBadge';
+
 import GlobalBackButton from '../Shared/GlobalBackButton';
 import API_BASE_URL from '../../apiConfig';
 
@@ -147,12 +149,9 @@ const RegisterPage = () => {
                     {/* Header/Logo Area */}
                     <div className="mb-6 flex flex-col items-center">
                         <div className="flex items-center gap-3 mb-2">
-                            <div className="w-14 h-14 flex items-center justify-center rounded-full bg-surface-dark/60 backdrop-blur-md shadow-[0_0_20px_rgba(13,204,242,0.2)] border border-primary/30 overflow-hidden relative group">
-                                <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(13,204,242,0.8)_360deg)] animate-[spin_3s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite]"></div>
-                                <div className="absolute inset-1 bg-background-dark/90 rounded-full backdrop-blur-md z-0"></div>
-                                <img src="/drivemate_logo.png" alt="RideConnect" className="w-8 h-8 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10" />
-                            </div>
-                            <h1 className="text-2xl font-black tracking-tight text-white">Drive<span className="text-primary">Mate</span></h1>
+                            <LogoBadge size="sm" />
+
+                            <h1 className="text-2xl font-black tracking-tight text-white">Ride<span className="text-primary">Connect</span></h1>
                         </div>
                     </div>
 
@@ -196,7 +195,7 @@ const RegisterPage = () => {
                                 <label className="block text-sm font-medium text-slate-300" htmlFor="email">Email Address</label>
                                 <div className="relative group">
                                     <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg group-focus-within:text-primary transition-colors">mail</span>
-                                    <input name="email" value={formData.email} onChange={handleInputChange} required className="block w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-10 pr-3 text-white placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="driver@drivemate.com" type="email" />
+                                    <input name="email" value={formData.email} onChange={handleInputChange} required className="block w-full rounded-lg border border-slate-700 bg-slate-800/50 py-3 pl-10 pr-3 text-white placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="driver@rideconnect.com" type="email" />
                                 </div>
                             </div>
 
@@ -276,16 +275,9 @@ const RegisterPage = () => {
                 {/* Header/Logo Area */}
                 <div className="mb-8 flex flex-col items-center">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-16 h-16 flex items-center justify-center rounded-full bg-surface-dark/60 backdrop-blur-md shadow-[0_0_20px_rgba(13,204,242,0.2)] border border-primary/30 overflow-hidden relative group">
-                            <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(13,204,242,0.8)_360deg)] animate-[spin_3s_linear_infinite] group-hover:animate-[spin_1.5s_linear_infinite]"></div>
-                            <div className="absolute inset-1 bg-background-dark/90 rounded-full backdrop-blur-md z-0"></div>
-                            <img 
-                                src="/drivemate_logo.png" 
-                                alt="RideConnect" 
-                                className="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] relative z-10" 
-                            />
-                        </div>
-                        <h1 className="text-3xl font-black tracking-tight text-white">Drive<span className="text-primary">Mate</span></h1>
+                        <LogoBadge size="md" />
+
+                        <h1 className="text-3xl font-black tracking-tight text-white">Ride<span className="text-primary">Connect</span></h1>
                     </div>
                 </div>
 
